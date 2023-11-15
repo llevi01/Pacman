@@ -1,3 +1,5 @@
+package pacman;
+
 import pacman.game.Game;
 
 public class Main {
