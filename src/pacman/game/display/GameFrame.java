@@ -4,6 +4,9 @@ import pacman.game.input.InputHandler;
 
 import javax.swing.*;
 
+/**
+ * Ebben az ablakban jelenik meg a játék
+ */
 public class GameFrame extends JFrame {
     public GameFrame() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

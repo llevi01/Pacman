@@ -1,23 +1,41 @@
 package pacman.game.tile;
 
-import pacman.game.config.Config;
+import pacman.game.entity.Entity;
 
+import java.awt.*;
+import java.util.ArrayList;
+
+/**
+ * Egy, a pályán lévő tile-t reprezentáló osztály
+ */
 public abstract class Tile {
     /**
-     * A tile-t reprezentáló sprite középpontjának helye a képernyőn
+     * A tile helye a pályán
+     * Nem képernyő koordinátákat tárol
      */
-    private Coordinate position;
-    public abstract void render();
-    public abstract void update(double step);
+    private Coordinate mapPosition;
 
     /**
-     * Átkonvertálja a képernyő koordinátákat pálya koordinátákra
-     * @return A tile helye a pályán
+     * Igaz, ha entitások átsétálhatnak ezen a tile-n
+     */
+    public boolean isWalkable;
+
+    /**
+     * Entity-k, amik jelenleg ezen a Tile-n vannak
+     */
+    public ArrayList<Entity> entities;
+
+    /**
+     * A Tile megjelenítése a képernyőn
+     * @param graphics Erre történik a festés
+     */
+    public abstract void render(Graphics2D graphics);
+
+    /**
+     * Visszaadja a Tile pályán elfoglalt helyét
+     * @return
      */
     public Coordinate getMapPosition() {
-        return new Coordinate(
-                position.x / Config.ON_SCREEN_TILE_SIZE,
-                position.y / Config.ON_SCREEN_TILE_SIZE
-        );
+        return mapPosition;
     }
 }

@@ -1,10 +1,17 @@
 package pacman.game.display;
 
-import pacman.game.config.Config;
+import pacman.game.Game;
+import pacman.game.entity.Entity;
+import pacman.game.util.Config;
+import pacman.game.tile.Tile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
+/**
+ * Ezen a panelen jelenik meg a pálya
+ */
 public class MapPanel extends JPanel {
     public MapPanel() {
         this.setPreferredSize(new Dimension(Config.MAP_WIDTH, Config.MAP_HEIGHT));
@@ -17,7 +24,15 @@ public class MapPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D graphics = (Graphics2D) g;
 
+        for (ArrayList<Tile> rows: Game.map) {
+            for (Tile tile : rows) {
+                tile.render(graphics);
+            }
+        }
 
+        for (Entity entity : Game.entities) {
+            entity.render(graphics);
+        }
 
         graphics.dispose();
     }
