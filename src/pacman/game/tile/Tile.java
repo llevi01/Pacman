@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * Egy, a pályán lévő tile-t reprezentáló osztály
  */
 public abstract class Tile {
-
     public Tile(Coordinate mapPosition, BufferedImage sprite, boolean isWalkable) {
         this.mapPosition = mapPosition;
         this.sprite = sprite;
@@ -23,7 +22,7 @@ public abstract class Tile {
      * A tile helye a pályán
      * Nem képernyő koordinátákat tárol
      */
-    private Coordinate mapPosition;
+    protected Coordinate mapPosition;
 
     /**
      * Igaz, ha entitások átsétálhatnak ezen a tile-n
@@ -38,7 +37,7 @@ public abstract class Tile {
     /**
      * A sprite ami a képernyőn ezt a Tile-t reprezentálja
      */
-    private BufferedImage sprite;
+    protected BufferedImage sprite;
 
     /**
      * A Tile megjelenítése a képernyőn
@@ -59,7 +58,7 @@ public abstract class Tile {
         return mapPosition;
     }
 
-    private Coordinate getDrawPos() {
+    protected Coordinate getDrawPos() {
         int multiplier = Config.TILE_SIZE * Config.SCALE;
         return new Coordinate(
                 this.mapPosition.x * multiplier,
