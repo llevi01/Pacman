@@ -29,7 +29,7 @@ public abstract class Entity {
      * Az Entity-t reprezentáló sprite középpontjának helye a képernyőn
      * Valójában nem teljesen a középpontját tároljuk, a tárolt koordinátát
      * úgy kapjuk meg, hogy a sprite bal felső sarkának koordinátáiból kivonunk
-     * a 6 * SCALE egész számot.
+     * a (ENTITY_SIZE - TILE_SIZE) * SCALE egész számot.
      */
     private Coordinate position;
 
@@ -48,10 +48,16 @@ public abstract class Entity {
      * A megfelelő irányt megadva a map-ből megkapjuk azon sprite-ok
      * sorozatát, melyeken index szerint végighaladva egy animációt kapunk
      */
-    private Map<Direction, ArrayList<BufferedImage>> sprites;
+    private Map<Direction, ArrayList<BufferedImage>> spriteMap;
 
     /**
-     * A jelenleg használt sprite indexe
+     * A jelenlegi iránynak megfelelő sprite-ok listája
+     * Ezen spite-ok egymásutánja adja ki a karakter animációját
+     */
+    private ArrayList<BufferedImage> spriteList;
+
+    /**
+     * A jelenleg használt sprite indexe az iránynak megfelelő sprite-ok listájában
      */
     private int spriteIndex;
 
@@ -77,18 +83,24 @@ public abstract class Entity {
      * @param graphics Erre történik a festés
      */
     public void render(Graphics2D graphics) {
-        ArrayList<BufferedImage> spriteList = sprites.get(direction);
+        updateSprite();
 
-        // Frissítjük az indexet, ha már itt az ideje
-        if (System.nanoTime() - lastSpriteUpdate > spriteUpdateInterval) {
-            spriteIndex = (spriteIndex++) % spriteList.size();
-        }
         BufferedImage sprite = spriteList.get(spriteIndex);
-        Coordinate drawPosition = posToDrawPos();
+        Coordinate drawPosition = getDrawPos();
         
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
                 Config.ON_SCREEN_ENTITY_SIZE, Config.ON_SCREEN_ENTITY_SIZE,
                 null);
+    }
+
+    /**
+     * Frissíti a sprite-ot, ha már itt az ideje
+     */
+    private void updateSprite() {
+        if (System.nanoTime() - lastSpriteUpdate > spriteUpdateInterval) {
+            spriteIndex++;
+            spriteIndex %= spriteList.size();
+        }
     }
 
     /**
@@ -107,10 +119,11 @@ public abstract class Entity {
      * A Tile és az Entity sprite-ok méreteinek különbsége miatt külön ki kell számolni,
      * hova kell rajzolni az Entity-ket
      */
-    private Coordinate posToDrawPos() {
+    private Coordinate getDrawPos() {
+        int offset = (Config.ENTITY_SIZE - Config.TILE_SIZE) * Config.SCALE;
         return new Coordinate(
-                this.position.x - 6 * Config.SCALE,
-                this.position.y - 6 * Config.SCALE
+                this.position.x - offset,
+                this.position.y - offset
         );
     }
 }
