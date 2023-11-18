@@ -22,6 +22,7 @@ public abstract class Entity {
      * i - Inky
      * p - Pinky
      * c - Clide
+     * TODO make this String
      */
     public char id;
 
