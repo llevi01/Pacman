@@ -23,10 +23,10 @@ public class SpriteLoader {
         BufferedImage img;
         try {
             // Load wall sprites
-            img = ImageIO.read(new File("/res/sprites/empty_placeholder.png"));
+            img = ImageIO.read(new File("sprites/empty_placeholder.png"));
             tileSprites.put("empty_placeholder", img);
 
-            img = ImageIO.read(new File("/res/sprites/wall/wall_placeholder.png"));
+            img = ImageIO.read(new File("sprites/wall/wall_placeholder.png"));
             tileSprites.put("wall_placeholder", img);
 
 
@@ -42,7 +42,7 @@ public class SpriteLoader {
         ArrayList<BufferedImage> right = new ArrayList<>();
         BufferedImage img;
         try {
-            img = ImageIO.read(new File("/res/sprites/pacman/right1.png"));
+            img = ImageIO.read(new File("sprites/pacman/right1.png"));
             right.add(img);
         } catch (IOException e) {
             System.exit(1);

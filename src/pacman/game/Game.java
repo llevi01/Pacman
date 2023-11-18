@@ -4,8 +4,12 @@ import pacman.game.display.GameFrame;
 import pacman.game.display.MapPanel;
 import pacman.game.entity.Entity;
 import pacman.game.tile.Tile;
+import pacman.game.util.MapLoader;
+import pacman.game.util.SpriteLoader;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Game {
     private static GameFrame frame;
@@ -17,14 +21,12 @@ public class Game {
 
     static {
         gameThread = new GameThread();
-        // Init window
-        frame = new GameFrame();
-        mapPanel = new MapPanel();
-        frame.add(mapPanel);
-        frame.pack();
     }
 
     public static void startGame() {
+        initGame();
+        initDisplay();
+
         running = true;
         gameThread.start();
     }
@@ -47,5 +49,16 @@ public class Game {
     }
     public static void setMap(ArrayList<ArrayList<Tile>> map) {
         Game.map = map;
+    }
+
+    public static void initDisplay() {
+        frame = new GameFrame();
+        mapPanel = new MapPanel();
+        frame.add(mapPanel);
+        frame.pack();
+    }
+    public static void initGame() {
+        SpriteLoader.loadSprites();
+        MapLoader.loadMap();
     }
 }

@@ -14,7 +14,7 @@ public class MapLoader {
         ArrayList<ArrayList<Tile>> map = new ArrayList<>();
 
         try (BufferedReader input = new BufferedReader(
-                new InputStreamReader(new FileInputStream("/res/map/map.txt")))) {
+                new InputStreamReader(new FileInputStream("map/map.txt")))) {
 
             String line = input.readLine();
             ArrayList<Tile> row = new ArrayList<>();
