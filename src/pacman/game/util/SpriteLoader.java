@@ -11,10 +11,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpriteLoader {
-    public static Map<String, BufferedImage> mapSprites = new HashMap<>();
-    public static Map<String, Map<Direction, ArrayList<BufferedImage>>> movingSprites = new HashMap<>();
+    public static Map<String, BufferedImage> tileSprites = new HashMap<>();
+    public static Map<String, Map<Direction, ArrayList<BufferedImage>>> entitySprites = new HashMap<>();
 
     public static void loadSprites() {
+        loadTileSprites();
+        loadEntitySprites();
+    }
+
+    private static void loadTileSprites() {
+        BufferedImage img;
+        try {
+            // Load wall sprites
+            img = ImageIO.read(new File("/res/sprites/empty_placeholder.png"));
+            tileSprites.put("empty_placeholder", img);
+
+            img = ImageIO.read(new File("/res/sprites/wall/wall_placeholder.png"));
+            tileSprites.put("wall_placeholder", img);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private static void loadEntitySprites() {
         // Load Pacman sprites
         Map<Direction, ArrayList<BufferedImage>> pacmanSprites = new HashMap<>();
         ArrayList<BufferedImage> right = new ArrayList<>();
@@ -27,7 +49,6 @@ public class SpriteLoader {
         }
 
         pacmanSprites.put(Direction.RIGHT, right);
-        movingSprites.put("Pacman", pacmanSprites);
-
+        entitySprites.put("Pacman", pacmanSprites);
     }
 }
