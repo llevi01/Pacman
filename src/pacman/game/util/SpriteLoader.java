@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SpriteLoader {
     public static Map<String, BufferedImage> tileSprites = new HashMap<>();
@@ -23,10 +24,12 @@ public class SpriteLoader {
         BufferedImage img;
         try {
             // Load wall sprites
-            img = ImageIO.read(new File("sprites/empty_placeholder.png"));
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/empty_placeholder.png")));
             tileSprites.put("empty_placeholder", img);
 
-            img = ImageIO.read(new File("sprites/wall/wall_placeholder.png"));
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/wall_placeholder.png")));
             tileSprites.put("wall_placeholder", img);
 
 
@@ -42,7 +45,8 @@ public class SpriteLoader {
         ArrayList<BufferedImage> right = new ArrayList<>();
         BufferedImage img;
         try {
-            img = ImageIO.read(new File("sprites/pacman/right1.png"));
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
             right.add(img);
         } catch (IOException e) {
             System.exit(1);

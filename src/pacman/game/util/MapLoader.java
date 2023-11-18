@@ -8,19 +8,22 @@ import pacman.game.tile.wall.Wall;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MapLoader {
     public static void loadMap() {
         ArrayList<ArrayList<Tile>> map = new ArrayList<>();
 
         try (BufferedReader input = new BufferedReader(
-                new InputStreamReader(new FileInputStream("map/map.txt")))) {
+                new InputStreamReader(Objects.requireNonNull(
+                        MapLoader.class.getResourceAsStream("/map/map.txt"))))) {
 
             String line = input.readLine();
-            ArrayList<Tile> row = new ArrayList<>();
+            ArrayList<Tile> row;
             int i = 0;
 
-            while (!line.isEmpty()) {
+            while (line != null) {
+                row = new ArrayList<>();
                 for (int j = 0; j < line.length(); j++) {
                     char c = line.charAt(j);
                     String key = getSpriteKey(c);
@@ -28,7 +31,7 @@ public class MapLoader {
 
                     // Ha betűvel van reprezentálva, akkor fal
                     if (!Character.isDigit(c)) {
-                        row.add(new Wall(new Coordinate(i, j), sprite));
+                        row.add(row.size(), new Wall(new Coordinate(j, i), sprite));
                         continue;
                     }
                     /*
@@ -40,7 +43,7 @@ public class MapLoader {
                     TODO load edibles to map
                      */
                 }
-                map.add(row);
+                map.add(map.size(), row);
                 line = input.readLine();
                 i++;
             }

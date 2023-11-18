@@ -23,7 +23,7 @@ public class GameThread extends Thread {
             accumulator += deltaTime;
 
             while (accumulator > timeSlice) {
-                Game.update(step);
+                //Game.update(step);
                 accumulator -= timeSlice;
             }
 
