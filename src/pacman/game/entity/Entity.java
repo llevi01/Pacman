@@ -1,5 +1,6 @@
 package pacman.game.entity;
 
+import pacman.game.Game;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
 import pacman.game.util.Config;
@@ -13,18 +14,18 @@ import java.util.Map;
  * Mozgó entitást reprezentáló osztály
  */
 public abstract class Entity {
+    public Entity(String id, Coordinate position, Direction direction) {
+        this.id = id;
+        this.position = position;
+        this.direction = direction;
+        lastSpriteUpdate = System.nanoTime();
 
+        updateCurrentTile();
+    }
     /**
-     * Az entitást azonosító karakter
-     * Jelentésük:
-     * P - Pacman
-     * b - Blinky
-     * i - Inky
-     * p - Pinky
-     * c - Clide
-     * TODO make this String
+     * Az entitást azonosító sztring
      */
-    public char id;
+    public String id;
 
     /**
      * Az Entity-t reprezentáló sprite középpontjának helye a képernyőn
@@ -32,45 +33,50 @@ public abstract class Entity {
      * úgy kapjuk meg, hogy a sprite bal felső sarkának koordinátáiból kivonunk
      * a (ENTITY_SIZE - TILE_SIZE) * SCALE egész számot.
      */
-    private Coordinate position;
+    protected Coordinate position;
 
     /**
      * Az Entity aktuális haladási iránya
      */
-    private Direction direction;
+    protected Direction direction;
 
     /**
      * Az a Tile, amin éppen van az Entity
      */
-    private Tile currentTile;
+    protected Tile currentTile;
+
+    /**
+     * Az entitás aktuális sebessége (pixel / s)
+     */
+    protected int speed;
 
     /**
      * Az Entity sprite-jai irányonként rendezve
      * A megfelelő irányt megadva a map-ből megkapjuk azon sprite-ok
      * sorozatát, melyeken index szerint végighaladva egy animációt kapunk
      */
-    private Map<Direction, ArrayList<BufferedImage>> spriteMap;
+    protected Map<Direction, ArrayList<BufferedImage>> spriteMap;
 
     /**
      * A jelenlegi iránynak megfelelő sprite-ok listája
      * Ezen spite-ok egymásutánja adja ki a karakter animációját
      */
-    private ArrayList<BufferedImage> spriteList;
+    protected ArrayList<BufferedImage> spriteList;
 
     /**
      * A jelenleg használt sprite indexe az iránynak megfelelő sprite-ok listájában
      */
-    private int spriteIndex;
+    protected int spriteIndex = 0;
 
     /**
-     * Két sprite update között eltelő idő (ns)
+     * Két sprite update között eltelő idő (n)
      */
-    private int spriteUpdateInterval;
+    protected double spriteUpdateInterval = 500.0;
 
     /**
-     * A legutóbbi sprite frissítés időpontja (ns)
+     * A legutóbbi sprite frissítés időpontja (n)
      */
-    private int lastSpriteUpdate;
+    protected double lastSpriteUpdate;
 
     /**
      * Az Entity-hez tartozó logika végrehajtása
@@ -87,7 +93,7 @@ public abstract class Entity {
         updateSprite();
 
         BufferedImage sprite = spriteList.get(spriteIndex);
-        Coordinate drawPosition = getDrawPos();
+        Coordinate drawPosition = getDrawPosition();
         
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
                 Config.ON_SCREEN_ENTITY_SIZE, Config.ON_SCREEN_ENTITY_SIZE,
@@ -97,7 +103,7 @@ public abstract class Entity {
     /**
      * Frissíti a sprite-ot, ha már itt az ideje
      */
-    private void updateSprite() {
+    protected void updateSprite() {
         if (System.nanoTime() - lastSpriteUpdate > spriteUpdateInterval) {
             spriteIndex++;
             spriteIndex %= spriteList.size();
@@ -120,11 +126,16 @@ public abstract class Entity {
      * A Tile és az Entity sprite-ok méreteinek különbsége miatt külön ki kell számolni,
      * hova kell rajzolni az Entity-ket
      */
-    private Coordinate getDrawPos() {
+    protected Coordinate getDrawPosition() {
         int offset = (Config.ENTITY_SIZE - Config.TILE_SIZE) * Config.SCALE;
         return new Coordinate(
                 this.position.x - offset,
                 this.position.y - offset
         );
+    }
+
+    protected void updateCurrentTile() {
+        Coordinate tileCoords = getMapPosition();
+        currentTile = Game.map.get(tileCoords.y).get(tileCoords.x);
     }
 }
