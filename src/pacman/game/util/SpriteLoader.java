@@ -16,7 +16,7 @@ public class SpriteLoader {
 
     public static void loadSprites() {
         loadTileSprites();
-        loadEntitySprites();
+        //loadEntitySprites();
     }
 
     private static void loadTileSprites() {
@@ -42,7 +42,7 @@ public class SpriteLoader {
         ArrayList<BufferedImage> right = new ArrayList<>();
         BufferedImage img;
         try {
-            img = ImageIO.read(new File("/res/pacman/right1.png"));
+            img = ImageIO.read(new File("/res/sprites/pacman/right1.png"));
             right.add(img);
         } catch (IOException e) {
             System.exit(1);
