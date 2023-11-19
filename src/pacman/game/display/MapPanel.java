@@ -29,11 +29,11 @@ public class MapPanel extends JPanel {
                 tile.render(graphics);
             }
         }
-        /*
+
         for (Entity entity : Game.entities) {
             entity.render(graphics);
         }
-        */
+
         graphics.dispose();
     }
 }

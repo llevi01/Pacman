@@ -6,10 +6,10 @@ import pacman.game.tile.Coordinate;
  * Irányt reprezentáló enum
  */
 public enum Direction {
-    UP(-1, 0, 1),
-    LEFT(0, -1, 2),
-    DOWN(1, 0, 3),
-    RIGHT(0, 1, 4),
+    UP(0, -1, 1),
+    LEFT(-1, 0, 2),
+    DOWN(0, 1, 3),
+    RIGHT(1, 0, 4),
     NONE(0, 0, -1);
 
     private int xOffset;

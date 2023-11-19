@@ -7,7 +7,7 @@ public class GameThread extends Thread {
     private static double deltaTime;        // A két legutóbbi frame render között eltelt idő (ns)
     private static double lastRenderTime;   // A legutóbbi frame render időpontja (ns)
     private static double accumulator = 0;  // A legutóbbi update óta eltelt idő (ns)
-    private static final int timeSlice = 1000000; // Két update között eltelő idő optimális esetben (ns)
+    private static final int timeSlice = 100000000; // Két update között eltelő idő optimális esetben (ns)
     private static final double step = timeSlice / 1000000000.0; // Két update között eltelő idő (s)
 
     /**
@@ -23,7 +23,7 @@ public class GameThread extends Thread {
             accumulator += deltaTime;
 
             while (accumulator > timeSlice) {
-                //Game.update(step);
+                Game.update(step);
                 accumulator -= timeSlice;
             }
 

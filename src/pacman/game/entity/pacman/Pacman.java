@@ -27,8 +27,8 @@ public class Pacman extends Entity {
 
     private static final int DEFAULT_SPEED = 10;
     private static final Coordinate STARTING_POS = new Coordinate(
-            (14 * Config.TILE_SIZE + 3) * Config.SCALE,
-            (24 * Config.TILE_SIZE + 3) * Config.SCALE
+            (13 * Config.TILE_SIZE + 3) * Config.SCALE,
+            (23 * Config.TILE_SIZE + 3) * Config.SCALE
     );
 
     /**
@@ -47,7 +47,7 @@ public class Pacman extends Entity {
     @Override
     public void update(double step) {
         updateDirection();
-        position.add(direction.getVector().multiply(speed).multiply(step));
+        position = position.add(direction.getVector().multiply(speed).multiply(step));
         checkOutOfFrame();
 
         updateCurrentTile();
@@ -58,13 +58,19 @@ public class Pacman extends Entity {
         Direction chosenDirection = getChoosenDirection();
         Coordinate mapPos = getMapPosition();
         Coordinate chosenTilePos;
+        chosenTilePos = mapPos.add(chosenDirection.getVector());
+        Tile chosenTile;
+        boolean turningAround = direction.getVector().add(chosenDirection.getVector()).equals(Coordinate.NULLVECTOR);
+
+        if (chosenDirection.equals(Direction.NONE)) {
+            return;
+        }
+
         try {
-            chosenTilePos = mapPos.add(chosenDirection.getVector());
+            chosenTile = Game.map.get(chosenTilePos.y).get(chosenTilePos.x);
         } catch (IndexOutOfBoundsException e) {
             return;
         }
-        Tile choosenTile = Game.map.get(chosenTilePos.y).get(chosenTilePos.x);
-        boolean turningAround = direction.getVector().add(chosenDirection.getVector()).equals(Coordinate.NULLVECTOR);
 
         // Pacman csak akkor fordulhat, ha egy Tile közepén van éppen
         Coordinate turnPos = new Coordinate(
@@ -78,7 +84,7 @@ public class Pacman extends Entity {
             return;
         }
 
-        if (!choosenTile.isWalkable()) {
+        if (!chosenTile.isWalkable()) {
             return;
         }
 
@@ -93,10 +99,11 @@ public class Pacman extends Entity {
 
         if (currentTile instanceof Edible) {
             Edible edible = (Edible) currentTile;
-            if (edible.state == EdibleState.EATEN) {
+            if (edible.getState() == EdibleState.EATEN) {
                 return;
             }
 
+            edible.toEatenState();
             Game.score += edible.getScoreModifier();
 
             if (edible instanceof Pellet) {

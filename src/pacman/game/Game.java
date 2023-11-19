@@ -37,7 +37,7 @@ public class Game {
     }
 
     /**
-     * Frissíti a pályán lévő összes tile állapotát
+     * Frissíti a pályán lévő összes Entity állapotát
      * @param step Két update között eltelő idő (s)
      */
     public static void update(double step) {

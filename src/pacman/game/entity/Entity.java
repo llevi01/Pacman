@@ -4,6 +4,7 @@ import pacman.game.Game;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
 import pacman.game.util.Config;
+import pacman.game.util.SpriteLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +18,8 @@ public abstract class Entity {
     public Entity(String id) {
         this.id = id;
         lastSpriteUpdate = System.nanoTime();
+        spriteMap = SpriteLoader.entitySprites.get(id);
+        spriteList = spriteMap.get(Direction.RIGHT);
     }
     /**
      * Az entitást azonosító sztring

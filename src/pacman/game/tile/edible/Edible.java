@@ -17,12 +17,21 @@ public abstract class Edible extends Tile {
     }
 
     /**
+     * Az Edible aktuális állapota
+     */
+    protected EdibleState state;
+
+    /**
      * Az Edible elfogyasztása ennyivel módosítja a pontszámot
      */
     protected int scoreModifier;
 
     public int getScoreModifier() {
         return scoreModifier;
+    }
+
+    public EdibleState getState() {
+        return state;
     }
 
     public void toEatenState() {
@@ -40,11 +49,6 @@ public abstract class Edible extends Tile {
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
                 Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE, null);
     }
-
-    /**
-     * Az Edible aktuális állapota
-     */
-    public EdibleState state;
 
     protected static final int PELLET_SCORE_MODIFIER = 10;
     protected static final int POWER_PELLET_SCORE_MODIFIER = 50;

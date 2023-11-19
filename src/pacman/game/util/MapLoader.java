@@ -3,6 +3,8 @@ package pacman.game.util;
 import pacman.game.Game;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
+import pacman.game.tile.edible.Pellet;
+import pacman.game.tile.edible.PowerPellet;
 import pacman.game.tile.wall.Wall;
 
 import java.awt.image.BufferedImage;
@@ -34,14 +36,12 @@ public class MapLoader {
                         row.add(row.size(), new Wall(new Coordinate(j, i), sprite));
                         continue;
                     }
-                    /*
+
                     switch (c) {
-                        case '1' -> row.add(  );
-                        case '2' -> row.add(  );
-                        default -> row.add(  );
+                        case '1' -> row.add(new Pellet(new Coordinate(j, i), SpriteLoader.tileSprites.get("pellet")));
+                        case '2' -> row.add(new PowerPellet(new Coordinate(j, i), SpriteLoader.tileSprites.get("powerpellet")));
+                        //default -> row.add(  ); TODO add fruit
                     }
-                    TODO load edibles to map
-                     */
                 }
                 map.add(map.size(), row);
                 line = input.readLine();
