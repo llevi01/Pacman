@@ -25,7 +25,10 @@ public class Pacman extends Entity {
         updateCurrentTile();
     }
 
-    private static final int DEFAULT_SPEED = 10;
+    /**
+     * Pacman sebessége (pixel / frame)
+     */
+    private static final int DEFAULT_SPEED = 2;
     private static final Coordinate STARTING_POS = new Coordinate(
             (13 * Config.TILE_SIZE + 3) * Config.SCALE,
             (23 * Config.TILE_SIZE + 3) * Config.SCALE
@@ -45,10 +48,11 @@ public class Pacman extends Entity {
     }
 
     @Override
-    public void update(double step) {
+    public void update() {
         updateDirection();
-        position = position.add(direction.getVector().multiply(speed).multiply(step));
+        position = position.add(direction.getVector().multiply(speed));
         checkOutOfFrame();
+        checkWallCollisions();
 
         updateCurrentTile();
         interactWithTile();
@@ -117,6 +121,23 @@ public class Pacman extends Entity {
         if (currentTile.entities.size() > 1) {
             Game.lives--;
         }
+    }
+
+    private void checkWallCollisions() {
+        Coordinate mapPos = getMapPosition();
+        Coordinate nextTileMapPos = mapPos.add(direction.getVector());
+        Tile nextTile;
+        try {
+            nextTile = Game.map.get(nextTileMapPos.y).get(nextTileMapPos.x);
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
+        if (nextTile.isWalkable()) {
+            return;
+        }
+
+        position = position.subtract(direction.getVector().multiply(speed));
+        // TODO collision detection
     }
 
     private void checkOutOfFrame() {

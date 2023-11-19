@@ -17,7 +17,6 @@ import java.util.Map;
 public abstract class Entity {
     public Entity(String id) {
         this.id = id;
-        lastSpriteUpdate = System.nanoTime();
         spriteMap = SpriteLoader.entitySprites.get(id);
         spriteList = spriteMap.get(Direction.RIGHT);
     }
@@ -68,21 +67,17 @@ public abstract class Entity {
     protected int spriteIndex = 0;
 
     /**
-     * Két sprite update között eltelő idő (n)
+     * Ennyi framenként vált spriteot az Entity
      */
-    protected double spriteUpdateInterval = 500.0;
+    private final int ANIMATION_FPS = 5;
 
-    /**
-     * A legutóbbi sprite frissítés időpontja (n)
-     */
-    protected double lastSpriteUpdate;
+    private int animationFrameCounter = 0;
 
     /**
      * Az Entity-hez tartozó logika végrehajtása
      * (pl. állapot frissítése, collision detection, animáció, stb.)
-     * @param step Két update között eltelő idő (s)
      */
-    public abstract void update(double step);
+    public abstract void update();
 
     /**
      * Az Entity megjelenítése a képernyőn
@@ -107,10 +102,14 @@ public abstract class Entity {
             spriteList = spriteMap.get(direction);
         }
 
-        if (System.nanoTime() - lastSpriteUpdate > spriteUpdateInterval) {
-            spriteIndex++;
-            spriteIndex %= spriteList.size();
+        if (animationFrameCounter < ANIMATION_FPS) {
+            animationFrameCounter++;
+            return;
         }
+
+        spriteIndex++;
+        spriteIndex %= spriteList.size();
+        animationFrameCounter = 0;
     }
 
     /**

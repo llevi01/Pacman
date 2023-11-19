@@ -21,7 +21,7 @@ public class Game {
     public static ArrayList<Entity> entities;
     public static int remainingPellets = 0;
     public static int score = 0;
-    public static int lives = 3;
+    public static int lives = 3; // TODO ezt átgondolni
 
     static {
         gameThread = new GameThread();
@@ -38,11 +38,13 @@ public class Game {
 
     /**
      * Frissíti a pályán lévő összes Entity állapotát
-     * @param step Két update között eltelő idő (s)
      */
-    public static void update(double step) {
+    public static void update() {
         for (Entity entity : entities) {
-            entity.update(step);
+            entity.update();
+        }
+        if (lives < 1 || remainingPellets < 1) {
+            running = false;
         }
     }
 

@@ -30,18 +30,23 @@ public class Coordinate {
     }
 
     /**
+     * Kivon két koordinátát egymásból
+     */
+    public Coordinate subtract(Coordinate other) {
+        return new Coordinate(
+                this.x - other.x,
+                this.y - other.y
+        );
+    }
+
+    /**
      * Megszoroz egy koordinátát egy egész számmal
-     * @param n
-     * @return
      */
     public Coordinate multiply(int n) {
         return new Coordinate(
                 this.x * n,
                 this.y * n
         );
-    }
-    public Coordinate multiply(double d) {
-        return this.multiply((int) d);
     }
 
     @Override

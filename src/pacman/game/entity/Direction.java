@@ -4,6 +4,7 @@ import pacman.game.tile.Coordinate;
 
 /**
  * Irányt reprezentáló enum
+ * Az irányt a képernyőhöz viszonítva kell érteni
  */
 public enum Direction {
     UP(0, -1, 1),
