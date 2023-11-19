@@ -6,6 +6,11 @@ import pacman.game.entity.Entity;
 import pacman.game.input.InputHandler;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
+import pacman.game.tile.edible.Edible;
+import pacman.game.tile.edible.EdibleState;
+import pacman.game.tile.edible.Pellet;
+import pacman.game.tile.edible.PowerPellet;
+import pacman.game.util.Config;
 
 /**
  * Pacmant reprezentáló osztály
@@ -14,12 +19,17 @@ public class Pacman extends Entity {
     /**
      * Pacman default konstruktor
      */
-    public Pacman(String id, Coordinate position, Direction direction) {
-        super(id, position, direction);
-        speed = DEFAULT_SPEED;
+    public Pacman() {
+        super("Pacman");
+        init();
+        updateCurrentTile();
     }
 
     private static final int DEFAULT_SPEED = 10;
+    private static final Coordinate STARTING_POS = new Coordinate(
+            (14 * Config.TILE_SIZE + 3) * Config.SCALE,
+            (24 * Config.TILE_SIZE + 3) * Config.SCALE
+    );
 
     /**
      * A következő lehetőségnél Pacman ebbe az írányba fordul
@@ -28,29 +38,95 @@ public class Pacman extends Entity {
      */
     private Direction next_direction = Direction.NONE;
 
+    public void init() {
+        speed = DEFAULT_SPEED;
+        position = STARTING_POS;
+        direction = Direction.RIGHT;
+    }
+
     @Override
     public void update(double step) {
         updateDirection();
+        position.add(direction.getVector().multiply(speed).multiply(step));
+        checkOutOfFrame();
 
-
+        updateCurrentTile();
+        interactWithTile();
     }
 
     private void updateDirection() {
-        Direction choosenDirection = getChoosenDirection();
+        Direction chosenDirection = getChoosenDirection();
         Coordinate mapPos = getMapPosition();
-        Coordinate tilePos = mapPos.add(choosenDirection.getVector());
-        Tile choosenTile = Game.map.get(tilePos.y).get(tilePos.x);
+        Coordinate chosenTilePos;
+        try {
+            chosenTilePos = mapPos.add(chosenDirection.getVector());
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
+        Tile choosenTile = Game.map.get(chosenTilePos.y).get(chosenTilePos.x);
+        boolean turningAround = direction.getVector().add(chosenDirection.getVector()).equals(Coordinate.NULLVECTOR);
 
-        // Ha a kiválasztott Tile-n nem lehet átmenni, visszatérünk
-        if (!choosenTile.isWalkable) {
+        // Pacman csak akkor fordulhat, ha egy Tile közepén van éppen
+        Coordinate turnPos = new Coordinate(
+                (mapPos.x * Config.TILE_SIZE + 3) * Config.SCALE,
+                (mapPos.y * Config.TILE_SIZE + 3) * Config.SCALE
+        );
+
+        // El akar fordulni a játékos, de még nem ért a Tile közepére
+        if (!turningAround && !position.equals(turnPos)) {
+            next_direction = chosenDirection;
             return;
         }
 
+        if (!choosenTile.isWalkable()) {
+            return;
+        }
 
+        direction = chosenDirection;
+        next_direction = Direction.NONE;
+    }
 
-        // Frissíteni kell az irányt, vagy a next_direction-t
-        if (choosenDirection != direction) {
+    private void interactWithTile() {
+        if (currentTile == null) {
+            return;
+        }
 
+        if (currentTile instanceof Edible) {
+            Edible edible = (Edible) currentTile;
+            if (edible.state == EdibleState.EATEN) {
+                return;
+            }
+
+            Game.score += edible.getScoreModifier();
+
+            if (edible instanceof Pellet) {
+                Game.remainingPellets--;
+            } else if (edible instanceof PowerPellet) {
+                powerPelletEaten();
+            }
+        }
+
+        // Ha más Entity is van ezen a Tile-n az csak szellem lehet, ekkor veszítünk egy életet
+        if (currentTile.entities.size() > 1) {
+            Game.lives--;
+        }
+    }
+
+    private void checkOutOfFrame() {
+        if (position.x < -Config.ON_SCREEN_ENTITY_SIZE) {
+            position.x += Config.MAP_WIDTH + Config.ON_SCREEN_ENTITY_SIZE;
+        } else if (position.x > Config.MAP_WIDTH + Config.ON_SCREEN_ENTITY_SIZE) {
+            position.x -= Config.MAP_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
+        }
+    }
+
+    private void powerPelletEaten() {
+        for (Entity entity : Game.entities) {
+            if (entity.id.equals("Pacman")) {
+                continue;
+            }
+
+            // TODO frightened
         }
     }
 
@@ -70,6 +146,6 @@ public class Pacman extends Entity {
         if (InputHandler.rightPressed) {
             return Direction.RIGHT;
         }
-        return Direction.NONE;
+        return next_direction;
     }
 }

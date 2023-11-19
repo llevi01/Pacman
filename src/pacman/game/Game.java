@@ -3,6 +3,7 @@ package pacman.game;
 import pacman.game.display.GameFrame;
 import pacman.game.display.MapPanel;
 import pacman.game.entity.Entity;
+import pacman.game.entity.pacman.Pacman;
 import pacman.game.tile.Tile;
 import pacman.game.util.MapLoader;
 import pacman.game.util.SpriteLoader;
@@ -18,6 +19,9 @@ public class Game {
     public static boolean running;
     public static ArrayList<ArrayList<Tile>> map;
     public static ArrayList<Entity> entities;
+    public static int remainingPellets = 0;
+    public static int score = 0;
+    public static int lives = 3;
 
     static {
         gameThread = new GameThread();
@@ -26,6 +30,7 @@ public class Game {
     public static void startGame() {
         initGame();
         initDisplay();
+        initEntities();
 
         running = true;
         gameThread.start();
@@ -51,14 +56,18 @@ public class Game {
         Game.map = map;
     }
 
-    public static void initDisplay() {
+    private static void initDisplay() {
         frame = new GameFrame();
         mapPanel = new MapPanel();
         frame.add(mapPanel);
         frame.pack();
     }
-    public static void initGame() {
+    private static void initGame() {
         SpriteLoader.loadSprites();
         MapLoader.loadMap();
+        entities = new ArrayList<>();
+    }
+    private static void initEntities() {
+        entities.add(new Pacman());
     }
 }

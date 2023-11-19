@@ -11,10 +11,9 @@ import java.util.ArrayList;
  * Egy, a pályán lévő tile-t reprezentáló osztály
  */
 public abstract class Tile {
-    public Tile(Coordinate mapPosition, BufferedImage sprite, boolean isWalkable) {
+    public Tile(Coordinate mapPosition, BufferedImage sprite) {
         this.mapPosition = mapPosition;
         this.sprite = sprite;
-        this.isWalkable = isWalkable;
         entities = new ArrayList<>();
     }
 
@@ -27,7 +26,9 @@ public abstract class Tile {
     /**
      * Igaz, ha entitások átsétálhatnak ezen a tile-n
      */
-    public boolean isWalkable;
+    public boolean isWalkable() {
+        return true;
+    };
 
     /**
      * Entity-k, amik jelenleg ezen a Tile-n vannak

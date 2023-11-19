@@ -13,6 +13,11 @@ public class Wall extends Tile {
      * Wall defatult konstruktor
      */
     public Wall(Coordinate mapPosition, BufferedImage sprite) {
-        super(mapPosition, sprite, false);
+        super(mapPosition, sprite);
+    }
+
+    @Override
+    public boolean isWalkable() {
+        return false;
     }
 }

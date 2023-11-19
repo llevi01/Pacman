@@ -13,6 +13,8 @@ public class Coordinate {
         this.y = y;
     }
 
+    public static Coordinate NULLVECTOR = new Coordinate(0, 0);
+
     /**
      * Összead két koordinátát
      * A két koordinátát vektorként kezelhetjük,
@@ -38,4 +40,16 @@ public class Coordinate {
                 this.y * n
         );
     }
+    public Coordinate multiply(double d) {
+        return this.multiply((int) d);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Coordinate coord)) {
+            return false;
+        }
+        return this.x == coord.x && this.y == coord.y;
+    }
+
 }

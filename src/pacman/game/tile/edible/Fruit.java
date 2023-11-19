@@ -12,8 +12,8 @@ public class Fruit extends Edible {
      * Fruit default konstruktor
      * @param type A gyümölcs neve
      */
-    public Fruit(Coordinate mapPosition, BufferedImage sprite, boolean isWalkable, String type) {
-        super(mapPosition, sprite, isWalkable);
+    public Fruit(Coordinate mapPosition, BufferedImage sprite, String type) {
+        super(mapPosition, sprite);
         switch (type) {
             case "Cherry" -> scoreModifier = CHERRY_SCORE_MODIFIER;
             case "Strawberry" -> scoreModifier = STRAWBERRY_SCORE_MODIFIER;

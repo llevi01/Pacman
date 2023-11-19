@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
  * Ezt elfogyasztva a szellemek Frightened állapotba kerülnek
  */
 public class PowerPellet extends Edible {
-    public PowerPellet(Coordinate mapPosition, BufferedImage sprite, boolean isWalkable) {
-        super(mapPosition, sprite, isWalkable);
+    public PowerPellet(Coordinate mapPosition, BufferedImage sprite) {
+        super(mapPosition, sprite);
         scoreModifier = POWER_PELLET_SCORE_MODIFIER;
     }
 }

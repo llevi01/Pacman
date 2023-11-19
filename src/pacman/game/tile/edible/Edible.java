@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
  * Ehető elemeket reprezentáló osztály
  */
 public abstract class Edible extends Tile {
-    public Edible(Coordinate mapPosition, BufferedImage sprite, boolean isWalkable) {
-        super(mapPosition, sprite, isWalkable);
+    public Edible(Coordinate mapPosition, BufferedImage sprite) {
+        super(mapPosition, sprite);
         state = EdibleState.ACTIVE;
     }
 

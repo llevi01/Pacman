@@ -14,13 +14,9 @@ import java.util.Map;
  * Mozgó entitást reprezentáló osztály
  */
 public abstract class Entity {
-    public Entity(String id, Coordinate position, Direction direction) {
+    public Entity(String id) {
         this.id = id;
-        this.position = position;
-        this.direction = direction;
         lastSpriteUpdate = System.nanoTime();
-
-        updateCurrentTile();
     }
     /**
      * Az entitást azonosító sztring
@@ -104,6 +100,10 @@ public abstract class Entity {
      * Frissíti a sprite-ot, ha már itt az ideje
      */
     protected void updateSprite() {
+        if (direction != Direction.NONE) {
+            spriteList = spriteMap.get(direction);
+        }
+
         if (System.nanoTime() - lastSpriteUpdate > spriteUpdateInterval) {
             spriteIndex++;
             spriteIndex %= spriteList.size();
@@ -136,6 +136,25 @@ public abstract class Entity {
 
     protected void updateCurrentTile() {
         Coordinate tileCoords = getMapPosition();
-        currentTile = Game.map.get(tileCoords.y).get(tileCoords.x);
+
+        try {
+            Tile nextTile = Game.map.get(tileCoords.y).get(tileCoords.x);
+            if (nextTile.equals(currentTile)) {
+                return;
+            }
+
+            if (currentTile == null) {
+                currentTile = nextTile;
+                return;
+            }
+
+            currentTile.entities.remove(this);
+            currentTile = nextTile;
+            currentTile.entities.add(this);
+
+
+        } catch (IndexOutOfBoundsException e) {
+            currentTile = null;
+        }
     }
 }
