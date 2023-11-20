@@ -12,6 +12,8 @@ import pacman.game.tile.edible.Pellet;
 import pacman.game.tile.edible.PowerPellet;
 import pacman.game.util.Config;
 
+import java.awt.*;
+
 /**
  * Pacmant reprezentáló osztály
  */
@@ -28,7 +30,7 @@ public class Pacman extends Entity {
     /**
      * Pacman sebessége (pixel / frame)
      */
-    private static final int DEFAULT_SPEED = 2;
+    private static final int DEFAULT_SPEED = 4;
     private static final Coordinate STARTING_POS = new Coordinate(
             (13 * Config.TILE_SIZE + 3) * Config.SCALE,
             (23 * Config.TILE_SIZE + 3) * Config.SCALE
@@ -39,9 +41,9 @@ public class Pacman extends Entity {
      * Akkor van értelme, amikor a játékos kiválaszt egy olyan irányt,
      * amerre Pacman éppen nem tud menni (ez kereszteződések előtt fordul elő)
      */
-    private Direction next_direction = Direction.NONE;
+    private Direction nextDirection = Direction.NONE;
 
-    public void init() {
+    protected void init() {
         speed = DEFAULT_SPEED;
         position = STARTING_POS;
         direction = Direction.RIGHT;
@@ -84,16 +86,17 @@ public class Pacman extends Entity {
 
         // El akar fordulni a játékos, de még nem ért a Tile közepére
         if (!turningAround && !position.equals(turnPos)) {
-            next_direction = chosenDirection;
+            nextDirection = chosenDirection;
             return;
         }
 
+        // A kiválasztott Tile fal, így nem változtatunk irányt
         if (!chosenTile.isWalkable()) {
             return;
         }
 
         direction = chosenDirection;
-        next_direction = Direction.NONE;
+        nextDirection = Direction.NONE;
     }
 
     private void interactWithTile() {
@@ -117,34 +120,9 @@ public class Pacman extends Entity {
             }
         }
 
-        // Ha más Entity is van ezen a Tile-n az csak szellem lehet, ekkor veszítünk egy életet
+        // Ha más Entity is van ezen a Tile-n az csak szellem lehet, ekkor veszítünk egy életet TODO ez így nem jó
         if (currentTile.entities.size() > 1) {
             Game.lives--;
-        }
-    }
-
-    private void checkWallCollisions() {
-        Coordinate mapPos = getMapPosition();
-        Coordinate nextTileMapPos = mapPos.add(direction.getVector());
-        Tile nextTile;
-        try {
-            nextTile = Game.map.get(nextTileMapPos.y).get(nextTileMapPos.x);
-        } catch (IndexOutOfBoundsException e) {
-            return;
-        }
-        if (nextTile.isWalkable()) {
-            return;
-        }
-
-        position = position.subtract(direction.getVector().multiply(speed));
-        // TODO collision detection
-    }
-
-    private void checkOutOfFrame() {
-        if (position.x < -Config.ON_SCREEN_ENTITY_SIZE) {
-            position.x += Config.MAP_WIDTH + Config.ON_SCREEN_ENTITY_SIZE;
-        } else if (position.x > Config.MAP_WIDTH + Config.ON_SCREEN_ENTITY_SIZE) {
-            position.x -= Config.MAP_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
         }
     }
 
@@ -174,6 +152,6 @@ public class Pacman extends Entity {
         if (InputHandler.rightPressed) {
             return Direction.RIGHT;
         }
-        return next_direction;
+        return nextDirection;
     }
 }

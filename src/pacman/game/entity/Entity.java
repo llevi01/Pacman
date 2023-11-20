@@ -79,6 +79,8 @@ public abstract class Entity {
      */
     public abstract void update();
 
+    protected abstract void init();
+
     /**
      * Az Entity megjelenítése a képernyőn
      * @param graphics Erre történik a festés
@@ -136,6 +138,15 @@ public abstract class Entity {
         );
     }
 
+    protected Rectangle getBounds() {
+        int offset = 3 * Config.SCALE;
+        Coordinate boundsPos = new Coordinate(
+                this.position.x - offset,
+                this.position.y - offset
+        );
+        return new Rectangle(boundsPos.x, boundsPos.y, Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE);
+    }
+
     protected void updateCurrentTile() {
         Coordinate tileCoords = getMapPosition();
 
@@ -157,6 +168,45 @@ public abstract class Entity {
 
         } catch (IndexOutOfBoundsException e) {
             currentTile = null;
+        }
+    }
+
+    /**
+     * Fallal való ütközést vizsgálja
+     * Ha ütközést talál, visszaállítja az Entityt az előző helyére
+     */
+    protected void checkWallCollisions() {
+        Coordinate mapPos = getMapPosition();
+        Coordinate nextTileMapPos = mapPos.add(direction.getVector());
+        Tile nextTile;
+        try {
+            nextTile = Game.map.get(nextTileMapPos.y).get(nextTileMapPos.x);
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
+        if (nextTile.isWalkable()) {
+            return;
+        }
+
+        Rectangle bounds = getBounds();
+
+        Coordinate nextTileDrawPos = nextTileMapPos.multiply(Config.ON_SCREEN_TILE_SIZE);
+        Rectangle tileBounds = new Rectangle(nextTileDrawPos.x, nextTileDrawPos.y, Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE);
+
+        if (bounds.intersects(tileBounds)) {
+            position = position.subtract(direction.getVector().multiply(speed));
+        }
+    }
+
+    /**
+     * Azt vizsgálja, mikor megy ki az Entity a képernyőről
+     * Ha kimegy, a pálya másik oldalára rakja azt
+     */
+    protected void checkOutOfFrame() {
+        if (position.x < -Config.ON_SCREEN_ENTITY_SIZE) {
+            position.x += Config.MAP_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
+        } else if (position.x > Config.MAP_WIDTH + Config.ON_SCREEN_ENTITY_SIZE) {
+            position.x -= Config.MAP_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
         }
     }
 }
