@@ -57,4 +57,11 @@ public class Coordinate {
         return this.x == coord.x && this.y == coord.y;
     }
 
+    public double getDistance(Coordinate other) {
+        double a = this.x - other.x;
+        double b = this.y - other.y;
+        a *= a;
+        b *= b;
+        return Math.sqrt(a + b);
+    }
 }

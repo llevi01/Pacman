@@ -12,8 +12,6 @@ import pacman.game.tile.edible.Pellet;
 import pacman.game.tile.edible.PowerPellet;
 import pacman.game.util.Config;
 
-import java.awt.*;
-
 /**
  * Pacmant reprezentáló osztály
  */
@@ -49,6 +47,10 @@ public class Pacman extends Entity {
         direction = Direction.RIGHT;
     }
 
+    public void hurt() {
+
+    }
+
     @Override
     public void update() {
         updateDirection();
@@ -61,12 +63,11 @@ public class Pacman extends Entity {
     }
 
     private void updateDirection() {
-        Direction chosenDirection = getChoosenDirection();
+        Direction chosenDirection = getChosenDirection();
         Coordinate mapPos = getMapPosition();
-        Coordinate chosenTilePos;
-        chosenTilePos = mapPos.add(chosenDirection.getVector());
-        Tile chosenTile;
+        Coordinate chosenTilePos = mapPos.add(chosenDirection.getVector());
         boolean turningAround = direction.getVector().add(chosenDirection.getVector()).equals(Coordinate.NULLVECTOR);
+        Tile chosenTile;
 
         if (chosenDirection.equals(Direction.NONE)) {
             return;
@@ -79,13 +80,13 @@ public class Pacman extends Entity {
         }
 
         // Pacman csak akkor fordulhat, ha egy Tile közepén van éppen
-        Coordinate turnPos = new Coordinate(
+        Coordinate midTile = new Coordinate(
                 (mapPos.x * Config.TILE_SIZE + 3) * Config.SCALE,
                 (mapPos.y * Config.TILE_SIZE + 3) * Config.SCALE
         );
 
         // El akar fordulni a játékos, de még nem ért a Tile közepére
-        if (!turningAround && !position.equals(turnPos)) {
+        if (!turningAround && !position.equals(midTile)) {
             nextDirection = chosenDirection;
             return;
         }
@@ -139,7 +140,7 @@ public class Pacman extends Entity {
     /**
      * Visszaadja a felhasználó által éppen kiválasztott irányt
      */
-    private Direction getChoosenDirection() {
+    private Direction getChosenDirection() {
         if (InputHandler.upPressed) {
             return Direction.UP;
         }

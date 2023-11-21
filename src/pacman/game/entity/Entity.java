@@ -17,8 +17,8 @@ import java.util.Map;
 public abstract class Entity {
     public Entity(String id) {
         this.id = id;
-        spriteMap = SpriteLoader.entitySprites.get(id);
-        spriteList = spriteMap.get(Direction.RIGHT);
+        defaultSprites = SpriteLoader.entitySprites.get(id);
+        spriteList = defaultSprites.get(Direction.RIGHT);
     }
     /**
      * Az entitást azonosító sztring
@@ -53,7 +53,7 @@ public abstract class Entity {
      * A megfelelő irányt megadva a map-ből megkapjuk azon sprite-ok
      * sorozatát, melyeken index szerint végighaladva egy animációt kapunk
      */
-    protected Map<Direction, ArrayList<BufferedImage>> spriteMap;
+    protected Map<Direction, ArrayList<BufferedImage>> defaultSprites;
 
     /**
      * A jelenlegi iránynak megfelelő sprite-ok listája
@@ -101,7 +101,7 @@ public abstract class Entity {
      */
     protected void updateSprite() {
         if (direction != Direction.NONE) {
-            spriteList = spriteMap.get(direction);
+            spriteList = defaultSprites.get(direction);
         }
 
         if (animationFrameCounter < ANIMATION_FPS) {

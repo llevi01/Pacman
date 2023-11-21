@@ -36,4 +36,27 @@ public enum Direction {
     public Coordinate getVector() {
         return new Coordinate(xOffset, yOffset);
     }
+    public int getPriority() {
+        return priority;
+    }
+
+    public Direction inverse() {
+        switch (this) {
+            case UP -> {
+                return DOWN;
+            }
+            case DOWN -> {
+                return UP;
+            }
+            case LEFT -> {
+                return RIGHT;
+            }
+            case RIGHT -> {
+                return LEFT;
+            }
+            default -> {
+                return NONE;
+            }
+        }
+    }
 }
