@@ -15,15 +15,19 @@ import java.util.Map;
  * Mozgó entitást reprezentáló osztály
  */
 public abstract class Entity {
-    public Entity(String id) {
-        this.id = id;
-        defaultSprites = SpriteLoader.entitySprites.get(id);
+    /**
+     * Entity default konstruktor
+     * @param name Az entitás neve
+     */
+    public Entity(String name) {
+        this.name = name;
+        defaultSprites = SpriteLoader.entitySprites.get(name);
         spriteList = defaultSprites.get(Direction.RIGHT);
     }
     /**
      * Az entitást azonosító sztring
      */
-    public String id;
+    private String name;
 
     /**
      * Az Entity-t reprezentáló sprite középpontjának helye a képernyőn
@@ -32,6 +36,12 @@ public abstract class Entity {
      * a (ENTITY_SIZE - TILE_SIZE) * SCALE egész számot.
      */
     protected Coordinate position;
+
+    /**
+     * Az Entiy kezdő helye
+     * @warning Képernyő koordináta
+     */
+    protected Coordinate STARTING_POS;
 
     /**
      * Az Entity aktuális haladási iránya
@@ -67,19 +77,37 @@ public abstract class Entity {
     protected int spriteIndex = 0;
 
     /**
+     * Az aktuális sprite
+     */
+    protected BufferedImage sprite;
+
+    /**
      * Ennyi framenként vált spriteot az Entity
      */
     private final int ANIMATION_FPS = 5;
 
+    /**
+     * A legutóbbi sprite váltás után eltelt framek száma
+     */
     private int animationFrameCounter = 0;
 
     /**
      * Az Entity-hez tartozó logika végrehajtása
-     * (pl. állapot frissítése, collision detection, animáció, stb.)
+     * (pl. állapot frissítése, collision detection stb.)
      */
     public abstract void update();
 
+    /**
+     * Inicializáló metódus
+     */
     protected abstract void init();
+
+    /**
+     * Name getter
+     */
+    public String getName() {
+        return name;
+    }
 
     /**
      * Az Entity megjelenítése a képernyőn
@@ -87,8 +115,6 @@ public abstract class Entity {
      */
     public void render(Graphics2D graphics) {
         updateSprite();
-
-        BufferedImage sprite = spriteList.get(spriteIndex);
         Coordinate drawPosition = getDrawPosition();
         
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
@@ -97,9 +123,10 @@ public abstract class Entity {
     }
 
     /**
-     * Frissíti a sprite-ot, ha már itt az ideje
+     * A sprite frissítése
      */
     protected void updateSprite() {
+        // TODO refactor
         if (direction != Direction.NONE) {
             spriteList = defaultSprites.get(direction);
         }
@@ -111,6 +138,7 @@ public abstract class Entity {
 
         spriteIndex++;
         spriteIndex %= spriteList.size();
+        sprite = spriteList.get(spriteIndex);
         animationFrameCounter = 0;
     }
 
@@ -138,6 +166,10 @@ public abstract class Entity {
         );
     }
 
+    /**
+     * Collision detection-höz használt függvény
+     * @return Az Entity "szilárd" része
+     */
     protected Rectangle getBounds() {
         int offset = 3 * Config.SCALE;
         Coordinate boundsPos = new Coordinate(
@@ -147,6 +179,9 @@ public abstract class Entity {
         return new Rectangle(boundsPos.x, boundsPos.y, Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE);
     }
 
+    /**
+     * Az aktuálisan az Entity alatt lévő Tile frissítése
+     */
     protected void updateCurrentTile() {
         Coordinate tileCoords = getMapPosition();
 

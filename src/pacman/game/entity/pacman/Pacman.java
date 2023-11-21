@@ -29,10 +29,6 @@ public class Pacman extends Entity {
      * Pacman sebessége (pixel / frame)
      */
     private static final int DEFAULT_SPEED = 4;
-    private static final Coordinate STARTING_POS = new Coordinate(
-            (13 * Config.TILE_SIZE + 3) * Config.SCALE,
-            (23 * Config.TILE_SIZE + 3) * Config.SCALE
-    );
 
     /**
      * A következő lehetőségnél Pacman ebbe az írányba fordul
@@ -41,16 +37,31 @@ public class Pacman extends Entity {
      */
     private Direction nextDirection = Direction.NONE;
 
+    /**
+     * Inicializáló metódus
+     */
     protected void init() {
+        STARTING_POS = new Coordinate(
+                (13 * Config.TILE_SIZE + 3) * Config.SCALE,
+                (23 * Config.TILE_SIZE + 3) * Config.SCALE
+        );
+
         speed = DEFAULT_SPEED;
         position = STARTING_POS;
-        direction = Direction.RIGHT;
+        direction = Direction.RIGHT; // TODO none
     }
 
+    /**
+     * Pacman elveszít egy életet
+     * Az a szellem hívja meg, aki megsebezte
+     */
     public void hurt() {
 
     }
 
+    /**
+     * Belső logika végrehajtása
+     */
     @Override
     public void update() {
         updateDirection();
@@ -62,6 +73,9 @@ public class Pacman extends Entity {
         interactWithTile();
     }
 
+    /**
+     * Frissíti Pacman irányát
+     */
     private void updateDirection() {
         Direction chosenDirection = getChosenDirection();
         Coordinate mapPos = getMapPosition();
@@ -100,6 +114,11 @@ public class Pacman extends Entity {
         nextDirection = Direction.NONE;
     }
 
+    /**
+     * A jelenlegi Tile-el való interakció
+     * A rajta lévő Edible elfogyasztása,
+     * szellemekkel való interakció
+     */
     private void interactWithTile() {
         if (currentTile == null) {
             return;
@@ -127,9 +146,12 @@ public class Pacman extends Entity {
         }
     }
 
+    /**
+     * PowerPellet elfogyasztásakor meghívott függvény
+     */
     private void powerPelletEaten() {
         for (Entity entity : Game.entities) {
-            if (entity.id.equals("Pacman")) {
+            if (entity.getName().equals("Pacman")) {
                 continue;
             }
 
