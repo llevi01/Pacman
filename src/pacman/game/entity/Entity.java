@@ -84,12 +84,12 @@ public abstract class Entity {
     /**
      * Ennyi framenként vált spriteot az Entity
      */
-    private final int ANIMATION_FPS = 5;
+    protected final int ANIMATION_FPS = 5;
 
     /**
      * A legutóbbi sprite váltás után eltelt framek száma
      */
-    private int animationFrameCounter = 0;
+    protected int animationFrameCounter = 0;
 
     /**
      * Az Entity-hez tartozó logika végrehajtása

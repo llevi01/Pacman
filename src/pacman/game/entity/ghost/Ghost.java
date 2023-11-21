@@ -8,10 +8,8 @@ import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
 import pacman.game.util.Config;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.util.*;
 
 public abstract class Ghost extends Entity {
     /**
@@ -38,11 +36,6 @@ public abstract class Ghost extends Entity {
      * Cella, ami felé megy a szellem
      */
     private Coordinate target;
-    /**
-     * A szellem kezdő helye
-     * @warning Képernyő koordináta
-     */
-    protected Coordinate STARTING_POS;
     /**
      * A szellem target cellája SCATTER állapotban
      */
@@ -77,7 +70,52 @@ public abstract class Ghost extends Entity {
      */
     private int EATEN_SPEED = DEFAULT_SPEED * 2;
 
+    /**
+     * Az EATEN állapotú szellemek sprite-jai TODO load
+     */
+    private Map<Direction, BufferedImage> eatenSprites;
 
+    /**
+     * A FRIGHTENED állapotú szellemek sprite-jai TODO load
+     */
+    private List<BufferedImage> frightenedSprites;
+
+
+    /**
+     * Frissíti a szellem aktuális sprite-ját
+     * Több féle sprite-ja van, más logika szerint
+     * működik, mint az Entity metódusa
+     */
+    @Override
+    protected void updateSprite() {
+        switch (state) {
+            case CHASE, SCATTER -> super.updateSprite();
+            case EATEN -> updateEatenSprite();
+            case FRIGHTENED -> updateFrightenedSprite();
+        }
+    }
+
+    private void updateEatenSprite() {
+        sprite = eatenSprites.get(direction);
+    }
+
+    private void updateFrightenedSprite() {
+        int fullTime = GhostState.FRIGHTENED.getRemainingTime();
+        int remainingTime = state.getRemainingTime();
+        if (remainingTime > fullTime / 4) {
+            sprite = frightenedSprites.get(0);
+            return;
+        }
+
+        if (animationFrameCounter < ANIMATION_FPS * 2) {
+            animationFrameCounter++;
+            return;
+        }
+        spriteIndex++;
+        spriteIndex %= frightenedSprites.size();
+        sprite = frightenedSprites.get(spriteIndex);
+        animationFrameCounter = 0;
+    }
 
     /**
      * Inicializáló metódus
