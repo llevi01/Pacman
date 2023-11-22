@@ -206,8 +206,8 @@ public abstract class Ghost extends Entity {
     protected void updateDirection() {
         Coordinate mapPos = getMapPosition();
         Coordinate midTile = new Coordinate(
-                (mapPos.x * Config.TILE_SIZE + 3) * Config.SCALE,
-                (mapPos.y * Config.TILE_SIZE + 3) * Config.SCALE
+                (mapPos.x * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE,
+                (mapPos.y * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE
         );
         // Nem változtat ha nem egy Tile közepén van
         if (!position.equals(midTile)) {

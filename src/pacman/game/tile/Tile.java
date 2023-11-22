@@ -60,7 +60,7 @@ public abstract class Tile {
     }
 
     protected Coordinate getDrawPos() {
-        int multiplier = Config.TILE_SIZE * Config.SCALE;
+        int multiplier = Config.TILE_SPRITE_SIZE * Config.SCALE;
         return new Coordinate(
                 this.mapPosition.x * multiplier,
                 this.mapPosition.y * multiplier

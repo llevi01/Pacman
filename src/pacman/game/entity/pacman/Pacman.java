@@ -98,8 +98,8 @@ public class Pacman extends Entity {
 
         // Pacman csak akkor fordulhat, ha egy Tile közepén van éppen
         Coordinate midTile = new Coordinate(
-                (mapPos.x * Config.TILE_SIZE + 3) * Config.SCALE,
-                (mapPos.y * Config.TILE_SIZE + 3) * Config.SCALE
+                (mapPos.x * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE,
+                (mapPos.y * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE
         );
 
         // El akar fordulni a játékos, de még nem ért a Tile közepére

@@ -4,7 +4,6 @@ import pacman.game.Game;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
 import pacman.game.util.Config;
-import pacman.game.util.SpriteLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -159,7 +158,7 @@ public abstract class Entity {
      * hova kell rajzolni az Entity-ket
      */
     protected Coordinate getDrawPosition() {
-        int offset = (Config.ENTITY_SIZE - Config.TILE_SIZE) * Config.SCALE;
+        int offset = (Config.ENTITY_SPRITE_SIZE - Config.TILE_SPRITE_SIZE) * Config.SCALE;
         return new Coordinate(
                 this.position.x - offset,
                 this.position.y - offset

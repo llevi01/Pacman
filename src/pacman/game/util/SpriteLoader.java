@@ -27,18 +27,30 @@ public class SpriteLoader {
     }
 
     private static void loadTileSprites() {
+        loadWallSprites();
+        loadEdibleSprites();
+    }
+
+    private static void loadWallSprites() {
         BufferedImage img;
         try {
-            // Load wall sprites
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/empty.png")));
-            tileSprites.put("empty_placeholder", img);
+            tileSprites.put("empty", img);
 
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/walls/wall_placeholder.png")));
             tileSprites.put("wall_placeholder", img);
 
-            // Load edible sprites
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private static void loadEdibleSprites() {
+        BufferedImage img;
+        try {
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/edibles/pellet.png")));
             tileSprites.put("pellet", img);
@@ -54,22 +66,18 @@ public class SpriteLoader {
     }
 
     private static void loadEntitySprites() {
-        ArrayList<BufferedImage> right = new ArrayList<>();
-        ArrayList<BufferedImage> left = new ArrayList<>();
+        loadPacmanSprites();
+        loadGhostSprites();
+    }
+
+    private static void loadPacmanSprites() {
         ArrayList<BufferedImage> up = new ArrayList<>();
         ArrayList<BufferedImage> down = new ArrayList<>();
+        ArrayList<BufferedImage> left = new ArrayList<>();
+        ArrayList<BufferedImage> right = new ArrayList<>();
         BufferedImage img;
 
-        // Load Pacman sprites
         try {
-            img = ImageIO.read(Objects.requireNonNull(
-                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
-            right.add(img);
-
-            img = ImageIO.read(Objects.requireNonNull(
-                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
-            left.add(img);
-
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/up1.png")));
             up.add(img);
@@ -77,6 +85,16 @@ public class SpriteLoader {
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/down1.png")));
             down.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
+            left.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
+            right.add(img);
+
+
         } catch (IOException e) {
             System.exit(1);
         }
@@ -84,5 +102,157 @@ public class SpriteLoader {
         pacmanSprites.put(Direction.LEFT, left);
         pacmanSprites.put(Direction.UP, up);
         pacmanSprites.put(Direction.DOWN, down);
+    }
+
+    private static void loadGhostSprites() {
+        loadBlinkySprites();
+        loadPinkySprites();
+        loadInkySprites();
+        loadClydeSprites();
+        loadFrightenedSprites();
+        loadEatenSprites();
+    }
+
+    private static void loadBlinkySprites() {
+        ArrayList<BufferedImage> up = new ArrayList<>();
+        ArrayList<BufferedImage> down = new ArrayList<>();
+        ArrayList<BufferedImage> left = new ArrayList<>();
+        ArrayList<BufferedImage> right = new ArrayList<>();
+        BufferedImage img;
+
+        try {
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/up1.png")));
+            up.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/down1.png")));
+            down.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
+            left.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
+            right.add(img);
+
+
+        } catch (IOException e) {
+            System.exit(1);
+        }
+        pacmanSprites.put(Direction.RIGHT, right);
+        pacmanSprites.put(Direction.LEFT, left);
+        pacmanSprites.put(Direction.UP, up);
+        pacmanSprites.put(Direction.DOWN, down);
+    }
+
+    private static void loadPinkySprites() {
+        ArrayList<BufferedImage> up = new ArrayList<>();
+        ArrayList<BufferedImage> down = new ArrayList<>();
+        ArrayList<BufferedImage> left = new ArrayList<>();
+        ArrayList<BufferedImage> right = new ArrayList<>();
+        BufferedImage img;
+
+        try {
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/up1.png")));
+            up.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/down1.png")));
+            down.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
+            left.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
+            right.add(img);
+
+
+        } catch (IOException e) {
+            System.exit(1);
+        }
+        pacmanSprites.put(Direction.RIGHT, right);
+        pacmanSprites.put(Direction.LEFT, left);
+        pacmanSprites.put(Direction.UP, up);
+        pacmanSprites.put(Direction.DOWN, down);
+    }
+
+    private static void loadInkySprites() {
+        ArrayList<BufferedImage> up = new ArrayList<>();
+        ArrayList<BufferedImage> down = new ArrayList<>();
+        ArrayList<BufferedImage> left = new ArrayList<>();
+        ArrayList<BufferedImage> right = new ArrayList<>();
+        BufferedImage img;
+
+        try {
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/up1.png")));
+            up.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/down1.png")));
+            down.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
+            left.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
+            right.add(img);
+
+
+        } catch (IOException e) {
+            System.exit(1);
+        }
+        pacmanSprites.put(Direction.RIGHT, right);
+        pacmanSprites.put(Direction.LEFT, left);
+        pacmanSprites.put(Direction.UP, up);
+        pacmanSprites.put(Direction.DOWN, down);
+    }
+
+    private static void loadClydeSprites() {
+        ArrayList<BufferedImage> up = new ArrayList<>();
+        ArrayList<BufferedImage> down = new ArrayList<>();
+        ArrayList<BufferedImage> left = new ArrayList<>();
+        ArrayList<BufferedImage> right = new ArrayList<>();
+        BufferedImage img;
+
+        try {
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/up1.png")));
+            up.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/down1.png")));
+            down.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
+            left.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
+            right.add(img);
+
+
+        } catch (IOException e) {
+            System.exit(1);
+        }
+        pacmanSprites.put(Direction.RIGHT, right);
+        pacmanSprites.put(Direction.LEFT, left);
+        pacmanSprites.put(Direction.UP, up);
+        pacmanSprites.put(Direction.DOWN, down);
+    }
+
+    private static void loadFrightenedSprites() {
+
+    }
+    private static void loadEatenSprites() {
+
     }
 }

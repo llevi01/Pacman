@@ -2,8 +2,6 @@ package pacman.game.util;
 
 import pacman.game.tile.Coordinate;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
 /**
  * Konfigurációért felelős osztály
  */
@@ -15,10 +13,10 @@ public class Config {
 
     // Display
     public static final int SCALE = 2;          // Nagyítás mértéke
-    public static final int TILE_SIZE = 8;      // Egy tile egy oldalhossza pixelben
-    public static final int ON_SCREEN_TILE_SIZE = TILE_SIZE * SCALE;
-    public static final int ENTITY_SIZE = 14;   // Egy entity egy oldalhossza pixelben
-    public static final int ON_SCREEN_ENTITY_SIZE = ENTITY_SIZE * SCALE;
+    public static final int TILE_SPRITE_SIZE = 8;      // Egy tile egy oldalhossza (pixel)
+    public static final int ON_SCREEN_TILE_SIZE = TILE_SPRITE_SIZE * SCALE;
+    public static final int ENTITY_SPRITE_SIZE = 16;   // Egy entity sprite egy oldalhossza (pixel)
+    public static final int ON_SCREEN_ENTITY_SIZE = ENTITY_SPRITE_SIZE * SCALE;
     public static final int MAP_WIDTH = COLUMNS * ON_SCREEN_TILE_SIZE;
     public static final int MAP_HEIGHT = ROWS * ON_SCREEN_TILE_SIZE;
     public static final int DISPLAY_TARGET_FPS = 60;
@@ -28,8 +26,8 @@ public class Config {
     // Pacman
     public static final int PACMAN_LIVES = 3;
     public static final Coordinate PACMAN_STARTING_POS = new Coordinate(
-            (13 * Config.TILE_SIZE + 3) * Config.SCALE,
-            (23 * Config.TILE_SIZE + 3) * Config.SCALE
+            (13 * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE,
+            (23 * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE
     );     // Képernyő koordináták!
     public static final int PACMAN_SPEED = 2 * SCALE;   // Pixel / frame
 
