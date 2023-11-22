@@ -12,6 +12,7 @@ import pacman.game.tile.edible.EdibleState;
 import pacman.game.tile.edible.Pellet;
 import pacman.game.tile.edible.PowerPellet;
 import pacman.game.util.Config;
+import pacman.game.util.SpriteLoader;
 
 /**
  * Pacmant reprezentáló osztály
@@ -44,10 +45,21 @@ public class Pacman extends Entity {
     protected void init() {
         lives = Config.PACMAN_LIVES;
         speed = Config.PACMAN_SPEED;
-        position = Config.PACMAN_STARTING_POS;
+        toStartingPos();
 
         direction = Direction.NONE;
         nextDirection = Direction.NONE;
+
+        initSprites();
+    }
+
+    protected void initSprites() {
+        defaultSprites = SpriteLoader.entitySprites.get("Pacman");
+        spriteList = defaultSprites.get(Direction.NONE);
+    }
+
+    protected void toStartingPos() {
+        position = Config.PACMAN_STARTING_POS;
     }
 
     /**

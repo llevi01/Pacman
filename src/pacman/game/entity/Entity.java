@@ -21,8 +21,6 @@ public abstract class Entity {
      */
     public Entity(String name) {
         this.name = name;
-        defaultSprites = SpriteLoader.entitySprites.get(name);
-        spriteList = defaultSprites.get(Direction.RIGHT);
     }
     /**
      * Az entitást azonosító sztring
@@ -81,15 +79,25 @@ public abstract class Entity {
     protected int animationFrameCounter = 0;
 
     /**
+     * Inicializáló metódus
+     */
+    protected abstract void init();
+
+    /**
+     * Sprite-okat inicializáló metódus
+     */
+    protected abstract void initSprites();
+
+    /**
+     * A kezdő helyére rakja az Entity-t
+     */
+    protected abstract void toStartingPos();
+
+    /**
      * Az Entity-hez tartozó logika végrehajtása
      * (pl. állapot frissítése, collision detection stb.)
      */
     public abstract void update();
-
-    /**
-     * Inicializáló metódus
-     */
-    protected abstract void init();
 
     /**
      * Name getter

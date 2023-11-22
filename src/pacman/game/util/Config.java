@@ -44,6 +44,10 @@ public class Config {
     public static final Coordinate INKY_SCATTER_TARGET = new Coordinate(27, 33);
     public static final Coordinate PINKY_SCATTER_TARGET = new Coordinate(2, -3);
     public static final Coordinate CLYDE_SCATTER_TARGET = new Coordinate(0, 33);
+    public static final Coordinate BLINKY_STARTING_POS = new Coordinate(0, 0);
+    public static final Coordinate INKY_STARTING_POS = new Coordinate(0, 0);
+    public static final Coordinate PINKY_STARTING_POS = new Coordinate(0, 0);
+    public static final Coordinate CLYDE_STARTING_POS = new Coordinate(0, 0);
 
 
     // Ghost state

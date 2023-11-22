@@ -43,14 +43,14 @@ public abstract class Ghost extends Entity {
     protected Pacman pacman;
 
     /**
-     * Az EATEN állapotú szellemek sprite-jai TODO load
+     * A FRIGHTENED állapotú szellemek sprite-jai
      */
-    private Map<Direction, BufferedImage> eatenSprites;
+    protected List<BufferedImage> frightenedSprites;
 
     /**
-     * A FRIGHTENED állapotú szellemek sprite-jai TODO load
+     * Az EATEN állapotú szellemek sprite-jai
      */
-    private List<BufferedImage> frightenedSprites;
+    protected Map<Direction, BufferedImage> eatenSprites;
 
 
     /**
@@ -107,8 +107,9 @@ public abstract class Ghost extends Entity {
 
         // Többi attribútum inicializálása
         speed = Config.GHOST_DEFAULT_SPEED;
-        // position = STARTING_POS; TODO migrate to derived classes
         direction = Direction.NONE;
+        toStartingPos();
+        initSprites();
     }
 
     /**
