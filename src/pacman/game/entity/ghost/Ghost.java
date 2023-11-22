@@ -74,18 +74,15 @@ public abstract class Ghost extends Entity {
     private void updateFrightenedSprite() {
         int fullTime = GhostState.FRIGHTENED.getRemainingTime();
         int remainingTime = state.getRemainingTime();
-        if (remainingTime > fullTime / 4) {
-            spriteIndex = 0;
-            sprite = frightenedSprites.get(spriteIndex);
-            return;
-        }
+        boolean flashing = remainingTime > fullTime / 4;
 
         if (animationFrameCounter < Config.ENTITY_ANIMATION_FPS * 2) {
             animationFrameCounter++;
             return;
         }
+
         spriteIndex++;
-        spriteIndex %= frightenedSprites.size();
+        spriteIndex %= flashing ? frightenedSprites.size() : frightenedSprites.size() / 2;
         sprite = frightenedSprites.get(spriteIndex);
         animationFrameCounter = 0;
     }
