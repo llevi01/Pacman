@@ -7,25 +7,25 @@ import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
 
 /**
- * Blinky (piros) szellemet reprezentáló osztály
+ * Clyde (narancssárga) szellemet reprezentáló osztály
  */
-public class Blinky extends Ghost{
+public class Clyde extends Ghost {
     /**
-     * Blinky default konstruktor
+     * Clyde default konstruktor
      * @param pacman Pacman referenciája
      */
-    public Blinky(Pacman pacman) {
-        super("Blinky", pacman);
+    public Clyde(Pacman pacman) {
+        super("Clyde", pacman);
     }
 
     @Override
     protected void toStartingPos() {
-        position = Config.BLINKY_STARTING_POS;
+        position = Config.CLYDE_STARTING_POS;
     }
 
     @Override
     protected void initSprites() {
-        defaultSprites = SpriteLoader.blinkySprites;
+        defaultSprites = SpriteLoader.clydeSprites;
         spriteList = defaultSprites.get(Direction.NONE);
         frightenedSprites = SpriteLoader.ghostFrightenedSprites;
         eatenSprites = SpriteLoader.ghostEatenSprites;
@@ -33,11 +33,12 @@ public class Blinky extends Ghost{
 
     @Override
     protected Coordinate getChaseTarget() {
-        return pacman.getMapPosition();
+        return pacman.getMapPosition(); // TODO clyde chase target
     }
 
     @Override
     protected Coordinate getScatterTarget() {
-        return Config.BLIKNY_SCATTER_TARGET;
+        return Config.CLYDE_SCATTER_TARGET;
     }
+
 }

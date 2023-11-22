@@ -13,7 +13,13 @@ import java.util.Objects;
 
 public class SpriteLoader {
     public static Map<String, BufferedImage> tileSprites = new HashMap<>();
-    public static Map<String, Map<Direction, ArrayList<BufferedImage>>> entitySprites = new HashMap<>();
+    public static Map<Direction, ArrayList<BufferedImage>> pacmanSprites = new HashMap<>();
+    public static Map<Direction, ArrayList<BufferedImage>> blinkySprites = new HashMap<>();
+    public static Map<Direction, ArrayList<BufferedImage>> inkySprites = new HashMap<>();
+    public static Map<Direction, ArrayList<BufferedImage>> pinkySprites = new HashMap<>();
+    public static Map<Direction, ArrayList<BufferedImage>> clydeSprites = new HashMap<>();
+    public static ArrayList<BufferedImage> ghostFrightenedSprites = new ArrayList<>();
+    public static Map<Direction, BufferedImage> ghostEatenSprites = new HashMap<>();
 
     public static void loadSprites() {
         loadTileSprites();
@@ -55,8 +61,6 @@ public class SpriteLoader {
         BufferedImage img;
 
         // Load Pacman sprites
-        Map<Direction, ArrayList<BufferedImage>> pacmanSprites = new HashMap<>();
-
         try {
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
@@ -80,7 +84,5 @@ public class SpriteLoader {
         pacmanSprites.put(Direction.LEFT, left);
         pacmanSprites.put(Direction.UP, up);
         pacmanSprites.put(Direction.DOWN, down);
-
-        entitySprites.put("Pacman", pacmanSprites);
     }
 }

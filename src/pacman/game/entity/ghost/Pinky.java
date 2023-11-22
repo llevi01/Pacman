@@ -7,25 +7,25 @@ import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
 
 /**
- * Blinky (piros) szellemet reprezentáló osztály
+ * Pinky (rózsaszín) szellemet reprezentáló osztály
  */
-public class Blinky extends Ghost{
+public class Pinky extends Ghost {
     /**
-     * Blinky default konstruktor
+     * Pinky default konstruktor
      * @param pacman Pacman referenciája
      */
-    public Blinky(Pacman pacman) {
-        super("Blinky", pacman);
+    public Pinky(Pacman pacman) {
+        super("Pinky", pacman);
     }
 
     @Override
     protected void toStartingPos() {
-        position = Config.BLINKY_STARTING_POS;
+        position = Config.PINKY_STARTING_POS;
     }
 
     @Override
     protected void initSprites() {
-        defaultSprites = SpriteLoader.blinkySprites;
+        defaultSprites = SpriteLoader.pinkySprites;
         spriteList = defaultSprites.get(Direction.NONE);
         frightenedSprites = SpriteLoader.ghostFrightenedSprites;
         eatenSprites = SpriteLoader.ghostEatenSprites;
@@ -33,11 +33,12 @@ public class Blinky extends Ghost{
 
     @Override
     protected Coordinate getChaseTarget() {
-        return pacman.getMapPosition();
+        return pacman.getMapPosition(); // TODO pinky chase target
     }
 
     @Override
     protected Coordinate getScatterTarget() {
-        return Config.BLIKNY_SCATTER_TARGET;
+        return Config.PINKY_SCATTER_TARGET;
     }
+
 }
