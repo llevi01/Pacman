@@ -1,10 +1,12 @@
 package pacman.game.entity.ghost;
 
+import pacman.game.util.Config;
+
 public enum GhostState {
-    CHASE(20),
-    SCATTER(7),
-    FRIGHTENED(20),
-    EATEN(-1);
+    CHASE(Config.GHOST_CHASE_STATE_TIME),
+    SCATTER(Config.GHOST_SCATTER_STATE_TIME),
+    FRIGHTENED(Config.GHOST_FRIGHTENED_STATE_TIME),
+    EATEN(Config.GHOST_EATEN_STATE_TIME);
 
     /**
      *
@@ -26,6 +28,6 @@ public enum GhostState {
         remainingTime = -1;
     }
     public boolean isInfinite() {
-        return remainingTime == -1;
+        return remainingTime < 0;
     }
 }

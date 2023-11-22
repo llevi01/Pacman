@@ -13,9 +13,9 @@ public enum Direction {
     RIGHT(1, 0, 4),
     NONE(0, 0, -1);
 
-    private int xOffset;
-    private int yOffset;
-    private int priority;
+    private final int xOffset;
+    private final int yOffset;
+    private final int priority;
 
     /**
      * Direction konstruktor

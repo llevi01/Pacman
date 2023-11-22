@@ -14,11 +14,11 @@ import java.util.*;
 public abstract class Ghost extends Entity {
     /**
      * Ghost default konstruktor
-     * @param id A szellem neve
+     * @param name A szellem neve
      * @param pacman Pacman referenciája
      */
-    public Ghost(String id, Pacman pacman) {
-        super(id);
+    public Ghost(String name, Pacman pacman) {
+        super(name);
         this.pacman = pacman;
         init();
         updateCurrentTile();
@@ -31,44 +31,16 @@ public abstract class Ghost extends Entity {
     /**
      * A szellem következő állapotai
      */
-    private ArrayList<GhostState> nextStates = new ArrayList<>();
+    private final ArrayList<GhostState> nextStates = new ArrayList<>();
     /**
      * Cella, ami felé megy a szellem
      */
     private Coordinate target;
-    /**
-     * A szellem target cellája SCATTER állapotban
-     */
-    protected Coordinate SCATTER_TARGET;
-    /**
-     * A ház előtti cella helye
-     * A játék elején és EATEN állapotban kell
-     */
-    private final Coordinate IN_FRONT_OF_HOUSE = new Coordinate(14,11);
-    /**
-     * A ház egyik belső cellájának helye
-     * EATEN állapotban kell
-     */
-    private final Coordinate INSIDE_HOUSE = new Coordinate(14, 14);
 
     /**
      * Pacman referenciája
      */
     protected Pacman pacman;
-
-    /**
-     * A szellem normál sebessége
-     */
-    private int DEFAULT_SPEED = 4 * Config.SCALE;
-    /**
-     * A szellem sebessége FRIGHTENED állapotban
-     * Ez a sebessége a lassú zónákban is
-     */
-    private int FRIGHTENED_SPEED = DEFAULT_SPEED / 2;
-    /**
-     * A szellem sebessége EATEN állapotban
-     */
-    private int EATEN_SPEED = DEFAULT_SPEED * 2;
 
     /**
      * Az EATEN állapotú szellemek sprite-jai TODO load
@@ -108,7 +80,7 @@ public abstract class Ghost extends Entity {
             return;
         }
 
-        if (animationFrameCounter < ANIMATION_FPS * 2) {
+        if (animationFrameCounter < Config.ENTITY_ANIMATION_FPS * 2) {
             animationFrameCounter++;
             return;
         }
@@ -134,16 +106,20 @@ public abstract class Ghost extends Entity {
         nextStates.add(lastState);
 
         // Többi attribútum inicializálása
-        speed = DEFAULT_SPEED;
-        position = STARTING_POS;
+        speed = Config.GHOST_DEFAULT_SPEED;
+        // position = STARTING_POS; TODO migrate to derived classes
         direction = Direction.NONE;
     }
 
     /**
-     * CHASE állapotban visszaadja a szellem target celláját
-     * Szellemenként eltér az implementációja
+     * Visszaadja a szellem target celláját CHASE állapotban
      */
     protected abstract Coordinate getChaseTarget();
+
+    /**
+     * Visszaadja a szellem target celláját SCATTER állapotban
+     */
+    protected abstract Coordinate getScatterTarget();
 
     /**
      * Minden belső logikát kezelő függvény
@@ -212,14 +188,14 @@ public abstract class Ghost extends Entity {
      */
     private void updateSpeed() {
         switch (state) {
-            case CHASE, SCATTER -> speed = DEFAULT_SPEED;
-            case FRIGHTENED -> speed = FRIGHTENED_SPEED;
-            case EATEN -> speed = EATEN_SPEED;
+            case CHASE, SCATTER -> speed = Config.GHOST_DEFAULT_SPEED;
+            case FRIGHTENED -> speed = Config.GHOST_FRIGHTENED_SPEED;
+            case EATEN -> speed = Config.GHOST_EATEN_SPEED;
         }
 
         // Ha lassú zónában van, olyan lassan megy, mint FRIGHTENED állapotban
         if (isInSlowZone() && !state.equals(GhostState.EATEN)) {
-            speed = FRIGHTENED_SPEED;
+            speed = Config.GHOST_FRIGHTENED_SPEED;
         }
     }
 
@@ -249,7 +225,7 @@ public abstract class Ghost extends Entity {
             return;
         }
         // Ha csak egy irányba tudunk menni, azt választjuk
-        if (validMoves.size() > 2) {
+        if (validMoves.size() == 1) {
             direction = validMoves.get(0);
         }
 
@@ -311,9 +287,7 @@ public abstract class Ghost extends Entity {
             double dist = tilePos.getDistance(target);
 
             switch (compareDistances(dist, lowestDist)) {
-                case 0 -> {
-                    bestMoves.add(dir);
-                }
+                case 0 -> bestMoves.add(dir);
                 case -1 -> {
                     bestMoves.clear();
                     bestMoves.add(dir);
@@ -335,13 +309,13 @@ public abstract class Ghost extends Entity {
 
     protected void updateTargetTile() {
         if (isInsideHouse()) {
-            target = IN_FRONT_OF_HOUSE;
+            target = Config.IN_FRONT_OF_GHOST_HOUSE;
         }
         switch (state) {
             case CHASE -> target = getChaseTarget();
-            case SCATTER -> target = SCATTER_TARGET;
+            case SCATTER -> target = getScatterTarget();
             case FRIGHTENED -> target = null;
-            case EATEN -> target = isInFrontOfHouse() ? INSIDE_HOUSE : IN_FRONT_OF_HOUSE;
+            case EATEN -> target = isInFrontOfHouse() ? Config.INSIDE_GHOST_HOUSE : Config.IN_FRONT_OF_GHOST_HOUSE;
         }
     }
 
@@ -360,6 +334,6 @@ public abstract class Ghost extends Entity {
     }
 
     protected boolean isInFrontOfHouse() {
-        return position.equals(IN_FRONT_OF_HOUSE);
+        return position.equals(Config.IN_FRONT_OF_GHOST_HOUSE);
     }
 }

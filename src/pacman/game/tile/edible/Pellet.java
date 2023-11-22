@@ -2,6 +2,7 @@ package pacman.game.tile.edible;
 
 import pacman.game.Game;
 import pacman.game.tile.Coordinate;
+import pacman.game.util.Config;
 
 import java.awt.image.BufferedImage;
 
@@ -14,7 +15,7 @@ public class Pellet extends Edible {
      */
     public Pellet(Coordinate mapPosition, BufferedImage sprite) {
         super(mapPosition, sprite);
-        scoreModifier = PELLET_SCORE_MODIFIER;
+        scoreModifier = Config.PELLET_SCORE_MODIFIER;
         Game.remainingPellets++;
     }
 }

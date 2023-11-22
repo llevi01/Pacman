@@ -26,12 +26,10 @@ public class Pacman extends Entity {
         updateCurrentTile();
     }
 
-    public int lives;
-
     /**
-     * Pacman sebessége (pixel / frame)
+     * Pacman maradék életeinek száma
      */
-    private static final int DEFAULT_SPEED = 4;
+    public int lives;
 
     /**
      * A következő lehetőségnél Pacman ebbe az írányba fordul
@@ -44,16 +42,12 @@ public class Pacman extends Entity {
      * Inicializáló metódus
      */
     protected void init() {
-        STARTING_POS = new Coordinate(
-                (13 * Config.TILE_SIZE + 3) * Config.SCALE,
-                (23 * Config.TILE_SIZE + 3) * Config.SCALE
-        );
+        lives = Config.PACMAN_LIVES;
+        speed = Config.PACMAN_SPEED;
+        position = Config.PACMAN_STARTING_POS;
 
-        speed = DEFAULT_SPEED;
-        position = STARTING_POS;
-        direction = Direction.NONE; // TODO none
+        direction = Direction.NONE;
         nextDirection = Direction.NONE;
-        lives = 3;
     }
 
     /**

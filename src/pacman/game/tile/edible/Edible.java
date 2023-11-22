@@ -49,11 +49,4 @@ public abstract class Edible extends Tile {
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
                 Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE, null);
     }
-
-    protected static final int PELLET_SCORE_MODIFIER = 10;
-    protected static final int POWER_PELLET_SCORE_MODIFIER = 50;
-    protected static final int CHERRY_SCORE_MODIFIER = 100;
-    protected static final int STRAWBERRY_SCORE_MODIFIER = 300;
-    protected static final int ORANGE_SCORE_MODIFIER = 500;
-    protected static final int APPLE_SCORE_MODIFIER = 700;
 }

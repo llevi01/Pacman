@@ -1,6 +1,7 @@
 package pacman.game.tile.edible;
 
 import pacman.game.tile.Coordinate;
+import pacman.game.util.Config;
 
 import java.awt.image.BufferedImage;
 
@@ -11,6 +12,6 @@ import java.awt.image.BufferedImage;
 public class PowerPellet extends Edible {
     public PowerPellet(Coordinate mapPosition, BufferedImage sprite) {
         super(mapPosition, sprite);
-        scoreModifier = POWER_PELLET_SCORE_MODIFIER;
+        scoreModifier = Config.POWER_PELLET_SCORE_MODIFIER;
     }
 }

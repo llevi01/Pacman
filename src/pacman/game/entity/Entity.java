@@ -27,7 +27,7 @@ public abstract class Entity {
     /**
      * Az entitást azonosító sztring
      */
-    private String name;
+    private final String name;
 
     /**
      * Az Entity-t reprezentáló sprite középpontjának helye a képernyőn
@@ -36,12 +36,6 @@ public abstract class Entity {
      * a (ENTITY_SIZE - TILE_SIZE) * SCALE egész számot.
      */
     protected Coordinate position;
-
-    /**
-     * Az Entiy kezdő helye
-     * @warning Képernyő koordináta
-     */
-    protected Coordinate STARTING_POS;
 
     /**
      * Az Entity aktuális haladási iránya
@@ -54,7 +48,7 @@ public abstract class Entity {
     protected Tile currentTile;
 
     /**
-     * Az entitás aktuális sebessége (pixel / s)
+     * Az entitás aktuális sebessége (pixel / frame)
      */
     protected int speed;
 
@@ -80,11 +74,6 @@ public abstract class Entity {
      * Az aktuális sprite
      */
     protected BufferedImage sprite;
-
-    /**
-     * Ennyi framenként vált spriteot az Entity
-     */
-    protected final int ANIMATION_FPS = 5;
 
     /**
      * A legutóbbi sprite váltás után eltelt framek száma
@@ -130,7 +119,7 @@ public abstract class Entity {
         sprite = spriteList.get(spriteIndex);
 
 
-        if (animationFrameCounter < ANIMATION_FPS) {
+        if (animationFrameCounter < Config.ENTITY_ANIMATION_FPS) {
             animationFrameCounter++;
             return;
         }
