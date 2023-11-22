@@ -54,7 +54,7 @@ public class Pacman extends Entity {
     }
 
     protected void initSprites() {
-        defaultSprites = SpriteLoader.entitySprites.get("Pacman");
+        defaultSprites = SpriteLoader.pacmanSprites;
         spriteList = defaultSprites.get(Direction.NONE);
     }
 

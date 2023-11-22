@@ -10,12 +10,19 @@ import pacman.game.util.SpriteLoader;
  * Inky (kék) szellemet reprezentáló osztály
  */
 public class Inky extends Ghost {
+
+    /**
+     * Blinky referenciája
+     */
+    Blinky blinky;
+
     /**
      * Inky default konstruktor
      * @param pacman Pacman referenciája
      */
-    public Inky(Pacman pacman) {
+    public Inky(Pacman pacman, Blinky blinky) {
         super("Inky", pacman);
+        this.blinky = blinky;
     }
 
     @Override
@@ -33,7 +40,14 @@ public class Inky extends Ghost {
 
     @Override
     protected Coordinate getChaseTarget() {
-        return pacman.getMapPosition(); // TODO inky chase target
+        Coordinate pacmanPos = pacman.getMapPosition();
+        Coordinate pacmanDirVector = pacman.getDirection().getVector();
+        Coordinate blinkyPos = blinky.getMapPosition();
+
+        Coordinate temp = pacmanPos.add(pacmanDirVector.multiply(2));
+        Coordinate vector = temp.subtract(blinkyPos);
+        vector = vector.multiply(2);
+        return blinkyPos.add(vector);
     }
 
     @Override

@@ -33,7 +33,10 @@ public class Pinky extends Ghost {
 
     @Override
     protected Coordinate getChaseTarget() {
-        return pacman.getMapPosition(); // TODO pinky chase target
+        Coordinate pacmanPos = pacman.getMapPosition();
+        Direction pacmanDirection = pacman.getDirection();
+        Coordinate offset = pacmanDirection.getVector().multiply(4);
+        return pacmanPos.add(offset);
     }
 
     @Override

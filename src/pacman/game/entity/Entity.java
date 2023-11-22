@@ -106,6 +106,10 @@ public abstract class Entity {
         return name;
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
     /**
      * Az Entity megjelenítése a képernyőn
      * @param graphics Erre történik a festés

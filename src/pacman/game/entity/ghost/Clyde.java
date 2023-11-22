@@ -33,7 +33,13 @@ public class Clyde extends Ghost {
 
     @Override
     protected Coordinate getChaseTarget() {
-        return pacman.getMapPosition(); // TODO clyde chase target
+        Coordinate pacmanPos = pacman.getMapPosition();
+        double distance = pacmanPos.getDistance(this.getMapPosition());
+
+        if (distance > 8) {
+            return pacmanPos;
+        }
+        return Config.CLYDE_SCATTER_TARGET;
     }
 
     @Override
