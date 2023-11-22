@@ -3,6 +3,7 @@ package pacman.game.entity.pacman;
 import pacman.game.Game;
 import pacman.game.entity.Direction;
 import pacman.game.entity.Entity;
+import pacman.game.entity.ghost.Ghost;
 import pacman.game.input.InputHandler;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
@@ -25,6 +26,8 @@ public class Pacman extends Entity {
         updateCurrentTile();
     }
 
+    public int lives;
+
     /**
      * Pacman sebessége (pixel / frame)
      */
@@ -35,7 +38,7 @@ public class Pacman extends Entity {
      * Akkor van értelme, amikor a játékos kiválaszt egy olyan irányt,
      * amerre Pacman éppen nem tud menni (ez kereszteződések előtt fordul elő)
      */
-    private Direction nextDirection = Direction.NONE;
+    private Direction nextDirection;
 
     /**
      * Inicializáló metódus
@@ -48,15 +51,9 @@ public class Pacman extends Entity {
 
         speed = DEFAULT_SPEED;
         position = STARTING_POS;
-        direction = Direction.RIGHT; // TODO none
-    }
-
-    /**
-     * Pacman elveszít egy életet
-     * Az a szellem hívja meg, aki megsebezte
-     */
-    public void hurt() {
-
+        direction = Direction.NONE; // TODO none
+        nextDirection = Direction.NONE;
+        lives = 3;
     }
 
     /**
@@ -124,26 +121,37 @@ public class Pacman extends Entity {
             return;
         }
 
-        if (currentTile instanceof Edible) {
-            Edible edible = (Edible) currentTile;
-            if (edible.getState() == EdibleState.EATEN) {
-                return;
-            }
+        if (currentTile instanceof Edible edible) {
+            if (edible.getState() != EdibleState.EATEN) {
+                // Találtunk egy nem elfogyasztott ehetőt
+                edible.toEatenState();
+                Game.score += edible.getScoreModifier();
 
-            edible.toEatenState();
-            Game.score += edible.getScoreModifier();
-
-            if (edible instanceof Pellet) {
-                Game.remainingPellets--;
-            } else if (edible instanceof PowerPellet) {
-                powerPelletEaten();
+                if (edible instanceof Pellet) {
+                    Game.remainingPellets--;
+                } else if (edible instanceof PowerPellet) {
+                    powerPelletEaten();
+                }
             }
         }
 
         // Ha más Entity is van ezen a Tile-n az csak szellem lehet, ekkor veszítünk egy életet TODO ez így nem jó
         if (currentTile.entities.size() > 1) {
-            Game.lives--;
+            for (Entity entity : currentTile.entities) {
+                if (!(entity instanceof Ghost ghost)) {
+                    continue;
+                }
+                ghost.interact();
+            }
         }
+    }
+
+    /**
+     * Pacman elveszít egy életet
+     * Az a szellem hívja meg, aki megsebezte
+     */
+    public void hurt() {
+
     }
 
     /**

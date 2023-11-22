@@ -103,7 +103,8 @@ public abstract class Ghost extends Entity {
         int fullTime = GhostState.FRIGHTENED.getRemainingTime();
         int remainingTime = state.getRemainingTime();
         if (remainingTime > fullTime / 4) {
-            sprite = frightenedSprites.get(0);
+            spriteIndex = 0;
+            sprite = frightenedSprites.get(spriteIndex);
             return;
         }
 
@@ -131,6 +132,11 @@ public abstract class Ghost extends Entity {
         GhostState lastState = GhostState.CHASE;
         lastState.setInfiniteRemainingTime();
         nextStates.add(lastState);
+
+        // Többi attribútum inicializálása
+        speed = DEFAULT_SPEED;
+        position = STARTING_POS;
+        direction = Direction.NONE;
     }
 
     /**
@@ -151,8 +157,8 @@ public abstract class Ghost extends Entity {
         updateSpeed();
         position = position.add(direction.getVector()).multiply(speed);
 
-        checkWallCollisions(); // ez nem kellene ide, biztonság kedvéért mégis itt van
         checkOutOfFrame();
+        checkWallCollisions(); // ez nem kellene ide, biztonság kedvéért mégis itt van
 
         updateCurrentTile();
     }
@@ -238,8 +244,12 @@ public abstract class Ghost extends Entity {
 
         List<Direction> validMoves = getValidMoves();
 
+        // Ha nincs érvényes lépés, nem változtatunk irányt (ez az alagútban fordulhat elő)
+        if (validMoves.isEmpty()) {
+            return;
+        }
         // Ha csak egy irányba tudunk menni, azt választjuk
-        if (validMoves.size() < 2) {
+        if (validMoves.size() > 2) {
             direction = validMoves.get(0);
         }
 

@@ -126,10 +126,9 @@ public abstract class Entity {
      * A sprite frissítése
      */
     protected void updateSprite() {
-        // TODO refactor
-        if (direction != Direction.NONE) {
-            spriteList = defaultSprites.get(direction);
-        }
+        spriteList = defaultSprites.get(direction);
+        sprite = spriteList.get(spriteIndex);
+
 
         if (animationFrameCounter < ANIMATION_FPS) {
             animationFrameCounter++;
