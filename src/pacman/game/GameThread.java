@@ -7,9 +7,7 @@ import pacman.game.util.Config;
  */
 public class GameThread extends Thread {
     private static double deltaTime;        // A legutóbbi render-update blokk óta eltelt idő (ns)
-    private static double lastLoopTime;   // A legutóbbi loop időpontja (ns)
     private static final double timeSlice = 500000000 / (double) Config.DISPLAY_TARGET_FPS; // Két render-update blokk között eltelő idő optimális esetben (ns) TODO nem jó
-
     private static double timer = 0;
     private static int drawCounter = 0;
 
@@ -18,7 +16,8 @@ public class GameThread extends Thread {
      */
     @Override
     public void run() {
-        lastLoopTime = System.nanoTime();
+        // A legutóbbi loop időpontja (ns)
+        double lastLoopTime = System.nanoTime();
 
         while (Game.running) {
             deltaTime += System.nanoTime() - lastLoopTime;

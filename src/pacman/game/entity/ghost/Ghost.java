@@ -14,11 +14,9 @@ import java.util.*;
 public abstract class Ghost extends Entity {
     /**
      * Ghost default konstruktor
-     * @param name A szellem neve
      * @param pacman Pacman referenciája
      */
-    public Ghost(String name, Pacman pacman) {
-        super(name);
+    public Ghost(Pacman pacman) {
         this.pacman = pacman;
         init();
         updateCurrentTile();

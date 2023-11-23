@@ -28,7 +28,7 @@ public abstract class Tile {
      */
     public boolean isWalkable() {
         return true;
-    };
+    }
 
     /**
      * Entity-k, amik jelenleg ezen a Tile-n vannak
@@ -49,14 +49,6 @@ public abstract class Tile {
 
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
                 Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE, null);
-    }
-
-    /**
-     * Visszaadja a Tile pályán elfoglalt helyét
-     * @return
-     */
-    public Coordinate getMapPosition() {
-        return mapPosition;
     }
 
     /**

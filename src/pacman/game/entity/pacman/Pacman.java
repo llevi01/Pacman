@@ -19,7 +19,6 @@ public class Pacman extends Entity {
      * Pacman default konstruktor
      */
     public Pacman() {
-        super("Pacman");
         init();
         updateCurrentTile();
     }

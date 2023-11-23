@@ -15,7 +15,7 @@ public class Clyde extends Ghost {
      * @param pacman Pacman referenciája
      */
     public Clyde(Pacman pacman) {
-        super("Clyde", pacman);
+        super(pacman);
     }
 
     @Override

@@ -16,16 +16,8 @@ import java.util.Map;
 public abstract class Entity {
     /**
      * Entity default konstruktor
-     * @param name Az entitás neve
      */
-    public Entity(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Az entitást azonosító sztring
-     */
-    private final String name;
+    public Entity() {}
 
     /**
      * Az Entity-t reprezentáló sprite középpontjának helye a képernyőn
@@ -100,12 +92,8 @@ public abstract class Entity {
     public abstract void update();
 
     /**
-     * Name getter
+     * Direction getter
      */
-    public String getName() {
-        return name;
-    }
-
     public Direction getDirection() {
         return direction;
     }

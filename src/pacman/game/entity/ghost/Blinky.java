@@ -15,7 +15,7 @@ public class Blinky extends Ghost{
      * @param pacman Pacman referenciája
      */
     public Blinky(Pacman pacman) {
-        super("Blinky", pacman);
+        super(pacman);
     }
 
     @Override

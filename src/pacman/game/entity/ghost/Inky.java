@@ -19,9 +19,10 @@ public class Inky extends Ghost {
     /**
      * Inky default konstruktor
      * @param pacman Pacman referenciája
+     * @param blinky Blinky referenciája
      */
     public Inky(Pacman pacman, Blinky blinky) {
-        super("Inky", pacman);
+        super(pacman);
         this.blinky = blinky;
     }
 

@@ -15,7 +15,7 @@ public class Pinky extends Ghost {
      * @param pacman Pacman referenciája
      */
     public Pinky(Pacman pacman) {
-        super("Pinky", pacman);
+        super(pacman);
     }
 
     @Override
