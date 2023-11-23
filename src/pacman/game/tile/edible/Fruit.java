@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
  * Gyümölcsöt reprezentáló osztály
  */
 public class Fruit extends Edible {
+    public static Coordinate location;
+    public static int timer;
     /**
      * Fruit default konstruktor
      * @param type A gyümölcs neve
@@ -22,5 +24,7 @@ public class Fruit extends Edible {
             case "apple" -> scoreModifier = Config.APPLE_SCORE_MODIFIER;
             default -> scoreModifier = Config.PELLET_SCORE_MODIFIER;
         }
+        location = mapPosition;
+        timer = 0;
     }
 }

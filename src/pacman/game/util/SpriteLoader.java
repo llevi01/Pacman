@@ -65,6 +65,22 @@ public class SpriteLoader {
                     SpriteLoader.class.getResourceAsStream("/sprites/edibles/powerpellet.png")));
             tileSprites.put("powerpellet", img);
 
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/edibles/cherry.png")));
+            tileSprites.put("cherry", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/edibles/strawberry.png")));
+            tileSprites.put("strawberry", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/edibles/orange.png")));
+            tileSprites.put("orange", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/edibles/apple.png")));
+            tileSprites.put("apple", img);
+
         } catch (IOException | NullPointerException e) {
             error();
             System.exit(1);
