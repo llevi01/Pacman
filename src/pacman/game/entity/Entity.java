@@ -89,9 +89,9 @@ public abstract class Entity {
     protected abstract void initSprites();
 
     /**
-     * A kezdő helyére rakja az Entity-t
+     * Kezdőállapotba helyezi az Entity-t
      */
-    protected abstract void toStartingPos();
+    public abstract void toStartingPos();
 
     /**
      * Az Entity-hez tartozó logika végrehajtása

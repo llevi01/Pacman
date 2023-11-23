@@ -189,7 +189,10 @@ public abstract class Ghost extends Entity {
     public void interact() {
         switch (state) {
             case CHASE, SCATTER, INFINITE_CHASE -> pacman.hurt();
-            case FRIGHTENED -> toEatenState();
+            case FRIGHTENED -> {
+                pacman.ghostEaten();
+                toEatenState();
+            }
         }
     }
 

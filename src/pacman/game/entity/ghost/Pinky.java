@@ -19,7 +19,7 @@ public class Pinky extends Ghost {
     }
 
     @Override
-    protected void toStartingPos() {
+    public void toStartingPos() {
         position = Config.PINKY_STARTING_POS;
         direction = Config.PINKY_STARTING_DIR;
     }

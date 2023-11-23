@@ -1,8 +1,10 @@
 package pacman.game.util;
 
+import pacman.game.Game;
 import pacman.game.entity.Direction;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +21,11 @@ public class SpriteLoader {
     public static Map<Direction, ArrayList<BufferedImage>> clydeSprites = new HashMap<>();
     public static ArrayList<BufferedImage> ghostFrightenedSprites = new ArrayList<>();
     public static Map<Direction, BufferedImage> ghostEatenSprites = new HashMap<>();
+
+    private static void error() {
+        JOptionPane.showMessageDialog(Game.frame, Error.LOADING_SPRITES.message,
+                "Pacman", JOptionPane.ERROR_MESSAGE);
+    }
 
     public static void loadSprites() {
         loadTileSprites();
@@ -41,8 +48,8 @@ public class SpriteLoader {
                     SpriteLoader.class.getResourceAsStream("/sprites/walls/wall_placeholder.png")));
             tileSprites.put("wall_placeholder", img);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
     }
@@ -58,8 +65,8 @@ public class SpriteLoader {
                     SpriteLoader.class.getResourceAsStream("/sprites/edibles/powerpellet.png")));
             tileSprites.put("powerpellet", img);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
     }
@@ -99,7 +106,8 @@ public class SpriteLoader {
             left.add(img);
 
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
         pacmanSprites.put(Direction.NONE, none);
@@ -148,7 +156,8 @@ public class SpriteLoader {
             left.add(img);
 
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
         blinkySprites.put(Direction.NONE, none);
@@ -188,7 +197,8 @@ public class SpriteLoader {
             left.add(img);
 
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
         pinkySprites.put(Direction.NONE, none);
@@ -228,7 +238,8 @@ public class SpriteLoader {
             left.add(img);
 
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
         inkySprites.put(Direction.NONE, none);
@@ -268,7 +279,8 @@ public class SpriteLoader {
             left.add(img);
 
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
         clydeSprites.put(Direction.NONE, none);
@@ -299,7 +311,8 @@ public class SpriteLoader {
             ghostFrightenedSprites.add(img);
 
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
     }
@@ -324,7 +337,8 @@ public class SpriteLoader {
             ghostEatenSprites.put(Direction.LEFT, img);
 
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            error();
             System.exit(1);
         }
     }

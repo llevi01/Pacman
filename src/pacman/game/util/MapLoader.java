@@ -8,6 +8,7 @@ import pacman.game.tile.edible.Pellet;
 import pacman.game.tile.edible.PowerPellet;
 import pacman.game.tile.wall.Wall;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -61,7 +62,8 @@ public class MapLoader {
             }
 
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(Game.frame, Error.LOADING_MAP.message,
+                    "Pacman", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
 

@@ -12,20 +12,18 @@ import pacman.game.tile.Tile;
 import pacman.game.util.MapLoader;
 import pacman.game.util.SpriteLoader;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Game {
-    private static GameFrame frame;
+    public static GameFrame frame;
     private static MapPanel mapPanel;
-    private static GameThread gameThread;
+    private static final GameThread gameThread;
     public static boolean running;
     public static ArrayList<ArrayList<Tile>> map;
     public static ArrayList<Entity> entities;
     public static int remainingPellets = 0;
-    public static int score = 0;
-    public static int lives = 3; // TODO ezt átgondolni
+    public static int score;
+    private static Pacman pacman;
 
     static {
         gameThread = new GameThread();
@@ -36,6 +34,7 @@ public class Game {
         initDisplay();
         initEntities();
 
+        score = 0;
         running = true;
         gameThread.start();
     }
@@ -47,7 +46,7 @@ public class Game {
         for (Entity entity : entities) {
             entity.update();
         }
-        if (lives < 1 || remainingPellets < 1) {
+        if (pacman.getLives() < 1 || remainingPellets < 1) {
             running = false;
         }
     }
@@ -75,7 +74,7 @@ public class Game {
     }
     private static void initEntities() {
         entities = new ArrayList<>();
-        Pacman pacman = new Pacman();
+        pacman = new Pacman();
         Blinky blinky = new Blinky(pacman);
         Pinky pinky = new Pinky(pacman);
         Inky inky = new Inky(pacman, blinky);

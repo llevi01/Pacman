@@ -19,7 +19,7 @@ public class Clyde extends Ghost {
     }
 
     @Override
-    protected void toStartingPos() {
+    public void toStartingPos() {
         position = Config.CLYDE_STARTING_POS;
         direction = Config.CLYDE_STARTING_DIR;
     }

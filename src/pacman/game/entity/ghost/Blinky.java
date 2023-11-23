@@ -19,7 +19,7 @@ public class Blinky extends Ghost{
     }
 
     @Override
-    protected void toStartingPos() {
+    public void toStartingPos() {
         position = Config.BLINKY_STARTING_POS;
         direction = Config.BLINKY_STARTING_DIR;
     }

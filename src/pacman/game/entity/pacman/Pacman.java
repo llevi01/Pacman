@@ -30,7 +30,21 @@ public class Pacman extends Entity {
     /**
      * Pacman maradék életeinek száma
      */
-    public int lives;
+    private int lives;
+
+    /**
+     * Megevett szellemek száma egy PowerPellet elfogyasztása után
+     * Azért kell, mert minél több szellemet eszik meg Pacman,
+     * annál több pontot kap
+     */
+    private int ghostsEaten;
+
+    /**
+     * Azon alkalmak száma, amikor a játékos egy PowerPellet elfogyasztása
+     * után mind a 4 szellemet elkapta. Ha ez mind a 4 PowerPellet után
+     * megtörténik, a játékos 12000 extra pontot kap
+     */
+    private int perfectRun;
 
     /**
      * A következő lehetőségnél Pacman ebbe az írányba fordul
@@ -40,11 +54,17 @@ public class Pacman extends Entity {
     private Direction nextDirection;
 
     /**
-     * Inicializáló metódus
+     * Visszaadja Pacman életeinek számát
      */
+    public int getLives() {
+        return lives;
+    }
+
     protected void init() {
         lives = Config.PACMAN_LIVES;
         speed = Config.PACMAN_SPEED;
+        ghostsEaten = 0;
+        perfectRun = 0;
         toStartingPos();
 
         initSprites();
@@ -57,7 +77,7 @@ public class Pacman extends Entity {
         sprite = spriteList.get(spriteIndex);
     }
 
-    protected void toStartingPos() {
+    public void toStartingPos() {
         position = Config.PACMAN_STARTING_POS;
         direction = Direction.NONE;
         nextDirection = Direction.NONE;
@@ -119,6 +139,25 @@ public class Pacman extends Entity {
     }
 
     /**
+     * Visszaadja a felhasználó által éppen kiválasztott irányt
+     */
+    private Direction getChosenDirection() {
+        if (InputHandler.upPressed) {
+            return Direction.UP;
+        }
+        if (InputHandler.leftPressed) {
+            return Direction.LEFT;
+        }
+        if (InputHandler.downPressed) {
+            return Direction.DOWN;
+        }
+        if (InputHandler.rightPressed) {
+            return Direction.RIGHT;
+        }
+        return nextDirection;
+    }
+
+    /**
      * A jelenlegi Tile-el való interakció
      * A rajta lévő Edible elfogyasztása,
      * szellemekkel való interakció
@@ -170,24 +209,21 @@ public class Pacman extends Entity {
                 ghost.toFrightenedState();
             }
         }
+        ghostsEaten = 0;
     }
 
     /**
-     * Visszaadja a felhasználó által éppen kiválasztott irányt
+     * Módosítja a pontszámot a megfelelő számmal
+     * Az a szellem hívja meg, akit Pacman megevett
      */
-    private Direction getChosenDirection() {
-        if (InputHandler.upPressed) {
-            return Direction.UP;
+    public void ghostEaten() {
+        ghostsEaten++;
+        Game.score += (1 << ghostsEaten) * 100;
+        if (ghostsEaten > 3) {
+            perfectRun ++;
         }
-        if (InputHandler.leftPressed) {
-            return Direction.LEFT;
+        if (perfectRun > 3) {
+            Game.score += 12000;
         }
-        if (InputHandler.downPressed) {
-            return Direction.DOWN;
-        }
-        if (InputHandler.rightPressed) {
-            return Direction.RIGHT;
-        }
-        return nextDirection;
     }
 }

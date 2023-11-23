@@ -1,6 +1,5 @@
 package pacman.game.util;
 
-import org.w3c.dom.ranges.DocumentRange;
 import pacman.game.entity.Direction;
 import pacman.game.tile.Coordinate;
 

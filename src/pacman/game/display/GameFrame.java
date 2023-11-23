@@ -6,6 +6,7 @@ import javax.swing.*;
 
 /**
  * Ebben az ablakban jelenik meg a játék
+ * Ez az osztály felelős még a hiba dialog box-ok megjelenítéséért
  */
 public class GameFrame extends JFrame {
     public GameFrame() {
