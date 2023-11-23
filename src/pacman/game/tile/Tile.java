@@ -45,7 +45,7 @@ public abstract class Tile {
      * @param graphics Erre történik a festés
      */
     public void render(Graphics2D graphics) {
-        Coordinate drawPosition = getDrawPos();
+        Coordinate drawPosition = getDrawPosition();
 
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
                 Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE, null);
@@ -59,7 +59,10 @@ public abstract class Tile {
         return mapPosition;
     }
 
-    protected Coordinate getDrawPos() {
+    /**
+     * Visszaadja azt a képernyő koordinátát, ahonnan a sprite rajzolását kezdeni kell
+     */
+    protected Coordinate getDrawPosition() {
         int multiplier = Config.TILE_SPRITE_SIZE * Config.SCALE;
         return new Coordinate(
                 this.mapPosition.x * multiplier,

@@ -44,7 +44,7 @@ public abstract class Edible extends Tile {
             return;
         }
 
-        Coordinate drawPosition = getDrawPos();
+        Coordinate drawPosition = getDrawPosition();
 
         graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
                 Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE, null);

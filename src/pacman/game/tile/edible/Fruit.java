@@ -3,6 +3,7 @@ package pacman.game.tile.edible;
 import pacman.game.tile.Coordinate;
 import pacman.game.util.Config;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -26,5 +27,24 @@ public class Fruit extends Edible {
         }
         location = mapPosition;
         timer = 0;
+    }
+
+    protected Coordinate getDrawPosition() {
+        int offset = (4) * Config.SCALE; // TODO ezt szebben kiszámolni
+        return new Coordinate(
+                super.getDrawPosition().x - offset,
+                super.getDrawPosition().y - offset
+        );
+    }
+
+    public void render(Graphics2D graphics) {
+        if (state == EdibleState.EATEN) {
+            return;
+        }
+
+        Coordinate drawPosition = this.getDrawPosition();
+
+        graphics.drawImage(sprite, drawPosition.x, drawPosition.y,
+                Config.ON_SCREEN_ENTITY_SIZE, Config.ON_SCREEN_ENTITY_SIZE, null);
     }
 }
