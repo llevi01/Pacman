@@ -1,5 +1,7 @@
 package pacman.game.util;
 
+import org.w3c.dom.ranges.DocumentRange;
+import pacman.game.entity.Direction;
 import pacman.game.tile.Coordinate;
 
 /**
@@ -33,19 +35,38 @@ public class Config {
 
 
     // Ghost
+    // speed
     public static final int GHOST_DEFAULT_SPEED = PACMAN_SPEED;
     public static final int GHOST_FRIGHTENED_SPEED = GHOST_DEFAULT_SPEED / 2;
     public static final int GHOST_EATEN_SPEED  = GHOST_DEFAULT_SPEED * 2;
+
+    //target
     public static final Coordinate IN_FRONT_OF_GHOST_HOUSE = new Coordinate(14, 11);
     public static final Coordinate INSIDE_GHOST_HOUSE = new Coordinate(14, 14);
     public static final Coordinate BLIKNY_SCATTER_TARGET = new Coordinate(25, -3);
     public static final Coordinate PINKY_SCATTER_TARGET = new Coordinate(2, -3);
     public static final Coordinate INKY_SCATTER_TARGET = new Coordinate(27, 33);
     public static final Coordinate CLYDE_SCATTER_TARGET = new Coordinate(0, 33);
-    public static final Coordinate BLINKY_STARTING_POS = new Coordinate(0, 0);
-    public static final Coordinate PINKY_STARTING_POS = new Coordinate(0, 0);
-    public static final Coordinate INKY_STARTING_POS = new Coordinate(0, 0);
-    public static final Coordinate CLYDE_STARTING_POS = new Coordinate(0, 0);
+
+    // starting position
+    public static final Coordinate BLINKY_STARTING_POS = new Coordinate(
+            (13 * TILE_SPRITE_SIZE + 3 + 4) * SCALE,
+            (11 * TILE_SPRITE_SIZE + 3) * SCALE);
+    public static final Coordinate PINKY_STARTING_POS = new Coordinate(
+            (13 * TILE_SPRITE_SIZE + 3 + 4) * SCALE,
+            (14 * TILE_SPRITE_SIZE + 3) * SCALE);
+    public static final Coordinate INKY_STARTING_POS = new Coordinate(
+            (11 * TILE_SPRITE_SIZE + 3 + 4) * SCALE,
+            (14 * TILE_SPRITE_SIZE + 3) * SCALE);
+    public static final Coordinate CLYDE_STARTING_POS = new Coordinate(
+            (15 * TILE_SPRITE_SIZE + 3 + 4) * SCALE,
+            (14 * TILE_SPRITE_SIZE + 3) * SCALE);
+
+    // starting direction
+    public static final Direction BLINKY_STARTING_DIR = Direction.LEFT;
+    public static final Direction PINKY_STARTING_DIR = Direction.LEFT;
+    public static final Direction INKY_STARTING_DIR = Direction.RIGHT;
+    public static final Direction CLYDE_STARTING_DIR = Direction.RIGHT;
 
 
     // Ghost state

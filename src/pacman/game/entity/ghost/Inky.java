@@ -28,6 +28,7 @@ public class Inky extends Ghost {
     @Override
     protected void toStartingPos() {
         position = Config.INKY_STARTING_POS;
+        direction = Config.CLYDE_STARTING_DIR;
     }
 
     @Override

@@ -12,7 +12,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * A pálya betöltéséért felelős osztály
+ */
 public class MapLoader {
+    /**
+     * Ez a metódus tölti be a pályát
+     */
     public static void loadMap() {
         ArrayList<ArrayList<Tile>> map = new ArrayList<>();
 
@@ -28,11 +34,12 @@ public class MapLoader {
                 row = new ArrayList<>();
                 for (int j = 0; j < line.length(); j++) {
                     char c = line.charAt(j);
-                    String key = getSpriteKey(c);
-                    BufferedImage sprite = SpriteLoader.tileSprites.get(key);
 
                     // Ha betűvel van reprezentálva, akkor fal
                     if (!Character.isDigit(c)) {
+                        String key = getWallSpriteKey(c);
+                        BufferedImage sprite = SpriteLoader.tileSprites.get(key);
+
                         row.add(row.size(), new Wall(new Coordinate(j, i), sprite));
                         continue;
                     }
@@ -56,10 +63,15 @@ public class MapLoader {
         Game.setMap(map);
     }
 
-    private static String getSpriteKey(char c) {
+    /**
+     * Egy fal sprite-jának kulcsát adja vissza
+     * @param c A fal reprezentációja a map.txt-ben
+     * @return A fal sprite-jának kulcsa a SpriteLoader.tileSprites map-ben
+     */
+    private static String getWallSpriteKey(char c) {
         String res = null;
         switch (c) {
-            case '-' -> res = "empty_placeholder";
+            case '-' -> res = "empty";
             case '#' -> res = "wall_placeholder";
         }
         // TODO tile types
