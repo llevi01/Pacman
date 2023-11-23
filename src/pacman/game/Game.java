@@ -8,7 +8,9 @@ import pacman.game.entity.ghost.Clyde;
 import pacman.game.entity.ghost.Inky;
 import pacman.game.entity.ghost.Pinky;
 import pacman.game.entity.pacman.Pacman;
+import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
+import pacman.game.tile.edible.Fruit;
 import pacman.game.util.MapLoader;
 import pacman.game.util.SpriteLoader;
 
@@ -19,9 +21,12 @@ public class Game {
     private static MapPanel mapPanel;
     private static final GameThread gameThread;
     public static boolean running;
-    public static ArrayList<ArrayList<Tile>> map;
-    public static ArrayList<Entity> entities;
+    public static ArrayList<ArrayList<Tile>> map = new ArrayList<>();
+    public static ArrayList<Entity> entities = new ArrayList<>();
+    public static ArrayList<Fruit> fruit = new ArrayList<>();
+    private static int fruitTimer = 0;
     public static int remainingPellets = 0;
+    private static int maxPellets;
     public static int score;
     private static Pacman pacman;
 
@@ -46,6 +51,7 @@ public class Game {
         for (Entity entity : entities) {
             entity.update();
         }
+        doFruitLogic();
         if (pacman.getLives() < 1 || remainingPellets < 1) {
             running = false;
         }
@@ -71,6 +77,7 @@ public class Game {
     private static void initGame() {
         SpriteLoader.loadSprites();
         MapLoader.loadMap();
+        maxPellets = remainingPellets;
     }
     private static void initEntities() {
         entities = new ArrayList<>();
@@ -85,5 +92,26 @@ public class Game {
         entities.add(pinky);
         entities.add(inky);
         entities.add(clyde);
+    }
+
+    /**
+     * Gyümölcsök elhelyezéséért felelős metódus
+     */
+    private static void doFruitLogic() {
+        int pelletsEaten = maxPellets - remainingPellets;
+        // Első gyümölcs
+        if (fruit.size() > 1 && pelletsEaten >= 70) {
+            Fruit fruit1 = fruit.remove(0);
+            Coordinate pos = fruit1.getMapPosition();
+            map.get(pos.y).set(pos.x, fruit1);
+        }
+    }
+
+    private static void placeFruit() {
+
+    }
+
+    private static void removeFruit() {
+
     }
 }

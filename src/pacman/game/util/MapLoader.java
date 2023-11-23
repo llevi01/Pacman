@@ -4,6 +4,7 @@ import pacman.game.Game;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.EmptyTile;
 import pacman.game.tile.Tile;
+import pacman.game.tile.edible.Fruit;
 import pacman.game.tile.edible.Pellet;
 import pacman.game.tile.edible.PowerPellet;
 import pacman.game.tile.wall.Wall;
@@ -11,13 +12,17 @@ import pacman.game.tile.wall.Wall;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A pálya betöltéséért felelős osztály
  */
 public class MapLoader {
+    private static void error() {
+        JOptionPane.showMessageDialog(Game.frame, Error.LOADING_MAP.message,
+                "Pacman", JOptionPane.ERROR_MESSAGE);
+    }
+
     /**
      * Ez a metódus tölti be a pályát
      */
@@ -30,11 +35,11 @@ public class MapLoader {
 
             String line = input.readLine();
             ArrayList<Tile> row;
-            int i = 0;
 
-            while (line != null) {
+            for (int i = 0; i < Config.MAP_ROWS; i++) {
                 row = new ArrayList<>();
-                for (int j = 0; j < line.length(); j++) {
+
+                for (int j = 0; j < Config.MAP_COLUMNS; j++) {
                     char c = line.charAt(j);
 
                     // Ha betűvel van reprezentálva, akkor fal
@@ -53,17 +58,18 @@ public class MapLoader {
                     switch (c) {
                         case '1' -> row.add(new Pellet(new Coordinate(j, i), SpriteLoader.tileSprites.get("pellet")));
                         case '2' -> row.add(new PowerPellet(new Coordinate(j, i), SpriteLoader.tileSprites.get("powerpellet")));
-                        //default -> row.add(  ); TODO add fruit
+                        case '3' -> {
+                            initFruit(new Coordinate(j, i));
+                            row.add(new EmptyTile(new Coordinate(j, i), SpriteLoader.tileSprites.get("empty")));
+                        }
                     }
                 }
                 map.add(map.size(), row);
                 line = input.readLine();
-                i++;
             }
 
-        } catch (IOException | NullPointerException e) {
-            JOptionPane.showMessageDialog(Game.frame, Error.LOADING_MAP.message,
-                    "Pacman", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException | NullPointerException | IndexOutOfBoundsException e) {
+            error();
             System.exit(1);
         }
 
@@ -81,7 +87,26 @@ public class MapLoader {
             case '-' -> res = "empty";
             case '#' -> res = "wall_placeholder";
         }
-        // TODO tile types
+        // TODO wall types
         return res;
+    }
+
+    /**
+     * Inicializálja a gyümölcsöket
+     * @param coordinate Ezen a helyen fognak megjelenni a gyümölcsök
+     */
+    private static void initFruit(Coordinate coordinate) {
+        Collections.shuffle(Config.FRUIT_TYPES);
+        try {
+            for (int i = 0; i < 2; i++) {
+                String key = Config.FRUIT_TYPES.get(i);
+                BufferedImage sprite = SpriteLoader.tileSprites.get(key);
+                Game.fruit.add(new Fruit(coordinate, sprite, key));
+            }
+
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            error();
+            System.exit(1);
+        }
     }
 }

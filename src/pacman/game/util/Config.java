@@ -3,13 +3,15 @@ package pacman.game.util;
 import pacman.game.entity.Direction;
 import pacman.game.tile.Coordinate;
 
+import java.util.ArrayList;
+
 /**
  * Konfigurációért felelős osztály
  */
 public class Config {
     // Map
-    public static final int COLUMNS = 28;
-    public static final int ROWS = 31;
+    public static final int MAP_COLUMNS = 28;
+    public static final int MAP_ROWS = 31;
 
 
     // Display
@@ -18,8 +20,8 @@ public class Config {
     public static final int ON_SCREEN_TILE_SIZE = TILE_SPRITE_SIZE * SCALE;
     public static final int ENTITY_SPRITE_SIZE = 16;   // Egy entity sprite egy oldalhossza (pixel)
     public static final int ON_SCREEN_ENTITY_SIZE = ENTITY_SPRITE_SIZE * SCALE;
-    public static final int MAP_WIDTH = COLUMNS * ON_SCREEN_TILE_SIZE;
-    public static final int MAP_HEIGHT = ROWS * ON_SCREEN_TILE_SIZE;
+    public static final int MAP_WIDTH = MAP_COLUMNS * ON_SCREEN_TILE_SIZE;
+    public static final int MAP_HEIGHT = MAP_ROWS * ON_SCREEN_TILE_SIZE;
     public static final int DISPLAY_TARGET_FPS = 60;
     public static final int ENTITY_ANIMATION_FPS = 5;
 
@@ -82,4 +84,11 @@ public class Config {
     public static final int STRAWBERRY_SCORE_MODIFIER = 300;
     public static final int ORANGE_SCORE_MODIFIER = 500;
     public static final int APPLE_SCORE_MODIFIER = 700;
+    public static final ArrayList<String> FRUIT_TYPES = new ArrayList<>();
+    static {
+        FRUIT_TYPES.add("cherry");
+        FRUIT_TYPES.add("strawberry");
+        FRUIT_TYPES.add("orange");
+        FRUIT_TYPES.add("apple");
+    }
 }

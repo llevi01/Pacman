@@ -7,10 +7,7 @@ import pacman.game.entity.ghost.Ghost;
 import pacman.game.input.InputHandler;
 import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
-import pacman.game.tile.edible.Edible;
-import pacman.game.tile.edible.EdibleState;
-import pacman.game.tile.edible.Pellet;
-import pacman.game.tile.edible.PowerPellet;
+import pacman.game.tile.edible.*;
 import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
 
@@ -46,6 +43,8 @@ public class Pacman extends Entity {
      */
     private int perfectRun;
 
+    public boolean fruitEaten;
+
     /**
      * A következő lehetőségnél Pacman ebbe az írányba fordul
      * Akkor van értelme, amikor a játékos kiválaszt egy olyan irányt,
@@ -65,6 +64,7 @@ public class Pacman extends Entity {
         speed = Config.PACMAN_SPEED;
         ghostsEaten = 0;
         perfectRun = 0;
+        fruitEaten = false;
         toStartingPos();
 
         initSprites();
@@ -168,7 +168,7 @@ public class Pacman extends Entity {
         }
 
         if (currentTile instanceof Edible edible) {
-            if (edible.getState() != EdibleState.EATEN) {
+            if (!edible.getState().equals(EdibleState.EATEN)) {
                 // Találtunk egy nem elfogyasztott ehetőt
                 edible.toEatenState();
                 Game.score += edible.getScoreModifier();
@@ -177,11 +177,13 @@ public class Pacman extends Entity {
                     Game.remainingPellets--;
                 } else if (edible instanceof PowerPellet) {
                     powerPelletEaten();
+                } else if (edible instanceof Fruit) {
+                    fruitEaten = true;
                 }
             }
         }
 
-        // Ha más Entity is van ezen a Tile-n, azok csak szellemek lehetnek
+        // Ha más Entity is van ezen a Tile-n, Pacman interaktál velük
         if (currentTile.entities.size() > 1) {
             for (Entity entity : currentTile.entities) {
                 if (!(entity instanceof Ghost ghost)) {
