@@ -100,7 +100,6 @@ public class Game {
      * Gyümölcsök elhelyezéséért felelős metódus
      */
     private static void doFruitLogic() {
-        System.out.println(maxPellets - remainingPellets);
         placeFruit();
         removeFruit();
     }

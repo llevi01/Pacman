@@ -32,7 +32,7 @@ public class Config {
             (13 * Config.TILE_SPRITE_SIZE + 3 + 4) * Config.SCALE,
             (23 * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE
     );     // Képernyő koordináták!
-    public static final int PACMAN_SPEED = 2 * SCALE;   // Pixel / frame
+    public static final int PACMAN_SPEED = SCALE;   // Pixel / frame
 
 
     // Ghost
@@ -71,8 +71,8 @@ public class Config {
 
 
     // Ghost state
-    public static final int GHOST_CHASE_STATE_TIME = 10 * DISPLAY_TARGET_FPS;
-    public static final int GHOST_SCATTER_STATE_TIME = 6 * DISPLAY_TARGET_FPS;
+    public static final int GHOST_CHASE_STATE_TIME = 15 * DISPLAY_TARGET_FPS;
+    public static final int GHOST_SCATTER_STATE_TIME = 7 * DISPLAY_TARGET_FPS;
     public static final int GHOST_FRIGHTENED_STATE_TIME = 5 * DISPLAY_TARGET_FPS;
     public static final int GHOST_STATE_INFINITE_TIME = -1;
 
