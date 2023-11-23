@@ -21,6 +21,7 @@ public abstract class Entity {
     public Entity(String name) {
         this.name = name;
     }
+
     /**
      * Az entitást azonosító sztring
      */
@@ -126,6 +127,7 @@ public abstract class Entity {
      * A sprite frissítése
      */
     protected void updateSprite() {
+        spriteIndex %= spriteList.size();
         spriteList = defaultSprites.get(direction);
         sprite = spriteList.get(spriteIndex);
 
@@ -158,7 +160,7 @@ public abstract class Entity {
      * hova kell rajzolni az Entity-ket
      */
     protected Coordinate getDrawPosition() {
-        int offset = (Config.ENTITY_SPRITE_SIZE - Config.TILE_SPRITE_SIZE) * Config.SCALE;
+        int offset = (7) * Config.SCALE; // TODO ezt szebben kiszámolni
         return new Coordinate(
                 this.position.x - offset,
                 this.position.y - offset
@@ -212,6 +214,10 @@ public abstract class Entity {
     protected void checkWallCollisions() {
         Coordinate mapPos = getMapPosition();
         Coordinate nextTileMapPos = mapPos.add(direction.getVector());
+        Coordinate closestMidTilePos = new Coordinate(
+                (mapPos.x * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE,
+                (mapPos.y * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE
+        );
         Tile nextTile;
         try {
             nextTile = Game.map.get(nextTileMapPos.y).get(nextTileMapPos.x);
@@ -228,7 +234,8 @@ public abstract class Entity {
         Rectangle tileBounds = new Rectangle(nextTileDrawPos.x, nextTileDrawPos.y, Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE);
 
         if (bounds.intersects(tileBounds)) {
-            position = position.subtract(direction.getVector().multiply(speed));
+            //position = position.subtract(direction.getVector().multiply(speed));
+            position = closestMidTilePos;
         }
     }
 

@@ -58,6 +58,7 @@ public class Game {
     public static void render() {
         mapPanel.repaint();
     }
+
     public static void setMap(ArrayList<ArrayList<Tile>> map) {
         Game.map = map;
     }
@@ -76,14 +77,14 @@ public class Game {
         entities = new ArrayList<>();
         Pacman pacman = new Pacman();
         Blinky blinky = new Blinky(pacman);
-        //Pinky pinky = new Pinky(pacman);
-        //Inky inky = new Inky(pacman, blinky);
-        //Clyde clyde = new Clyde(pacman);
+        Pinky pinky = new Pinky(pacman);
+        Inky inky = new Inky(pacman, blinky);
+        Clyde clyde = new Clyde(pacman);
 
         entities.add(pacman);
         entities.add(blinky);
-        //entities.add(pinky);
-        //entities.add(inky);
-        //entities.add(clyde);
+        entities.add(pinky);
+        entities.add(inky);
+        entities.add(clyde);
     }
 }

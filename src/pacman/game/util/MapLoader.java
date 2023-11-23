@@ -2,6 +2,7 @@ package pacman.game.util;
 
 import pacman.game.Game;
 import pacman.game.tile.Coordinate;
+import pacman.game.tile.EmptyTile;
 import pacman.game.tile.Tile;
 import pacman.game.tile.edible.Pellet;
 import pacman.game.tile.edible.PowerPellet;
@@ -40,7 +41,11 @@ public class MapLoader {
                         String key = getWallSpriteKey(c);
                         BufferedImage sprite = SpriteLoader.tileSprites.get(key);
 
-                        row.add(row.size(), new Wall(new Coordinate(j, i), sprite));
+                        if (c == '-') {
+                            row.add(row.size(), new EmptyTile(new Coordinate(j, i), sprite));
+                        } else {
+                            row.add(row.size(), new Wall(new Coordinate(j, i), sprite));
+                        }
                         continue;
                     }
 

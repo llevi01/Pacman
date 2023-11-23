@@ -28,15 +28,17 @@ public class Inky extends Ghost {
     @Override
     protected void toStartingPos() {
         position = Config.INKY_STARTING_POS;
-        direction = Config.CLYDE_STARTING_DIR;
+        direction = Config.INKY_STARTING_DIR;
     }
 
     @Override
     protected void initSprites() {
+        spriteIndex = 0;
         defaultSprites = SpriteLoader.inkySprites;
-        spriteList = defaultSprites.get(Direction.NONE);
         frightenedSprites = SpriteLoader.ghostFrightenedSprites;
         eatenSprites = SpriteLoader.ghostEatenSprites;
+        spriteList = defaultSprites.get(Direction.NONE);
+        sprite = spriteList.get(0);
     }
 
     @Override

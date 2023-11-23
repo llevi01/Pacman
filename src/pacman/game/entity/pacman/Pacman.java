@@ -47,19 +47,20 @@ public class Pacman extends Entity {
         speed = Config.PACMAN_SPEED;
         toStartingPos();
 
-        direction = Direction.NONE;
-        nextDirection = Direction.NONE;
-
         initSprites();
     }
 
     protected void initSprites() {
+        spriteIndex = 0;
         defaultSprites = SpriteLoader.pacmanSprites;
         spriteList = defaultSprites.get(Direction.NONE);
+        sprite = spriteList.get(spriteIndex);
     }
 
     protected void toStartingPos() {
         position = Config.PACMAN_STARTING_POS;
+        direction = Direction.NONE;
+        nextDirection = Direction.NONE;
     }
 
     /**
@@ -103,7 +104,7 @@ public class Pacman extends Entity {
         );
 
         // El akar fordulni a játékos, de még nem ért a Tile közepére
-        if (!turningAround && !position.equals(midTile)) {
+        if (!turningAround && !position.equals(midTile) && !direction.equals(Direction.NONE)) {
             nextDirection = chosenDirection;
             return;
         }
@@ -141,7 +142,7 @@ public class Pacman extends Entity {
             }
         }
 
-        // Ha más Entity is van ezen a Tile-n az csak szellem lehet, ekkor veszítünk egy életet TODO ez így nem jó
+        // Ha más Entity is van ezen a Tile-n, azok csak szellemek lehetnek
         if (currentTile.entities.size() > 1) {
             for (Entity entity : currentTile.entities) {
                 if (!(entity instanceof Ghost ghost)) {
@@ -165,11 +166,9 @@ public class Pacman extends Entity {
      */
     private void powerPelletEaten() {
         for (Entity entity : Game.entities) {
-            if (entity.getName().equals("Pacman")) {
-                continue;
+            if (entity instanceof Ghost ghost) {
+                ghost.toFrightenedState();
             }
-
-            // TODO frightened
         }
     }
 

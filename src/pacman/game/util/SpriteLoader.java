@@ -271,11 +271,11 @@ public class SpriteLoader {
         } catch (IOException e) {
             System.exit(1);
         }
-        pacmanSprites.put(Direction.NONE, none);
-        pacmanSprites.put(Direction.UP, up);
-        pacmanSprites.put(Direction.DOWN, down);
-        pacmanSprites.put(Direction.RIGHT, right);
-        pacmanSprites.put(Direction.LEFT, left);
+        clydeSprites.put(Direction.NONE, none);
+        clydeSprites.put(Direction.UP, up);
+        clydeSprites.put(Direction.DOWN, down);
+        clydeSprites.put(Direction.RIGHT, right);
+        clydeSprites.put(Direction.LEFT, left);
     }
 
     private static void loadFrightenedSprites() {

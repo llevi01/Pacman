@@ -26,10 +26,12 @@ public class Pinky extends Ghost {
 
     @Override
     protected void initSprites() {
+        spriteIndex = 0;
         defaultSprites = SpriteLoader.pinkySprites;
-        spriteList = defaultSprites.get(Direction.NONE);
         frightenedSprites = SpriteLoader.ghostFrightenedSprites;
         eatenSprites = SpriteLoader.ghostEatenSprites;
+        spriteList = defaultSprites.get(Direction.NONE);
+        sprite = spriteList.get(0);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Config {
 
 
     // Display
-    public static final int SCALE = 2;          // Nagyítás mértéke
+    public static final int SCALE = 3;          // Nagyítás mértéke
     public static final int TILE_SPRITE_SIZE = 8;      // Egy tile egy oldalhossza (pixel)
     public static final int ON_SCREEN_TILE_SIZE = TILE_SPRITE_SIZE * SCALE;
     public static final int ENTITY_SPRITE_SIZE = 16;   // Egy entity sprite egy oldalhossza (pixel)
@@ -28,7 +28,7 @@ public class Config {
     // Pacman
     public static final int PACMAN_LIVES = 3;
     public static final Coordinate PACMAN_STARTING_POS = new Coordinate(
-            (13 * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE,
+            (13 * Config.TILE_SPRITE_SIZE + 3 + 4) * Config.SCALE,
             (23 * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE
     );     // Képernyő koordináták!
     public static final int PACMAN_SPEED = 2 * SCALE;   // Pixel / frame
@@ -70,10 +70,10 @@ public class Config {
 
 
     // Ghost state
-    public static final int GHOST_CHASE_STATE_TIME = 20 * DISPLAY_TARGET_FPS;
-    public static final int GHOST_SCATTER_STATE_TIME = 7 * DISPLAY_TARGET_FPS;
-    public static final int GHOST_FRIGHTENED_STATE_TIME = 20 * DISPLAY_TARGET_FPS;
-    public static final int GHOST_EATEN_STATE_TIME = -1;
+    public static final int GHOST_CHASE_STATE_TIME = 10 * DISPLAY_TARGET_FPS;
+    public static final int GHOST_SCATTER_STATE_TIME = 6 * DISPLAY_TARGET_FPS;
+    public static final int GHOST_FRIGHTENED_STATE_TIME = 5 * DISPLAY_TARGET_FPS;
+    public static final int GHOST_STATE_INFINITE_TIME = -1;
 
 
     // Edibles

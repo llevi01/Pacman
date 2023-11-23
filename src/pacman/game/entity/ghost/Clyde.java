@@ -26,10 +26,12 @@ public class Clyde extends Ghost {
 
     @Override
     protected void initSprites() {
+        spriteIndex = 0;
         defaultSprites = SpriteLoader.clydeSprites;
-        spriteList = defaultSprites.get(Direction.NONE);
         frightenedSprites = SpriteLoader.ghostFrightenedSprites;
         eatenSprites = SpriteLoader.ghostEatenSprites;
+        spriteList = defaultSprites.get(Direction.NONE);
+        sprite = spriteList.get(spriteIndex);
     }
 
     @Override

@@ -26,10 +26,12 @@ public class Blinky extends Ghost{
 
     @Override
     protected void initSprites() {
+        spriteIndex = 0;
         defaultSprites = SpriteLoader.blinkySprites;
-        spriteList = defaultSprites.get(Direction.NONE);
         frightenedSprites = SpriteLoader.ghostFrightenedSprites;
         eatenSprites = SpriteLoader.ghostEatenSprites;
+        spriteList = defaultSprites.get(Direction.NONE);
+        sprite = spriteList.get(spriteIndex);
     }
 
     @Override
