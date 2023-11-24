@@ -19,7 +19,7 @@ public class GameThread extends Thread {
         // A legutóbbi loop időpontja (ns)
         double lastLoopTime = System.nanoTime();
 
-        while (Game.running) {
+        while (Game.state.equals(GameState.RUNNING)) {
             deltaTime += System.nanoTime() - lastLoopTime;
             timer += System.nanoTime() - lastLoopTime;
             lastLoopTime = System.nanoTime();

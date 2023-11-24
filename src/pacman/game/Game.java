@@ -1,12 +1,10 @@
 package pacman.game;
 
 import pacman.game.display.GameFrame;
-import pacman.game.display.MapPanel;
+import pacman.game.display.MainMenu;
+import pacman.game.display.GamePanel;
 import pacman.game.entity.Entity;
-import pacman.game.entity.ghost.Blinky;
-import pacman.game.entity.ghost.Clyde;
-import pacman.game.entity.ghost.Inky;
-import pacman.game.entity.ghost.Pinky;
+import pacman.game.entity.ghost.*;
 import pacman.game.entity.pacman.Pacman;
 import pacman.game.tile.Tile;
 import pacman.game.tile.edible.Fruit;
@@ -19,9 +17,8 @@ import java.util.Random;
 
 public class Game {
     public static GameFrame frame;
-    private static MapPanel mapPanel;
-    private static final GameThread gameThread;
-    public static volatile boolean running;
+    private static GameThread gameThread;
+    public static volatile GameState state;
     public static ArrayList<ArrayList<Tile>> map = new ArrayList<>();
     public static ArrayList<Entity> entities = new ArrayList<>();
     public static ArrayList<Fruit> fruit = new ArrayList<>();
@@ -31,55 +28,36 @@ public class Game {
     public static int score;
     private static Pacman pacman;
 
-    static {
-        gameThread = new GameThread();
-    }
-
-    public static void startGame() {
-        initGame();
-        initDisplay();
-        initEntities();
-
-        score = 0;
-        running = true;
-        gameThread.start();
-    }
-
     /**
-     * Frissíti a pályán lévő összes Entity állapotát
+     * Pálya setter
      */
-    public static void update() {
-        for (Entity entity : entities) {
-            entity.update();
-        }
-        doFruitLogic();
-        if (pacman.getLives() < 1 || remainingPellets < 1) {
-            running = false;
-        }
-    }
-
-    /**
-     * Újrarajzolja a pályát
-     */
-    public static void render() {
-        mapPanel.repaint();
-    }
-
     public static void setMap(ArrayList<ArrayList<Tile>> map) {
         Game.map = map;
     }
 
-    private static void initDisplay() {
+    /**
+     * Inicializáló metódus
+     */
+    public static void init() {
+        initGame();
         frame = new GameFrame();
-        mapPanel = new MapPanel();
-        frame.add(mapPanel);
-        frame.pack();
+        state = GameState.STOPPED;
     }
+
+    /**
+     * A játékot inicializáló metódus
+     */
     private static void initGame() {
+        gameThread = new GameThread();
         SpriteLoader.loadSprites();
         MapLoader.loadMap();
         maxPellets = remainingPellets;
+        initEntities();
     }
+
+    /**
+     * Az entitásokat inicializáló metódus
+     */
     private static void initEntities() {
         entities = new ArrayList<>();
         pacman = new Pacman();
@@ -93,6 +71,56 @@ public class Game {
         entities.add(pinky);
         entities.add(inky);
         entities.add(clyde);
+    }
+
+    /**
+     * Játék indító metódus
+     */
+    public static void start() {
+        score = 0;
+        state = GameState.RUNNING;
+        gameThread.start();
+    }
+
+    /**
+     * Játékot megállító metódus
+     */
+    public static void pause() {
+
+    }
+
+    /**
+     * Játékot folytató metódus
+     */
+    public static void resume() {
+
+    }
+
+    /**
+     * Játékból (a főmenübe) kilépő metódus
+     */
+    public static void exit() {
+
+    }
+
+    /**
+     * Frissíti a pályán lévő összes Entity állapotát
+     */
+    public static void update() {
+        for (Entity entity : entities) {
+            entity.update();
+        }
+        doFruitLogic();
+        if (pacman.getLives() < 1 || remainingPellets < 1) {
+            state = GameState.OVER;
+        }
+    }
+
+    /**
+     * Újrarajzolja a pályát
+     */
+    public static void render() {
+        frame.gamePanel.repaint();
     }
 
     /**

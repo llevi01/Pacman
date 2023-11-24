@@ -12,8 +12,8 @@ import java.util.ArrayList;
 /**
  * Ezen a panelen jelenik meg a pálya
  */
-public class MapPanel extends JPanel {
-    public MapPanel() {
+public class GamePanel extends JPanel {
+    public GamePanel() {
         this.setPreferredSize(new Dimension(Config.MAP_WIDTH, Config.MAP_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
