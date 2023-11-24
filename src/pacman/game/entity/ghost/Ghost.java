@@ -226,7 +226,8 @@ public abstract class Ghost extends Entity {
         // Ha olyan helyen van ahol nem fordulhat, visszatérünk
         // Ez alól kivétel, ha felfelé megy, mivel ilyenkor jön ki a házból
         // Illetve, amikor EATEN állapotban van, mivel ilyenkor megy be a házba
-        if (isInNoTurnZone() && !direction.equals(Direction.UP) && !state.equals(GhostState.EATEN)) {
+        if (isInNoTurnZone() && !state.equals(GhostState.EATEN) &&
+                !direction.equals(Direction.UP) && !direction.equals(Direction.DOWN)) {
             return;
         }
 
