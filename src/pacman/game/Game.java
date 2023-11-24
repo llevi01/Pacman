@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class Game {
     public static GameFrame frame;
-    private static GameThread gameThread;
+    public static GameThread gameThread;
     public static volatile GameState state;
     public static ArrayList<ArrayList<Tile>> map = new ArrayList<>();
     public static ArrayList<Entity> entities = new ArrayList<>();
@@ -40,8 +40,9 @@ public class Game {
      */
     public static void init() {
         initGame();
-        frame = new GameFrame();
         state = GameState.STOPPED;
+        frame = new GameFrame();
+        frame.showMainMenu();
     }
 
     /**
@@ -78,6 +79,7 @@ public class Game {
      */
     public static void start() {
         score = 0;
+        frame.showGame();
         state = GameState.RUNNING;
         gameThread.start();
     }
@@ -138,13 +140,13 @@ public class Game {
             Fruit fruit1 = fruit.remove(0);
             map.get(Fruit.location.y).set(Fruit.location.x, fruit1);
             // Beállítjuk az időzítőt 9 és 10 mp közé
-            Fruit.timer = (9 + random.nextInt(Config.DISPLAY_TARGET_FPS)) * Config.DISPLAY_TARGET_FPS;
+            Fruit.timer = 9 * Config.DISPLAY_TARGET_FPS + random.nextInt(Config.DISPLAY_TARGET_FPS);
 
         } else if (fruit.size() == 1 && pelletsEaten == 170 && pacman.fruitEaten) {
             Fruit fruit2 = fruit.remove(0);
             map.get(Fruit.location.y).set(Fruit.location.x, fruit2);
 
-            Fruit.timer = (9 + random.nextInt(Config.DISPLAY_TARGET_FPS)) * Config.DISPLAY_TARGET_FPS;
+            Fruit.timer = Config.DISPLAY_TARGET_FPS + random.nextInt(Config.DISPLAY_TARGET_FPS);
         }
     }
 

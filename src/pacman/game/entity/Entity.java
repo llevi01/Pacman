@@ -233,9 +233,9 @@ public abstract class Entity {
      */
     protected void checkOutOfFrame() {
         if (position.x < -Config.ON_SCREEN_ENTITY_SIZE) {
-            position.x += Config.MAP_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
-        } else if (position.x > Config.MAP_WIDTH + Config.ON_SCREEN_ENTITY_SIZE) {
-            position.x -= Config.MAP_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
+            position.x += Config.SCREEN_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
+        } else if (position.x > Config.SCREEN_WIDTH + Config.ON_SCREEN_ENTITY_SIZE) {
+            position.x -= Config.SCREEN_WIDTH + 2 * Config.ON_SCREEN_ENTITY_SIZE;
         }
     }
 }

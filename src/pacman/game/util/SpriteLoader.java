@@ -15,6 +15,8 @@ import java.util.Objects;
 public class SpriteLoader {
     public static Map<String, BufferedImage> tileSprites = new HashMap<>();
     public static Map<Direction, ArrayList<BufferedImage>> pacmanSprites = new HashMap<>();
+    public static ArrayList<BufferedImage> pacmanHurtAnimation = new ArrayList<>();
+    public static BufferedImage pacmanMainMenu;
     public static Map<Direction, ArrayList<BufferedImage>> blinkySprites = new HashMap<>();
     public static Map<Direction, ArrayList<BufferedImage>> inkySprites = new HashMap<>();
     public static Map<Direction, ArrayList<BufferedImage>> pinkySprites = new HashMap<>();
@@ -101,6 +103,9 @@ public class SpriteLoader {
         BufferedImage img;
 
         try {
+            pacmanMainMenu = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/main_menu.png")));
+
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/neutral.png")));
             none.add(img);

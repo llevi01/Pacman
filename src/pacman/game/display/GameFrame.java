@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Ebben az ablakban jelenik meg a játék
@@ -37,7 +38,7 @@ public class GameFrame extends JFrame {
         this.setTitle("Pacman");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.addKeyListener(new InputHandler());
+        this.addKeyListener(new InputHandler(this));
         loadFont();
 
         centerPanel = new JPanel(new CardLayout());
@@ -64,5 +65,16 @@ public class GameFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Error while loading font",
                     "Pacman", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    public void showMainMenu() {
+        CardLayout layout = (CardLayout) centerPanel.getLayout();
+        layout.show(centerPanel, "menu");
+        mainMenu.repaint();
+    }
+
+    public void showGame() {
+        CardLayout layout = (CardLayout) centerPanel.getLayout();
+        layout.show(centerPanel, "game");
+        gamePanel.getReady();
     }
 }

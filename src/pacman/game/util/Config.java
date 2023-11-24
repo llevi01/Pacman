@@ -20,8 +20,8 @@ public class Config {
     public static final int ON_SCREEN_TILE_SIZE = TILE_SPRITE_SIZE * SCALE;
     public static final int ENTITY_SPRITE_SIZE = 16;   // Egy entity sprite egy oldalhossza (pixel)
     public static final int ON_SCREEN_ENTITY_SIZE = ENTITY_SPRITE_SIZE * SCALE;
-    public static final int MAP_WIDTH = MAP_COLUMNS * ON_SCREEN_TILE_SIZE;
-    public static final int MAP_HEIGHT = MAP_ROWS * ON_SCREEN_TILE_SIZE;
+    public static final int SCREEN_WIDTH = MAP_COLUMNS * ON_SCREEN_TILE_SIZE;
+    public static final int SCREEN_HEIGHT = MAP_ROWS * ON_SCREEN_TILE_SIZE;
     public static final int DISPLAY_TARGET_FPS = 60;
     public static final int ENTITY_ANIMATION_FPS = 5;
 
