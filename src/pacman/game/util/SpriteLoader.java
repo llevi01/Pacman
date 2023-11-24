@@ -109,10 +109,15 @@ public class SpriteLoader {
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/neutral.png")));
             none.add(img);
+            pacmanHurtAnimation.add(img);
 
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/up1.png")));
             up.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/up2.png")));
+            pacmanHurtAnimation.add(img);
 
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/down1.png")));
@@ -126,6 +131,48 @@ public class SpriteLoader {
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
             left.add(img);
 
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/1.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/2.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/3.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/4.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/5.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/6.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/7.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/8.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/9.png")));
+            pacmanHurtAnimation.add(img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/10.png")));
+            pacmanHurtAnimation.add(img);
+
+            pacmanHurtAnimation.add(tileSprites.get("empty"));
 
         } catch (IOException | NullPointerException e) {
             error();

@@ -66,9 +66,9 @@ public abstract class Entity {
     protected BufferedImage sprite;
 
     /**
-     * A legutóbbi sprite váltás után eltelt framek száma
+     * A legutóbbi sprite váltás óta eltelt framek száma
      */
-    protected int animationFrameCounter = 0;
+    protected int animationDrawCounter = 0;
 
     /**
      * Inicializáló metódus
@@ -83,7 +83,7 @@ public abstract class Entity {
     /**
      * Kezdőállapotba helyezi az Entity-t
      */
-    public abstract void toStartingPos();
+    protected abstract void toStartingPos();
 
     /**
      * Az Entity-hez tartozó logika végrehajtása
@@ -97,6 +97,11 @@ public abstract class Entity {
     public Direction getDirection() {
         return direction;
     }
+
+    /**
+     * Kezdőállapotba helyezi az Entity-t
+     */
+    public abstract void reset();
 
     /**
      * Az Entity megjelenítése a képernyőn
@@ -119,16 +124,15 @@ public abstract class Entity {
         spriteList = defaultSprites.get(direction);
         sprite = spriteList.get(spriteIndex);
 
-
-        if (animationFrameCounter < Config.ENTITY_ANIMATION_FPS) {
-            animationFrameCounter++;
+        if (animationDrawCounter < Config.ENTITY_ANIMATION_FPS) {
+            animationDrawCounter++;
             return;
         }
 
         spriteIndex++;
         spriteIndex %= spriteList.size();
         sprite = spriteList.get(spriteIndex);
-        animationFrameCounter = 0;
+        animationDrawCounter = 0;
     }
 
     /**

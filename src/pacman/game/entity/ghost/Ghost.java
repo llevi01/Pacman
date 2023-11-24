@@ -77,8 +77,8 @@ public abstract class Ghost extends Entity {
     }
 
     private void updateFrightenedSprite() {
-        if (animationFrameCounter < Config.ENTITY_ANIMATION_FPS * 2) {
-            animationFrameCounter++;
+        if (animationDrawCounter < Config.ENTITY_ANIMATION_FPS * 2) {
+            animationDrawCounter++;
             return;
         }
         int fullTime = GhostState.FRIGHTENED.getTime();
@@ -87,7 +87,7 @@ public abstract class Ghost extends Entity {
         spriteIndex++;
         spriteIndex %= flashing ? frightenedSprites.size() : frightenedSprites.size() / 2;
         sprite = frightenedSprites.get(spriteIndex);
-        animationFrameCounter = 0;
+        animationDrawCounter = 0;
     }
 
     /**
@@ -119,6 +119,16 @@ public abstract class Ghost extends Entity {
      * Visszaadja a szellem target celláját SCATTER állapotban
      */
     protected abstract Coordinate getScatterTarget();
+
+    /**
+     * Kezdő állapotba helyezi a szellemeket
+     */
+    public void reset() {
+        toStartingPos();
+        if (state.equals(GhostState.EATEN) || state.equals(GhostState.FRIGHTENED)) {
+            state = nextStates.remove(0);
+        }
+    }
 
     /**
      * Minden belső logikát kezelő függvény

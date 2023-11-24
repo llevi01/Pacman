@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Ebben az ablakban jelenik meg a játék
@@ -75,6 +74,6 @@ public class GameFrame extends JFrame {
     public void showGame() {
         CardLayout layout = (CardLayout) centerPanel.getLayout();
         layout.show(centerPanel, "game");
-        gamePanel.getReady();
+        gamePanel.printReady();
     }
 }

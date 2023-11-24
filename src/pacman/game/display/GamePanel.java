@@ -8,14 +8,13 @@ import pacman.game.tile.Tile;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.SimpleTimeZone;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Ezen a panelen jelenik meg a pálya
  */
 public class GamePanel extends JPanel {
     private boolean printReady = false;
+    private boolean printGameOver = false;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
@@ -50,14 +49,31 @@ public class GamePanel extends JPanel {
 
 
             printReady = false;
+        } else if (printGameOver) {
+            graphics.setFont(GameFrame.font.deriveFont(15F * Config.SCALE));
+            FontMetrics metrics = graphics.getFontMetrics(GameFrame.font.deriveFont(15F * Config.SCALE));
+
+            int x = (Config.SCREEN_WIDTH - metrics.stringWidth("GAME OVER")) / 2;
+            int y = Config.MAP_ROWS / 2 * Config.ON_SCREEN_TILE_SIZE;
+
+            graphics.setColor(Color.BLACK);
+            graphics.drawString("GAME OVER", x + 4, y + 4);
+
+            graphics.setColor(Color.RED);
+            graphics.drawString("GAME OVER", x, y);
+
+            printGameOver = false;
         }
 
-        graphics.dispose();
+        //graphics.dispose();
     }
 
-    public void getReady() {
+    public void printReady() {
         printReady = true;
-        repaint();
-        Game.gameThread.doWait(3000);
+        Game.thread.doWait(3000);
+    }
+
+    public void printGameOver() {
+        printGameOver = true;
     }
 }

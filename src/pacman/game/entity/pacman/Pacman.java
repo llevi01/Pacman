@@ -1,6 +1,7 @@
 package pacman.game.entity.pacman;
 
 import pacman.game.Game;
+import pacman.game.GameState;
 import pacman.game.entity.Direction;
 import pacman.game.entity.Entity;
 import pacman.game.entity.ghost.Ghost;
@@ -10,6 +11,9 @@ import pacman.game.tile.Tile;
 import pacman.game.tile.edible.*;
 import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
+
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Pacmant reprezentáló osztály
@@ -24,9 +28,19 @@ public class Pacman extends Entity {
     }
 
     /**
+     * Ez az animáció játszódik le, amikor Pacman-t megsebzik
+     */
+    private ArrayList<BufferedImage> hurtAnimation;
+
+    /**
      * Pacman maradék életeinek száma
      */
     private int lives;
+
+    /**
+     * Igaz, ha megsebezték Pacman-t
+     */
+    public boolean hurt;
 
     /**
      * Megevett szellemek száma egy PowerPellet elfogyasztása után
@@ -58,6 +72,10 @@ public class Pacman extends Entity {
         return lives;
     }
 
+    public void reset() {
+        toStartingPos();
+    }
+
     protected void init() {
         lives = Config.PACMAN_LIVES;
         speed = Config.PACMAN_SPEED;
@@ -72,11 +90,36 @@ public class Pacman extends Entity {
     protected void initSprites() {
         spriteIndex = 0;
         defaultSprites = SpriteLoader.pacmanSprites;
+        hurtAnimation = SpriteLoader.pacmanHurtAnimation;
         spriteList = defaultSprites.get(Direction.NONE);
         sprite = spriteList.get(spriteIndex);
     }
 
-    public void toStartingPos() {
+    @Override
+    protected void updateSprite() {
+        if (Game.state.equals(GameState.OVER)) {
+            return;
+        }
+        if (!hurt) {
+            super.updateSprite();
+            return;
+        }
+        // Play hurt animation
+        sprite = hurtAnimation.get(spriteIndex);
+        if (animationDrawCounter < Config.ENTITY_ANIMATION_FPS) {
+            animationDrawCounter++;
+            return;
+        }
+        spriteIndex++;
+        if (spriteIndex >= hurtAnimation.size()) {
+            hurt = false;
+            spriteIndex = 0;
+            lives--;
+        }
+        animationDrawCounter = 0;
+    }
+
+    protected void toStartingPos() {
         position = Config.PACMAN_STARTING_POS;
         direction = Direction.NONE;
         nextDirection = Direction.NONE;
@@ -198,7 +241,13 @@ public class Pacman extends Entity {
      * Az a szellem hívja meg, aki megsebezte
      */
     public void hurt() {
+        spriteIndex = 0;
+        animationDrawCounter = 0;
+        hurt = true;
+    }
 
+    public boolean isHurt() {
+        return hurt;
     }
 
     /**

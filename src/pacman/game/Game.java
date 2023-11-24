@@ -1,8 +1,6 @@
 package pacman.game;
 
 import pacman.game.display.GameFrame;
-import pacman.game.display.MainMenu;
-import pacman.game.display.GamePanel;
 import pacman.game.entity.Entity;
 import pacman.game.entity.ghost.*;
 import pacman.game.entity.pacman.Pacman;
@@ -17,7 +15,7 @@ import java.util.Random;
 
 public class Game {
     public static GameFrame frame;
-    public static GameThread gameThread;
+    public static GameThread thread;
     public static volatile GameState state;
     public static ArrayList<ArrayList<Tile>> map = new ArrayList<>();
     public static ArrayList<Entity> entities = new ArrayList<>();
@@ -27,6 +25,7 @@ public class Game {
     private static int maxPellets;
     public static int score;
     private static Pacman pacman;
+    private static boolean pacmanWasHurt = false;
 
     /**
      * Pálya setter
@@ -49,7 +48,6 @@ public class Game {
      * A játékot inicializáló metódus
      */
     private static void initGame() {
-        gameThread = new GameThread();
         SpriteLoader.loadSprites();
         MapLoader.loadMap();
         maxPellets = remainingPellets;
@@ -67,54 +65,44 @@ public class Game {
         Inky inky = new Inky(pacman, blinky);
         Clyde clyde = new Clyde(pacman);
 
-        entities.add(pacman);
         entities.add(blinky);
         entities.add(pinky);
         entities.add(inky);
         entities.add(clyde);
+        entities.add(pacman);
     }
 
     /**
      * Játék indító metódus
      */
     public static void start() {
+        thread = new GameThread();
         score = 0;
         frame.showGame();
         state = GameState.RUNNING;
-        gameThread.start();
+        thread.start();
     }
 
-    /**
-     * Játékot megállító metódus
-     */
-    public static void pause() {
-
-    }
-
-    /**
-     * Játékot folytató metódus
-     */
-    public static void resume() {
-
-    }
-
-    /**
-     * Játékból (a főmenübe) kilépő metódus
-     */
-    public static void exit() {
-
-    }
 
     /**
      * Frissíti a pályán lévő összes Entity állapotát
      */
     public static void update() {
+        if (pacman.isHurt()) {
+            pacmanWasHurt = true;
+            return;
+        } else if (pacmanWasHurt) {
+            reset();
+            pacmanWasHurt = false;
+            return;
+        }
+
         for (Entity entity : entities) {
             entity.update();
         }
         doFruitLogic();
-        if (pacman.getLives() < 1 || remainingPellets < 1) {
-            state = GameState.OVER;
+        if (remainingPellets < 1) {
+            quitToMenu(true);
         }
     }
 
@@ -123,6 +111,24 @@ public class Game {
      */
     public static void render() {
         frame.gamePanel.repaint();
+    }
+
+    public static void reset() {
+        if (pacman.getLives() < 1) {
+            quitToMenu(true);
+            return;
+        }
+        for (Entity entity : entities) {
+            entity.reset();
+        }
+        frame.gamePanel.printReady();
+    }
+
+    private static void quitToMenu(boolean saveScore) {
+        state = GameState.STOPPED;
+        frame.gamePanel.printGameOver();
+
+        frame.showMainMenu();
     }
 
     /**
