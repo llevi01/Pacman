@@ -9,6 +9,7 @@ import pacman.game.tile.edible.Fruit;
 import pacman.game.util.MapLoader;
 import pacman.game.util.SpriteLoader;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Game {
@@ -22,7 +23,7 @@ public class Game {
     public static int maxPellets = 0;
     public static int score;
     public static Pacman pacman;
-    private static boolean pacmanWasHurt = false;
+    private static boolean pacmanWasHurt;
 
     /**
      * Inicializáló metódus
@@ -31,6 +32,7 @@ public class Game {
         maxPellets = 0;
         SpriteLoader.loadSprites();
         MapLoader.loadMap();
+        Leaderboard.load();
         state = GameState.STOPPED;
         frame = new GameFrame();
         frame.showMainMenu();
@@ -42,6 +44,7 @@ public class Game {
      */
     private static void initGame() {
         score = 0;
+        pacmanWasHurt = false;
         MapLoader.loadMap();
         remainingPellets = maxPellets;
         initEntities();
@@ -76,7 +79,6 @@ public class Game {
         thread.start();
     }
 
-
     /**
      * Frissíti a pályán lévő összes Entity állapotát
      */
@@ -106,6 +108,10 @@ public class Game {
         frame.gamePanel.repaint();
     }
 
+    /**
+     * Kezdőállapotba állítja az Entity-ket
+     * Ha a játék véget ért, kilép
+     */
     public static void reset() {
         if (pacman.getLives() < 1) {
             quitToMenu(true);
@@ -117,13 +123,44 @@ public class Game {
         frame.gamePanel.printReady();
     }
 
-    private static void quitToMenu(boolean saveScore) {
+    /**
+     * Megállítja a játékot
+     */
+    public static void pause() {
+        state = GameState.PAUSED;
+    }
+
+    /**
+     * Újraindítja a játékot
+     */
+    public static void resume() {
+        thread = new GameThread();
+        state = GameState.RUNNING;
+        thread.start();
+    }
+
+    /**
+     * Kilép a menübe
+     * @param saveScore ha true, a játékos pontszáma el lesz mentve
+     */
+    public static void quitToMenu(boolean saveScore) {
         state = GameState.STOPPED;
         frame.gamePanel.printGameOver();
-        // TODO save score
+
+        if (saveScore) {
+            String name = JOptionPane.showInputDialog(frame, "Please enter your name",
+                    "Pacman", JOptionPane.PLAIN_MESSAGE);
+            if (name != null || !name.isBlank()) {
+                Leaderboard.addScore(name, score);
+            }
+        }
+
         frame.showMainMenu();
     }
 
+    /**
+     * Gyümölcs elhelyező logika végrehajtása
+     */
     private static void placeFruit() {
         int pelletsEaten = maxPellets - remainingPellets;
         // Első gyümölcs

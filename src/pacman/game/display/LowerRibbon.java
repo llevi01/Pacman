@@ -11,18 +11,14 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class LowerRibbon extends JPanel {
-    private int displayedFruit;
-    private ArrayList<BufferedImage> fruitSprites;
-    private BufferedImage pacmanSprite;
+    private static int displayedFruit;
+    private static ArrayList<BufferedImage> fruitSprites;
+    private static BufferedImage pacmanSprite;
     public LowerRibbon() {
         this.setMinimumSize(new Dimension(Config.SCREEN_WIDTH, Config.LOWER_RIBBON_HEIGHT));
         this.setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.LOWER_RIBBON_HEIGHT));
         this.setMaximumSize(new Dimension(Config.SCREEN_WIDTH, Config.LOWER_RIBBON_HEIGHT));
         this.setBackground(Color.BLACK);
-
-        fruitSprites = new ArrayList<>();
-        fruitSprites.add(Game.fruit.get(0).getSprite());
-        fruitSprites.add(Game.fruit.get(1).getSprite());
         pacmanSprite = SpriteLoader.pacmanSprites.get(Direction.LEFT).get(0);
     }
 
@@ -49,6 +45,13 @@ public class LowerRibbon extends JPanel {
             BufferedImage img = fruitSprites.get(i);
             graphics.drawImage(img, x, y, Config.ON_SCREEN_ENTITY_SIZE, Config.ON_SCREEN_ENTITY_SIZE, null);
         }
+    }
+
+    public static void updateFruitSprites() {
+        fruitSprites = new ArrayList<>();
+        fruitSprites.add(Game.fruit.get(0).getSprite());
+        fruitSprites.add(Game.fruit.get(1).getSprite());
+        displayedFruit = 0;
     }
 
     private void updateDisplayedFruit() {

@@ -62,6 +62,9 @@ public class GameFrame extends JFrame {
         }
     }
 
+    /**
+     * A főmenüt mutató metódus
+     */
     public void showMainMenu() {
         CardLayout layout = (CardLayout) this.getContentPane().getLayout();
         layout.show(this.getContentPane(), "menu");
@@ -69,9 +72,13 @@ public class GameFrame extends JFrame {
         pack();
     }
 
+    /**
+     * A játékot mutató metódus
+     */
     public void showGame() {
         CardLayout layout = (CardLayout) this.getContentPane().getLayout();
         layout.show(this.getContentPane(), "game");
+        LowerRibbon.updateFruitSprites();
         gamePanel.printReady();
         pack();
     }

@@ -1,6 +1,7 @@
 package pacman.game.display;
 
 import pacman.game.Game;
+import pacman.game.Leaderboard;
 import pacman.game.util.Config;
 
 import javax.swing.*;
@@ -39,7 +40,7 @@ public class UpperRibbon extends JPanel {
         x = Config.ON_SCREEN_TILE_SIZE * 23 - metrics.stringWidth("HIGH SCORE");
         y = (int) metrics.getStringBounds("HIGH SCORE", graphics).getHeight() * 2;
 
-        // TODO get high score
+        highScore = Leaderboard.getHighScore();
         if (Game.score > highScore) {
             highScore = Game.score;
         }

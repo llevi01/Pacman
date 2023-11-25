@@ -1,8 +1,10 @@
 package pacman.game.util;
 
 public enum Error {
-    LOADING_SPRITES("Error while loading sprites"),
-    LOADING_MAP("Error while loading map");
+    LOADING_SPRITES("Failed to load sprites"),
+    LOADING_MAP("Failed to load map"),
+    LOADING_LEADERBOARD("Failed to load leaderboard"),
+    SAVING_LEADERBOARD("Failed to save leaderboard");
     public final String message;
     Error(String message) {
         this.message = message;
