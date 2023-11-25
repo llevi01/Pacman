@@ -39,7 +39,7 @@ public class MapLoader {
             for (int i = 0; i < Config.MAP_ROWS; i++) {
                 row = new ArrayList<>();
 
-                for (int j = 0; j < Config.MAP_COLUMNS; j++) {
+                for (int j = 0; j < Config.SCREEN_COLUMNS; j++) {
                     char c = line.charAt(j);
 
                     // Ha betűvel van reprezentálva, akkor fal

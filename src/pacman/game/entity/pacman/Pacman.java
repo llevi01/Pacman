@@ -97,7 +97,7 @@ public class Pacman extends Entity {
 
     @Override
     protected void updateSprite() {
-        if (Game.state.equals(GameState.OVER)) {
+        if (lives < 1) {
             return;
         }
         if (!hurt) {

@@ -33,6 +33,7 @@ public class MainMenu extends JPanel {
      * Főmenü konstruktor
      */
     public MainMenu() {
+        this.setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
         options = new ArrayList<>();
         options.add(START);
         options.add(GUIDE);
@@ -47,7 +48,7 @@ public class MainMenu extends JPanel {
         graphics.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
         graphics.setFont(GameFrame.font.deriveFont(26F * Config.SCALE));
-        FontMetrics metrics = graphics.getFontMetrics(GameFrame.font.deriveFont(26F * Config.SCALE));
+        FontMetrics metrics = graphics.getFontMetrics();
 
         int x = (Config.SCREEN_WIDTH - metrics.stringWidth(TITLE)) / 2;
         int y = Config.ON_SCREEN_TILE_SIZE * 8;
@@ -66,7 +67,7 @@ public class MainMenu extends JPanel {
                 Config.ON_SCREEN_ENTITY_SIZE * imageScale, Config.ON_SCREEN_ENTITY_SIZE * imageScale, null);
 
         graphics.setFont(GameFrame.font.deriveFont(10F * Config.SCALE));
-        metrics = graphics.getFontMetrics(GameFrame.font.deriveFont(10F * Config.SCALE));
+        metrics = graphics.getFontMetrics();
 
         for (int i = 0; i < options.size(); i++) {
             String string = options.get(i);

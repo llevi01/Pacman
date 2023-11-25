@@ -9,22 +9,24 @@ import java.util.ArrayList;
  * Konfigurációért felelős osztály
  */
 public class Config {
-    // Map
-    public static final int MAP_COLUMNS = 28;
-    public static final int MAP_ROWS = 31;
-
-
     // Display
+    public static final int SCREEN_COLUMNS = 28;
+    public static final int SCREEN_ROWS = 36;
+    public static final int MAP_ROWS = 31;
+    public static final int UPPER_RIBBON_ROWS = 3;
+    public static final int LOWER_RIBBON_ROWS = 2;
     public static final int SCALE = 3;          // Nagyítás mértéke
     public static final int TILE_SPRITE_SIZE = 8;      // Egy tile egy oldalhossza (pixel)
     public static final int ON_SCREEN_TILE_SIZE = TILE_SPRITE_SIZE * SCALE;
     public static final int ENTITY_SPRITE_SIZE = 16;   // Egy entity sprite egy oldalhossza (pixel)
     public static final int ON_SCREEN_ENTITY_SIZE = ENTITY_SPRITE_SIZE * SCALE;
-    public static final int SCREEN_WIDTH = MAP_COLUMNS * ON_SCREEN_TILE_SIZE;
-    public static final int SCREEN_HEIGHT = MAP_ROWS * ON_SCREEN_TILE_SIZE;
+    public static final int SCREEN_WIDTH = SCREEN_COLUMNS * ON_SCREEN_TILE_SIZE;
+    public static final int SCREEN_HEIGHT = SCREEN_ROWS * ON_SCREEN_TILE_SIZE;
+    public static final int MAP_HEIGHT = MAP_ROWS * ON_SCREEN_TILE_SIZE;
+    public static final int UPPER_RIBBON_HEIGHT = UPPER_RIBBON_ROWS * ON_SCREEN_TILE_SIZE;
+    public static final int LOWER_RIBBON_HEIGHT = LOWER_RIBBON_ROWS * ON_SCREEN_TILE_SIZE;
     public static final int DISPLAY_TARGET_FPS = 60;
     public static final int ENTITY_ANIMATION_FPS = 5;
-
 
     // Pacman
     public static final int PACMAN_LIVES = 3;
