@@ -18,7 +18,6 @@ import java.util.*;
  * A pálya betöltéséért felelős osztály
  */
 public class MapLoader {
-    public static ArrayList<ArrayList<Tile>> map;
     private static void error() {
         JOptionPane.showMessageDialog(Game.frame, Error.LOADING_MAP.message,
                 "Pacman", JOptionPane.ERROR_MESSAGE);
@@ -73,7 +72,7 @@ public class MapLoader {
             error();
             System.exit(1);
         }
-        MapLoader.map = map;
+        Game.map = map;
     }
 
     /**

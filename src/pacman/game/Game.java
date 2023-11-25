@@ -6,15 +6,10 @@ import pacman.game.entity.ghost.*;
 import pacman.game.entity.pacman.Pacman;
 import pacman.game.tile.Tile;
 import pacman.game.tile.edible.Fruit;
-import pacman.game.util.Config;
 import pacman.game.util.MapLoader;
 import pacman.game.util.SpriteLoader;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Game {
     public static GameFrame frame;
@@ -23,10 +18,8 @@ public class Game {
     public static ArrayList<ArrayList<Tile>> map = new ArrayList<>();
     public static ArrayList<Entity> entities = new ArrayList<>();
     public static ArrayList<Fruit> fruit = new ArrayList<>();
-    private static Timer fruitTimer;
-    private static final Random random = new Random();
-    public static int remainingPellets = 0;
-    private static int maxPellets;
+    public static int remainingPellets;
+    public static int maxPellets = 0;
     public static int score;
     public static Pacman pacman;
     private static boolean pacmanWasHurt = false;
@@ -35,6 +28,7 @@ public class Game {
      * Inicializáló metódus
      */
     public static void init() {
+        maxPellets = 0;
         SpriteLoader.loadSprites();
         MapLoader.loadMap();
         state = GameState.STOPPED;
@@ -47,8 +41,9 @@ public class Game {
      * A játékot inicializáló metódus
      */
     private static void initGame() {
-        map = MapLoader.map;
-        maxPellets = remainingPellets;
+        score = 0;
+        MapLoader.loadMap();
+        remainingPellets = maxPellets;
         initEntities();
     }
 
@@ -76,7 +71,6 @@ public class Game {
     public static void start() {
         initGame();
         thread = new GameThread();
-        score = 0;
         frame.showGame();
         state = GameState.RUNNING;
         thread.start();
@@ -126,7 +120,7 @@ public class Game {
     private static void quitToMenu(boolean saveScore) {
         state = GameState.STOPPED;
         frame.gamePanel.printGameOver();
-
+        // TODO save score
         frame.showMainMenu();
     }
 

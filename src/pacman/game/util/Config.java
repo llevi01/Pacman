@@ -25,7 +25,7 @@ public class Config {
     public static final int MAP_HEIGHT = MAP_ROWS * ON_SCREEN_TILE_SIZE;
     public static final int UPPER_RIBBON_HEIGHT = UPPER_RIBBON_ROWS * ON_SCREEN_TILE_SIZE;
     public static final int LOWER_RIBBON_HEIGHT = LOWER_RIBBON_ROWS * ON_SCREEN_TILE_SIZE;
-    public static final int DISPLAY_TARGET_FPS = 60;
+    public static final int DISPLAY_TARGET_FPS = 45;
     public static final int ENTITY_ANIMATION_FPS = 5;
 
     // Pacman
@@ -34,7 +34,7 @@ public class Config {
             (13 * Config.TILE_SPRITE_SIZE + 3 + 4) * Config.SCALE,
             (23 * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE
     );     // Képernyő koordináták!
-    public static final int PACMAN_SPEED = 2;   // Pixel / frame
+    public static final int PACMAN_SPEED = SCALE;   // Pixel / frame
 
 
     // Ghost

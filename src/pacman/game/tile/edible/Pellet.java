@@ -16,6 +16,6 @@ public class Pellet extends Edible {
     public Pellet(Coordinate mapPosition, BufferedImage sprite) {
         super(mapPosition, sprite);
         scoreModifier = Config.PELLET_SCORE_MODIFIER;
-        Game.remainingPellets++;
+        Game.maxPellets++;
     }
 }
