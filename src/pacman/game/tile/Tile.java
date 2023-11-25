@@ -61,4 +61,11 @@ public abstract class Tile {
                 this.mapPosition.y * multiplier
         );
     }
+
+    /**
+     * Visszaadja a Tile sprite-ját
+     */
+    public BufferedImage getSprite() {
+        return sprite;
+    }
 }
