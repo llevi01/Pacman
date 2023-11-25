@@ -13,7 +13,7 @@ Ez a *Programozás Alapjai 3* tárgyhoz készített házi feladatom.
 
 ## A játék indítása
 
-1. Töltsd le és telepítsd a Java-t [innen](https://www.java.com/download/ie_manual.jsp)
+1. Töltsd le és telepítsd a Java-t [innen](https://www.oracle.com/java/technologies/downloads/#jdk21-windows)
 
 2. Töltsd le a játékot
    - elég a *Pacman.jar* file-t letöltened, ehhez kattints a file-ra, majd jobb oldalt a letöltés gombra
@@ -36,7 +36,7 @@ Ez a *Programozás Alapjai 3* tárgyhoz készített házi feladatom.
 > 
 > 1. Töltsd le [ezt](https://johann.loefflmann.net/downloads/jarfix.exe) a programot
 > 2. Nyomd meg a Windows gombot a billentyűzeten és írd be, hogy `cmd`, majd nyomd meg az Entert
-> 3. Feltéve, hogy a letöltések mappában van az előbb letöltött program, írd be a parancssorba ezt a két parancsot (két külön sorba):
+> 3. Feltéve, hogy a *Letöltések* mappában van az előbb letöltött program, írd be a parancssorba ezt a két parancsot (két külön sorba):
 > 
 >     `cd Downloads`
 > 
