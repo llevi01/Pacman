@@ -1,7 +1,6 @@
 package pacman.game.entity.pacman;
 
 import pacman.game.Game;
-import pacman.game.GameState;
 import pacman.game.entity.Direction;
 import pacman.game.entity.Entity;
 import pacman.game.entity.ghost.Ghost;
@@ -12,6 +11,7 @@ import pacman.game.tile.edible.*;
 import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -24,7 +24,6 @@ public class Pacman extends Entity {
      */
     public Pacman() {
         init();
-        updateCurrentTile();
     }
 
     /**
@@ -132,10 +131,11 @@ public class Pacman extends Entity {
     public void update() {
         updateDirection();
         position = position.add(direction.getVector().multiply(speed));
+
         checkOutOfFrame();
         checkWallCollisions();
+        checkGhostCollisions();
 
-        updateCurrentTile();
         interactWithTile();
     }
 
@@ -200,12 +200,15 @@ public class Pacman extends Entity {
     }
 
     /**
-     * A jelenlegi Tile-el való interakció
-     * A rajta lévő Edible elfogyasztása,
-     * szellemekkel való interakció
+     * Elfogyasztjuk az Edible-t, amin éppen vagyunk
      */
     private void interactWithTile() {
-        if (currentTile == null) {
+        Coordinate mapPos = getMapPosition();
+        Tile currentTile;
+        try {
+            currentTile = Game.map.get(mapPos.y).get(mapPos.x);
+        } catch (IndexOutOfBoundsException e) {
+            // A pályán kívüli tile-n áll pacman
             return;
         }
 
@@ -224,13 +227,13 @@ public class Pacman extends Entity {
                 }
             }
         }
+    }
 
-        // Ha más Entity is van ezen a Tile-n, Pacman interaktál velük
-        if (currentTile.entities.size() > 1) {
-            for (Entity entity : currentTile.entities) {
-                if (!(entity instanceof Ghost ghost)) {
-                    continue;
-                }
+    private void checkGhostCollisions() {
+        Rectangle bounds = getBounds();
+        for (Ghost ghost : Game.ghosts) {
+            Rectangle ghostBounds = ghost.getBounds();
+            if (bounds.intersects(ghostBounds)) {
                 ghost.interact();
             }
         }

@@ -22,7 +22,6 @@ public abstract class Ghost extends Entity implements ActionListener {
     public Ghost(Pacman pacman) {
         this.pacman = pacman;
         init();
-        updateCurrentTile();
     }
 
     /**
@@ -163,8 +162,6 @@ public abstract class Ghost extends Entity implements ActionListener {
 
         checkOutOfFrame();
         checkWallCollisions(); // ez nem kellene ide, biztonság kedvéért mégis itt van
-
-        updateCurrentTile();
     }
 
     /**

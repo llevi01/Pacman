@@ -33,11 +33,6 @@ public abstract class Entity {
     protected Direction direction;
 
     /**
-     * Az a Tile, amin éppen van az Entity
-     */
-    protected Tile currentTile;
-
-    /**
      * Az entitás aktuális sebessége (pixel / frame)
      */
     protected int speed;
@@ -163,40 +158,13 @@ public abstract class Entity {
      * Collision detection-höz használt függvény
      * @return Az Entity "szilárd" része
      */
-    protected Rectangle getBounds() {
+    public Rectangle getBounds() {
         int offset = 3 * Config.SCALE;
         Coordinate boundsPos = new Coordinate(
                 this.position.x - offset,
                 this.position.y - offset
         );
         return new Rectangle(boundsPos.x, boundsPos.y, Config.ON_SCREEN_TILE_SIZE, Config.ON_SCREEN_TILE_SIZE);
-    }
-
-    /**
-     * Az aktuálisan az Entity alatt lévő Tile frissítése
-     */
-    protected void updateCurrentTile() {
-        Coordinate tileCoords = getMapPosition();
-
-        try {
-            Tile nextTile = Game.map.get(tileCoords.y).get(tileCoords.x);
-            if (nextTile.equals(currentTile)) {
-                return;
-            }
-
-            if (currentTile == null) {
-                currentTile = nextTile;
-                return;
-            }
-
-            currentTile.entities.remove(this);
-            currentTile = nextTile;
-            currentTile.entities.add(this);
-
-
-        } catch (IndexOutOfBoundsException e) {
-            currentTile = null;
-        }
     }
 
     /**

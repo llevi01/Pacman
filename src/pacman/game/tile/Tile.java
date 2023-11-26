@@ -14,7 +14,6 @@ public abstract class Tile {
     public Tile(Coordinate mapPosition, BufferedImage sprite) {
         this.mapPosition = mapPosition;
         this.sprite = sprite;
-        entities = new ArrayList<>();
     }
 
     /**
@@ -29,11 +28,6 @@ public abstract class Tile {
     public boolean isWalkable() {
         return true;
     }
-
-    /**
-     * Entity-k, amik jelenleg ezen a Tile-n vannak
-     */
-    public ArrayList<Entity> entities;
 
     /**
      * A sprite ami a képernyőn ezt a Tile-t reprezentálja
