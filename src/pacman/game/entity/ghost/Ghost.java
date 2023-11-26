@@ -201,13 +201,18 @@ public abstract class Ghost extends Entity implements ActionListener {
      * Pacman hívja meg, amikor elfogyaszt egy PowerPellet-et.
      */
     public void toFrightenedState() {
+        if (state.equals(GhostState.EATEN)) {
+            return;
+        }
         enterFrightened = System.currentTimeMillis();
         stateTimer.stop();
-        nextStates.add(0, state);
+
+        if (!state.equals(GhostState.FRIGHTENED)) {
+            nextStates.add(0, state);
+        }
         state = GhostState.FRIGHTENED;
         stateTimer.setInitialDelay(state.getDelay());
         stateTimer.start();
-
         direction = direction.inverse();
     }
 
