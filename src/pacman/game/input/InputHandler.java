@@ -42,6 +42,13 @@ public class InputHandler implements KeyListener {
                 if (escPressed) frame.mainMenu.back();
                 if (enterPressed) frame.mainMenu.select();
             }
+            case RUNNING -> {
+                if (escPressed) Game.pause();
+            }
+            case PAUSED -> {
+                if (escPressed) Game.resume();
+                if (enterPressed) Game.quitToMenu(false);
+            }
         }
     }
 

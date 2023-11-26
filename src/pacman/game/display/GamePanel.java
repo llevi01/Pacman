@@ -8,6 +8,7 @@ import pacman.game.tile.Tile;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Ezen a panelen jelenik meg a pálya
@@ -19,6 +20,7 @@ public class GamePanel extends JPanel {
 
     private boolean printReady = false;
     private boolean printGameOver = false;
+    private boolean printPause = false;
 
     public GamePanel() {
         this.setMinimumSize(new Dimension(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
@@ -59,7 +61,7 @@ public class GamePanel extends JPanel {
             FontMetrics metrics = graphics.getFontMetrics();
 
             int x = (Config.SCREEN_WIDTH - metrics.stringWidth("GAME OVER")) / 2;
-            int y = Config.MAP_ROWS / 2 * Config.ON_SCREEN_TILE_SIZE;
+            int y = 5 * Config.ON_SCREEN_TILE_SIZE;
 
             graphics.setColor(Color.BLACK);
             graphics.drawString("GAME OVER", x + 4, y + 4);
@@ -68,6 +70,38 @@ public class GamePanel extends JPanel {
             graphics.drawString("GAME OVER", x, y);
 
             printGameOver = false;
+        } else if (printPause) {
+            // Draw bg
+            graphics.setColor(Color.BLACK);
+            graphics.fillRect(9 * Config.ON_SCREEN_TILE_SIZE, 14 * Config.ON_SCREEN_TILE_SIZE,
+                    10 * Config.ON_SCREEN_TILE_SIZE, 7 * Config.ON_SCREEN_TILE_SIZE);
+
+            graphics.setFont(GameFrame.font.deriveFont(8F * Config.SCALE));
+            FontMetrics metrics = graphics.getFontMetrics();
+
+            // Draw title
+            graphics.setColor(Color.YELLOW);
+
+            int x = (Config.SCREEN_WIDTH - metrics.stringWidth("PAUSED")) / 2;
+            int y = 16 * Config.ON_SCREEN_TILE_SIZE;
+
+            graphics.drawString("PAUSED", x, y);
+
+            // Draw instructions
+            graphics.setFont(GameFrame.font.deriveFont(6F * Config.SCALE));
+            metrics = graphics.getFontMetrics();
+
+            x = (Config.SCREEN_WIDTH - metrics.stringWidth("Esc - RESUME")) / 2;
+            y += 2 * Config.ON_SCREEN_TILE_SIZE;
+
+            graphics.drawString("Esc - RESUME", x, y);
+
+            x = (Config.SCREEN_WIDTH - metrics.stringWidth("Enter - QUIT")) / 2;
+            y += 2 * Config.ON_SCREEN_TILE_SIZE;
+
+            graphics.drawString("Enter - QUIT", x, y);
+
+            printPause = false;
         }
 
         graphics.dispose();
@@ -80,5 +114,11 @@ public class GamePanel extends JPanel {
 
     public void printGameOver() {
         printGameOver = true;
+        repaint();
+    }
+
+    public void printPause() {
+        printPause = true;
+        repaint();
     }
 }

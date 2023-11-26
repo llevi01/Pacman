@@ -129,6 +129,7 @@ public class Game {
      */
     public static void pause() {
         state = GameState.PAUSED;
+        frame.gamePanel.printPause();
     }
 
     /**
@@ -146,9 +147,9 @@ public class Game {
      */
     public static void quitToMenu(boolean saveScore) {
         state = GameState.STOPPED;
-        frame.gamePanel.printGameOver();
 
         if (saveScore) {
+            frame.gamePanel.printGameOver();
             String name = JOptionPane.showInputDialog(frame, "Please enter your name (max 8 characters)",
                     "Pacman", JOptionPane.PLAIN_MESSAGE);
             if (name != null && !name.isEmpty() && !name.isBlank()) {
