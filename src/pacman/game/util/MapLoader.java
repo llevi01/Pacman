@@ -47,7 +47,7 @@ public class MapLoader {
                         String key = getWallSpriteKey(c);
                         BufferedImage sprite = SpriteLoader.tileSprites.get(key);
 
-                        if (c == '-') {
+                        if (key.equals("empty") || key.equals("house_door")) {
                             row.add(row.size(), new EmptyTile(new Coordinate(j, i), sprite));
                         } else {
                             row.add(row.size(), new Wall(new Coordinate(j, i), sprite));
@@ -83,10 +83,42 @@ public class MapLoader {
     private static String getWallSpriteKey(char c) {
         String res = null;
         switch (c) {
-            case '-' -> res = "empty";
+            case '.' -> res = "empty";
             case '#' -> res = "wall_placeholder";
+            case 'A' -> res = "house_door";
+            case 'B' -> res = "house_top_wall";
+            case 'C' -> res = "house_bottom_wall";
+            case 'D' -> res = "house_left_wall";
+            case 'E' -> res = "house_right_wall";
+            case 'F' -> res = "house_top_left_corner";
+            case 'G' -> res = "house_top_right_corner";
+            case 'H' -> res = "house_bottom_left_corner";
+            case 'I' -> res = "house_bottom_right_corner";
+            case 'J' -> res = "house_left_doorframe";
+            case 'K' -> res = "house_right_doorframe";
+            case '\'' -> res = "maze_top_left_corner";
+            case '\"' -> res = "maze_top_right_corner";
+            case 'ˇ' -> res = "maze_bottom_left_corner";
+            case '^' -> res = "maze_bottom_right_corner";
+            case '_' -> res = "obstacle_top_wall";
+            case '-' -> res = "obstacle_bottom_wall";
+            case '/' -> res = "obstacle_left_wall";
+            case '\\' -> res = "obstacle_right_wall";
+            case '[' -> res = "obstacle_bottom_left_outer_corner";
+            case ']' -> res = "obstacle_bottom_right_outer_corner";
+            case '(' -> res = "obstacle_top_left_outer_corner";
+            case ')' -> res = "obstacle_top_right_outer_corner";
+            case '<' -> res = "obstacle_bottom_left_inner_corner";
+            case '>' -> res = "obstacle_bottom_right_inner_corner";
+            case '{' -> res = "obstacle_top_left_inner_corner";
+            case '}' -> res = "obstacle_top_right_inner_corner";
+            case '$' -> res = "maze_border_top_inner_corner1";
+            case '€' -> res = "maze_border_top_inner_corner2";
+            case '*' -> res = "maze_border_right_inner_corner1";
+            case '+' -> res = "maze_border_right_inner_corner2";
+            case '@' -> res = "maze_border_left_inner_corner1";
+            case '&' -> res = "maze_border_left_inner_corner2";
         }
-        // TODO wall types
         return res;
     }
 

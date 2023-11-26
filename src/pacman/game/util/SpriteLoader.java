@@ -42,6 +42,7 @@ public class SpriteLoader {
     private static void loadWallSprites() {
         BufferedImage img;
         try {
+            // Empty
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/empty.png")));
             tileSprites.put("empty", img);
@@ -49,6 +50,145 @@ public class SpriteLoader {
             img = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/walls/wall_placeholder.png")));
             tileSprites.put("wall_placeholder", img);
+
+            // House
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_bottom_left_corner.png")));
+            tileSprites.put("house_bottom_left_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_bottom_right_corner.png")));
+            tileSprites.put("house_bottom_right_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_bottom_wall.png")));
+            tileSprites.put("house_bottom_wall", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_door.png")));
+            tileSprites.put("house_door", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_left_doorframe.png")));
+            tileSprites.put("house_left_doorframe", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_left_wall.png")));
+            tileSprites.put("house_left_wall", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_right_doorframe.png")));
+            tileSprites.put("house_right_doorframe", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_right_wall.png")));
+            tileSprites.put("house_right_wall", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_top_left_corner.png")));
+            tileSprites.put("house_top_left_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_top_right_corner.png")));
+            tileSprites.put("house_top_right_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/house_top_wall.png")));
+            tileSprites.put("house_top_wall", img);
+
+            // Maze outer corners
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_bottom_left_corner.png")));
+            tileSprites.put("maze_bottom_left_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_bottom_right_corner.png")));
+            tileSprites.put("maze_bottom_right_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_top_left_corner.png")));
+            tileSprites.put("maze_top_left_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_top_right_corner.png")));
+            tileSprites.put("maze_top_right_corner", img);
+
+            // Maze inner corner
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_border_top_inner_corner1.png")));
+            tileSprites.put("maze_border_top_inner_corner1", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_border_top_inner_corner2.png")));
+            tileSprites.put("maze_border_top_inner_corner2", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_border_right_inner_corner1.png")));
+            tileSprites.put("maze_border_right_inner_corner1", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_border_right_inner_corner2.png")));
+            tileSprites.put("maze_border_right_inner_corner2", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_border_left_inner_corner1.png")));
+            tileSprites.put("maze_border_left_inner_corner1", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/maze_border_left_inner_corner2.png")));
+            tileSprites.put("maze_border_left_inner_corner2", img);
+
+            // Obstacle walls
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_top_wall.png")));
+            tileSprites.put("obstacle_top_wall", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_bottom_wall.png")));
+            tileSprites.put("obstacle_bottom_wall", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_right_wall.png")));
+            tileSprites.put("obstacle_right_wall", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_left_wall.png")));
+            tileSprites.put("obstacle_left_wall", img);
+
+            // Obstacle outer corners
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_bottom_left_outer_corner.png")));
+            tileSprites.put("obstacle_bottom_left_outer_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_bottom_right_outer_corner.png")));
+            tileSprites.put("obstacle_bottom_right_outer_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_top_left_outer_corner.png")));
+            tileSprites.put("obstacle_top_left_outer_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_top_right_outer_corner.png")));
+            tileSprites.put("obstacle_top_right_outer_corner", img);
+
+            // Obstacle outer corners
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_bottom_left_inner_corner.png")));
+            tileSprites.put("obstacle_bottom_left_inner_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_bottom_right_inner_corner.png")));
+            tileSprites.put("obstacle_bottom_right_inner_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_top_left_inner_corner.png")));
+            tileSprites.put("obstacle_top_left_inner_corner", img);
+
+            img = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/walls/obstacle_top_right_inner_corner.png")));
+            tileSprites.put("obstacle_top_right_inner_corner", img);
+
 
         } catch (IOException | NullPointerException e) {
             error();

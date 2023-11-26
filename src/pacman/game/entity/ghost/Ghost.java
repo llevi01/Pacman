@@ -172,7 +172,7 @@ public abstract class Ghost extends Entity implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         state = nextStates.remove(0);
-        if (!isInsideHouse()) {
+        if (!isInsideHouse() && !isInSlowZone()) {
             direction = direction.inverse();
         }
         if (state.getDelay() != Config.GHOST_STATE_INFINITE_DELAY) {

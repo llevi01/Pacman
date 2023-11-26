@@ -121,7 +121,7 @@ public class MainMenu extends JPanel {
         graphics.drawString("SCORE", x, y);
 
         // Print scores
-        graphics.setFont(GameFrame.font.deriveFont(12F * Config.SCALE));
+        graphics.setFont(GameFrame.font.deriveFont(10F * Config.SCALE));
         metrics = graphics.getFontMetrics();
         y += Config.ON_SCREEN_TILE_SIZE * 4;
 
