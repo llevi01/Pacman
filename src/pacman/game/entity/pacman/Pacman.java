@@ -142,7 +142,7 @@ public class Pacman extends Entity {
     /**
      * Frissíti Pacman irányát
      */
-    private void updateDirection() {
+    public void updateDirection() {
         Direction chosenDirection = getChosenDirection();
         Coordinate mapPos = getMapPosition();
         Coordinate chosenTilePos = mapPos.add(chosenDirection.getVector());
