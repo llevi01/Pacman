@@ -18,12 +18,18 @@ public class Pinky extends Ghost {
         super(pacman);
     }
 
+    /**
+     * Kezdőállapotba állítja a szellemet
+     */
     @Override
     protected void toStartingPos() {
         position = Config.PINKY_STARTING_POS;
         direction = Config.PINKY_STARTING_DIR;
     }
 
+    /**
+     * Sprite-okat inicializáló metódus
+     */
     @Override
     protected void initSprites() {
         spriteIndex = 0;
@@ -34,6 +40,9 @@ public class Pinky extends Ghost {
         sprite = spriteList.get(0);
     }
 
+    /**
+     * @return A szellem célja CHASE állapotban
+     */
     @Override
     protected Coordinate getChaseTarget() {
         Coordinate pacmanPos = pacman.getMapPosition();
@@ -42,6 +51,9 @@ public class Pinky extends Ghost {
         return pacmanPos.add(offset);
     }
 
+    /**
+     * @return A szellem célja SCATTER állapotban
+     */
     @Override
     protected Coordinate getScatterTarget() {
         return Config.PINKY_SCATTER_TARGET;

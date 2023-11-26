@@ -10,10 +10,28 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * A képernyőn megjelenő alsó szalagot kezelő osztály
+ */
 public class LowerRibbon extends JPanel {
+    /**
+     * Megjelenített gyümölcsök száma
+     */
     private static int displayedFruit;
+
+    /**
+     * Gyümölcsök sprite-jai
+     */
     private static ArrayList<BufferedImage> fruitSprites;
+
+    /**
+     * Pacman egyik sprite-ja
+     */
     private static BufferedImage pacmanSprite;
+
+    /**
+     * LowerRibbon default konstruktor
+     */
     public LowerRibbon() {
         this.setMinimumSize(new Dimension(Config.SCREEN_WIDTH, Config.LOWER_RIBBON_HEIGHT));
         this.setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.LOWER_RIBBON_HEIGHT));
@@ -22,6 +40,9 @@ public class LowerRibbon extends JPanel {
         pacmanSprite = SpriteLoader.pacmanSprites.get(Direction.LEFT).get(0);
     }
 
+    /**
+     * A LowerRibbon-t renderelő metódus
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -47,6 +68,9 @@ public class LowerRibbon extends JPanel {
         }
     }
 
+    /**
+     * Frissíti a gyümölcsök sprite-jait
+     */
     public static void updateFruitSprites() {
         fruitSprites = new ArrayList<>();
         fruitSprites.add(Game.fruit.get(0).getSprite());
@@ -54,6 +78,9 @@ public class LowerRibbon extends JPanel {
         displayedFruit = 0;
     }
 
+    /**
+     * Frissíti a megjelenítendő gyümölcsök számát
+     */
     private void updateDisplayedFruit() {
         if (displayedFruit < 1 && Game.fruit.size() == 1 && Game.pacman.fruitEaten) {
             displayedFruit++;

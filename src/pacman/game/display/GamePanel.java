@@ -1,27 +1,34 @@
 package pacman.game.display;
 
 import pacman.game.Game;
-import pacman.game.entity.Entity;
 import pacman.game.util.Config;
-import pacman.game.tile.Tile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * Ezen a panelen jelenik meg a pálya
  */
 public class GamePanel extends JPanel {
-    private final UpperRibbon upperRibbon;
-    private final MapPanel mapPanel;
-    private final LowerRibbon lowerRibbon;
 
+    /**
+     * Igaz, ha ki kell írni a "Ready" szöveget
+     */
     private boolean printReady = false;
+
+    /**
+     * Igaz, ha ki kell írni a "Game Over" szöveget
+     */
     private boolean printGameOver = false;
+
+    /**
+     * Igaz, ha ki kell írni a "Paused" szöveget
+     */
     private boolean printPause = false;
 
+    /**
+     * GamePanel default konstruktor
+     */
     public GamePanel() {
         this.setMinimumSize(new Dimension(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
         this.setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
@@ -29,15 +36,14 @@ public class GamePanel extends JPanel {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        upperRibbon = new UpperRibbon();
-        mapPanel = new MapPanel();
-        lowerRibbon = new LowerRibbon();
-
-        this.add(upperRibbon);
-        this.add(mapPanel);
-        this.add(lowerRibbon);
+        this.add(new UpperRibbon());
+        this.add(new MapPanel());
+        this.add(new LowerRibbon());
     }
 
+    /**
+     * A GamePanel-t renderelő metódus
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -107,16 +113,25 @@ public class GamePanel extends JPanel {
         graphics.dispose();
     }
 
+    /**
+     * Kiírja a "Ready" szöveget
+     */
     public void printReady() {
         printReady = true;
         Game.thread.doWait(3000);
     }
 
+    /**
+     * Kiírja a "Game Over" szöveget
+     */
     public void printGameOver() {
         printGameOver = true;
         repaint();
     }
 
+    /**
+     * Kiírja a "Paused" szöveget
+     */
     public void printPause() {
         printPause = true;
         repaint();

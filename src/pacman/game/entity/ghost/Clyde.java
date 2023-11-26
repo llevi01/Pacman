@@ -18,12 +18,18 @@ public class Clyde extends Ghost {
         super(pacman);
     }
 
+    /**
+     * Kezdőállapotba állítja a szellemet
+     */
     @Override
     protected void toStartingPos() {
         position = Config.CLYDE_STARTING_POS;
         direction = Config.CLYDE_STARTING_DIR;
     }
 
+    /**
+     * Sprite-okat inicializáló metódus
+     */
     @Override
     protected void initSprites() {
         spriteIndex = 0;
@@ -34,6 +40,9 @@ public class Clyde extends Ghost {
         sprite = spriteList.get(spriteIndex);
     }
 
+    /**
+     * @return A szellem célja CHASE állapotban
+     */
     @Override
     protected Coordinate getChaseTarget() {
         Coordinate pacmanPos = pacman.getMapPosition();
@@ -45,6 +54,9 @@ public class Clyde extends Ghost {
         return Config.CLYDE_SCATTER_TARGET;
     }
 
+    /**
+     * @return A szellem célja SCATTER állapotban
+     */
     @Override
     protected Coordinate getScatterTarget() {
         return Config.CLYDE_SCATTER_TARGET;

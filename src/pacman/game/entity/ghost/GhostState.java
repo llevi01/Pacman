@@ -3,7 +3,7 @@ package pacman.game.entity.ghost;
 import pacman.game.util.Config;
 
 /**
- * A szellemek állapotai
+ * A szellemek állapotait tároló enum
  */
 public enum GhostState {
     CHASE(Config.GHOST_CHASE_STATE_DELAY),
@@ -19,6 +19,10 @@ public enum GhostState {
     GhostState(int delay) {
         this.delay = delay;
     }
+
+    /**
+     * @return Az állapott időtartama
+     */
     public int getDelay() {
         return delay;
     }

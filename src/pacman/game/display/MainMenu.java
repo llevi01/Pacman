@@ -15,20 +15,28 @@ import java.util.Map;
  */
 public class MainMenu extends JPanel {
     /**
-     * Menüpontok
+     * Menüpontok listája
      */
     private final ArrayList<String> options;
     private final String START = "START GAME";
     private final String LEADERBOARD = "LEADERBOARD";
     private final String GUIDE = "HOW TO PLAY";
     private final String QUIT = "QUIT";
+
+    /**
+     * Igaz, ha a főmenüben vagyunk
+     */
     private boolean inTitleScreen;
+
     /**
      * A kiválasztott menüpont sorszáma
      */
     private int selected = 0;
 
-    private Color selectedColor;
+    /**
+     * A kiválasztott menüpontot kiemelő szín
+     */
+    private final Color selectedColor;
 
     /**
      * Főmenü konstruktor
@@ -46,6 +54,9 @@ public class MainMenu extends JPanel {
         selectedColor = new Color(112, 154, 209);
     }
 
+    /**
+     * A főmenüt renderelő metódus
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics = (Graphics2D) g;
@@ -65,6 +76,9 @@ public class MainMenu extends JPanel {
         graphics.dispose();
     }
 
+    /**
+     * Kirajzolja a főmenüt
+     */
     private void paintTitleSceen(Graphics2D graphics) {
         // Paint title
         graphics.setFont(GameFrame.font.deriveFont(28F * Config.SCALE));
@@ -103,6 +117,9 @@ public class MainMenu extends JPanel {
         }
     }
 
+    /**
+     * Kirajzolja a leaderboard-ot
+     */
     private void paintLeaderboard(Graphics2D graphics) {
         ArrayList<Map.Entry<String, Integer>> players = Leaderboard.getTopFive();
 
@@ -143,6 +160,9 @@ public class MainMenu extends JPanel {
         }
     }
 
+    /**
+     * Kirajzolja az útmutatót
+     */
     private void paintGuide(Graphics2D graphics) {
         graphics.setFont(GameFrame.font.deriveFont(10F * Config.SCALE));
         FontMetrics metrics = graphics.getFontMetrics();
@@ -155,7 +175,7 @@ public class MainMenu extends JPanel {
     }
 
     /**
-     * Egy menüponttal lejjebb megy
+     * Egy menüponttal lejjebb lép
      */
     public void down() {
         if (!inTitleScreen) {
@@ -168,7 +188,7 @@ public class MainMenu extends JPanel {
     }
 
     /**
-     * Egy menüponttal feljebb megy
+     * Egy menüponttal feljebb lép
      */
     public void up() {
         if (!inTitleScreen) {
@@ -198,7 +218,7 @@ public class MainMenu extends JPanel {
     }
 
     /**
-     * Visszamegy a főmenübe a HOW TO PLAY menüpontból
+     * Visszamegy a főmenübe
      */
     public void back() {
         if (!inTitleScreen) {

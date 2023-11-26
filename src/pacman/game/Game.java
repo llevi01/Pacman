@@ -1,7 +1,6 @@
 package pacman.game;
 
 import pacman.game.display.GameFrame;
-import pacman.game.entity.Entity;
 import pacman.game.entity.ghost.*;
 import pacman.game.entity.pacman.Pacman;
 import pacman.game.tile.Tile;
@@ -12,17 +11,53 @@ import pacman.game.util.SpriteLoader;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * A játékot kezelő osztály
+ */
 public class Game {
+    /**
+     * Ebben az ablakkban jelenik meg a játék
+     */
     public static GameFrame frame;
+    /**
+     * Ezen a szálon fut a game loop
+     */
     public static GameThread thread;
+    /**
+     * A játék aktuális állapota
+     */
     public static volatile GameState state;
+    /**
+     * Pálya
+     */
     public static ArrayList<ArrayList<Tile>> map = new ArrayList<>();
+    /**
+     * Szellemek listája
+     */
     public static ArrayList<Ghost> ghosts = new ArrayList<>();
+    /**
+     * Gyümölcsök listája
+     */
     public static ArrayList<Fruit> fruit = new ArrayList<>();
+    /**
+     * Maradék Pellet-ek száma
+     */
     public static int remainingPellets;
+    /**
+     * Pelletek maximális száma
+     */
     public static int maxPellets = 0;
+    /**
+     * Játékos aktuális
+     */
     public static int score;
+    /**
+     * Pacman referenciája
+     */
     public static Pacman pacman;
+    /**
+     * Igaz, ha Pacman-t éppen megsebezték
+     */
     private static boolean pacmanWasHurt;
 
     /**

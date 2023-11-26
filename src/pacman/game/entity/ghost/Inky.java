@@ -26,12 +26,18 @@ public class Inky extends Ghost {
         this.blinky = blinky;
     }
 
+    /**
+     * Kezdőállapotba állítja a szellemet
+     */
     @Override
     protected void toStartingPos() {
         position = Config.INKY_STARTING_POS;
         direction = Config.INKY_STARTING_DIR;
     }
 
+    /**
+     * Sprite-okat inicializáló metódus
+     */
     @Override
     protected void initSprites() {
         spriteIndex = 0;
@@ -42,6 +48,9 @@ public class Inky extends Ghost {
         sprite = spriteList.get(0);
     }
 
+    /**
+     * @return A szellem célja CHASE állapotban
+     */
     @Override
     protected Coordinate getChaseTarget() {
         Coordinate pacmanPos = pacman.getMapPosition();
@@ -54,6 +63,9 @@ public class Inky extends Ghost {
         return blinkyPos.add(vector);
     }
 
+    /**
+     * @return A szellem célja SCATTER állapotban
+     */
     @Override
     protected Coordinate getScatterTarget() {
         return Config.INKY_SCATTER_TARGET;

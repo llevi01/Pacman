@@ -1,7 +1,6 @@
 package pacman.game.display;
 
 import pacman.game.input.InputHandler;
-import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
 
 import javax.swing.*;

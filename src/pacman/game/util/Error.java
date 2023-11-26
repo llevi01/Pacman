@@ -1,5 +1,8 @@
 package pacman.game.util;
 
+/**
+ * Lehetséges hibajelzéseket, és azok üzeneteit tároló enum
+ */
 public enum Error {
     LOADING_SPRITES("Failed to load sprites"),
     LOADING_MAP("Failed to load map"),

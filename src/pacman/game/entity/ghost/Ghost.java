@@ -14,6 +14,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
+/**
+ * Szellemet reprezentáló osztály
+ */
 public abstract class Ghost extends Entity implements ActionListener {
     /**
      * Ghost default konstruktor
@@ -79,10 +82,16 @@ public abstract class Ghost extends Entity implements ActionListener {
         }
     }
 
+    /**
+     * Sprite frissítése EATEN állapotban
+     */
     private void updateEatenSprite() {
         sprite = eatenSprites.get(direction);
     }
 
+    /**
+     * Sprite frissítése FRIGHTENED állapotban
+     */
     private void updateFrightenedSprite() {
         if (animationDrawCounter < Config.ENTITY_ANIMATION_FPS * 2) {
             animationDrawCounter++;
@@ -344,7 +353,7 @@ public abstract class Ghost extends Entity implements ActionListener {
             Coordinate tilePos = ghostPos.add(dir.getVector());
             double dist = tilePos.getDistance(target);
 
-            switch (compareDistances(dist, lowestDist)) {
+            switch (Coordinate.compareDistances(dist, lowestDist)) {
                 case 0 -> bestMoves.add(dir);
                 case -1 -> {
                     bestMoves.clear();
@@ -358,14 +367,9 @@ public abstract class Ghost extends Entity implements ActionListener {
         return bestMoves.get(0);
     }
 
-    private int compareDistances(double dist1, double dist2) {
-        double delta = 0.0001d;
-        if ((Math.abs(dist1 - dist2)) < delta) {
-            return 0;
-        }
-        return dist1 < dist2 ? -1 : 1;
-    }
-
+    /**
+     * Frissíti a szellem célját
+     */
     protected void updateTargetTile() {
         if (isInsideHouse()) {
             target = Config.IN_FRONT_OF_GHOST_HOUSE;
@@ -379,20 +383,33 @@ public abstract class Ghost extends Entity implements ActionListener {
         }
     }
 
+    /**
+     * @return True, ha egy olyan zónában van, ahol nem fordulhat
+     */
     private boolean isInNoTurnZone() {
         Coordinate mapPos = getMapPosition();
         return (mapPos.y == 11 || mapPos.y == 23) && (mapPos.x >= 11 && mapPos.x <= 16);
     }
+
+    /**
+     * @return True, ha egy olyan zónában van, ahol lassan megy
+     */
     private boolean isInSlowZone() {
         Coordinate mapPos = getMapPosition();
         return mapPos.y == 14 && (mapPos.x <= 4 || mapPos.x >= 22) ;
     }
 
+    /**
+     * @return True, ha a házban van
+     */
     protected boolean isInsideHouse() {
         Coordinate mapPos = getMapPosition();
         return (mapPos.y >= 12 && mapPos.y <= 15) && (mapPos.x >= 12 && mapPos.x <= 16);
     }
 
+    /**
+     * @return True, ha a ház előtt van
+     */
     protected boolean isInFrontOfHouse() {
         return getMapPosition().equals(Config.IN_FRONT_OF_GHOST_HOUSE);
     }

@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 public class Pellet extends Edible {
     /**
      * Pellet default konstruktor
+     * @param mapPosition a Pellet helye a pályán
+     * @param sprite a Pellet-et reprezentáló sprite
      */
     public Pellet(Coordinate mapPosition, BufferedImage sprite) {
         super(mapPosition, sprite);

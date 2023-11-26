@@ -6,7 +6,5 @@ package pacman.game;
 public enum GameState {
     STOPPED,
     RUNNING,
-    WAITING,
     PAUSED,
-    OVER
 }

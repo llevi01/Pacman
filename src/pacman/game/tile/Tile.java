@@ -1,14 +1,12 @@
 package pacman.game.tile;
 
-import pacman.game.entity.Entity;
 import pacman.game.util.Config;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
- * Egy, a pályán lévő tile-t reprezentáló osztály
+ * Egy, a pályán lévő cellát reprezentáló osztály
  */
 public abstract class Tile {
     public Tile(Coordinate mapPosition, BufferedImage sprite) {

@@ -55,6 +55,9 @@ public class Pacman extends Entity {
      */
     private int perfectRun;
 
+    /**
+     * Igaz, ha Pacman megette az aktuálisan a pályán lévő gyümölcsöt
+     */
     public boolean fruitEaten;
 
     /**
@@ -71,10 +74,16 @@ public class Pacman extends Entity {
         return lives;
     }
 
+    /**
+     * Kezdőállapotba helyezi Pacman-t
+     */
     public void reset() {
         toStartingPos();
     }
 
+    /**
+     * Inicializáló metódus
+     */
     protected void init() {
         lives = Config.PACMAN_LIVES;
         speed = Config.PACMAN_SPEED;
@@ -86,6 +95,9 @@ public class Pacman extends Entity {
         initSprites();
     }
 
+    /**
+     * Sprite-okat inicializáló metódus
+     */
     protected void initSprites() {
         spriteIndex = 0;
         defaultSprites = SpriteLoader.pacmanSprites;
@@ -94,6 +106,9 @@ public class Pacman extends Entity {
         sprite = spriteList.get(spriteIndex);
     }
 
+    /**
+     * Sprite frissítése
+     */
     @Override
     protected void updateSprite() {
         if (lives < 1) {
@@ -118,6 +133,9 @@ public class Pacman extends Entity {
         animationDrawCounter = 0;
     }
 
+    /**
+     * A kezdő pozíciójába helyezi Pacman-t
+     */
     protected void toStartingPos() {
         position = Config.PACMAN_STARTING_POS;
         direction = Direction.NONE;
@@ -213,7 +231,7 @@ public class Pacman extends Entity {
         }
 
         if (currentTile instanceof Edible edible) {
-            if (!edible.getState().equals(EdibleState.EATEN)) {
+            if (!edible.isEaten()) {
                 // Találtunk egy nem elfogyasztott ehetőt
                 edible.toEatenState();
                 Game.score += edible.getScoreModifier();
@@ -229,6 +247,9 @@ public class Pacman extends Entity {
         }
     }
 
+    /**
+     * Szellemekkel való ütközést kezelő metódus
+     */
     private void checkGhostCollisions() {
         Rectangle bounds = getBounds();
         for (Ghost ghost : Game.ghosts) {
@@ -249,6 +270,9 @@ public class Pacman extends Entity {
         hurt = true;
     }
 
+    /**
+     * @return True, ha Pacmant éppen megsebezték
+     */
     public boolean isHurt() {
         return hurt;
     }

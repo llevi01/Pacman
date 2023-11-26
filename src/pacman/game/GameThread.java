@@ -9,10 +9,21 @@ import java.util.TimerTask;
  * A game loop-ért felelős szál
  */
 public class GameThread extends Thread {
-    private static double deltaTime;        // A legutóbbi render-update blokk óta eltelt idő (ns)
-    private static final double timeSlice = 500000000 / (double) Config.DISPLAY_TARGET_FPS; // Két render-update blokk között eltelő idő optimális esetben (ns) TODO nem jó
+    /**
+     * A legutóbbi render-update blokk óta eltelt idő (ns)
+     */
+    private static double deltaTime;
+    /**
+     * Két render-update blokk között eltelő idő optimális esetben (ns)
+     */
+    private static final double timeSlice = 500000000 / (double) Config.DISPLAY_TARGET_FPS;
+    /**
+     * Időzítő, a game loop várakoztatásához kell
+     */
     private final Timer timer = new Timer();
-
+    /**
+     * True, ha a game loop éppen várakozik
+     */
     private volatile boolean waiting = false;
 
     /**
@@ -38,6 +49,11 @@ public class GameThread extends Thread {
             }
         }
     }
+
+    /**
+     * Ezt a függvényt meghívva lehet a game loop-ot várakoztatni
+     * @param millis Várakozás ideje (ms)
+     */
     public void doWait(int millis) {
         waiting = true;
         TimerTask task = new TimerTask() {

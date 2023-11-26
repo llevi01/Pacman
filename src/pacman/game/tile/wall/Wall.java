@@ -16,6 +16,9 @@ public class Wall extends Tile {
         super(mapPosition, sprite);
     }
 
+    /**
+     * @return False, mivel a falon nem lehet átmenni
+     */
     @Override
     public boolean isWalkable() {
         return false;

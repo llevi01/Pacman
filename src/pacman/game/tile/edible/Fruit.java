@@ -12,11 +12,21 @@ import java.util.Random;
 
 /**
  * Gyümölcsöt reprezentáló osztály
+ * A gggyümölcsök mind ugyan ott jelennek meg a pályán
+ * bizonyos időközönként
  */
 public class Fruit extends Edible implements ActionListener {
+    /**
+     * A gyümölcsök helye a pályán
+     */
     public static Coordinate location;
-    private static Random random = new Random();
-    private Timer timer;
+
+    /**
+     * Random generátor
+     * A gyümölcsök eltűnési idejéhez kell
+     */
+    private static final Random random = new Random();
+
     /**
      * Fruit default konstruktor
      * @param type A gyümölcs neve
@@ -33,14 +43,21 @@ public class Fruit extends Edible implements ActionListener {
         location = mapPosition;
     }
 
+    /**
+     * Visszaadja azt a képernyő koordinátát, ahonnan a gyümölcs rajzolását kezdeni kell
+     */
     protected Coordinate getDrawPosition() {
-        int offset = (4) * Config.SCALE; // TODO ezt szebben kiszámolni
+        int offset = (4) * Config.SCALE;
         return new Coordinate(
                 super.getDrawPosition().x - offset,
                 super.getDrawPosition().y - offset
         );
     }
 
+    /**
+     * A képernyőre rajzolja a gyümölcsöt
+     * @param graphics Erre történik a festés
+     */
     public void render(Graphics2D graphics) {
         if (state == EdibleState.EATEN) {
             return;
@@ -52,13 +69,20 @@ public class Fruit extends Edible implements ActionListener {
                 Config.ON_SCREEN_ENTITY_SIZE, Config.ON_SCREEN_ENTITY_SIZE, null);
     }
 
+    /**
+     * A gyümölcs eltűntetéséhez használt metódus
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         toEatenState();
     }
 
+    /**
+     * A gyümölcs elhelyezésénél meghívott metódus
+     * Elindítja a gyümölcs időzítőjét, ami majd eltűnteti azt
+     */
     public void placed() {
-        timer = new Timer(9000 + random.nextInt(1000), this);
+        Timer timer = new Timer(9000 + random.nextInt(1000), this);
         timer.setRepeats(false);
         timer.start();
     }

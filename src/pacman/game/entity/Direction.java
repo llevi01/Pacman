@@ -36,10 +36,17 @@ public enum Direction {
     public Coordinate getVector() {
         return new Coordinate(xOffset, yOffset);
     }
+
+    /**
+     * @return irány prioritása
+     */
     public int getPriority() {
         return priority;
     }
 
+    /**
+     * @return Az irány inverze
+     */
     public Direction inverse() {
         switch (this) {
             case UP -> {

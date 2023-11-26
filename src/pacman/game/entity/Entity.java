@@ -147,7 +147,7 @@ public abstract class Entity {
      * hova kell rajzolni az Entity-ket
      */
     protected Coordinate getDrawPosition() {
-        int offset = (7) * Config.SCALE; // TODO ezt szebben kiszámolni
+        int offset = (7) * Config.SCALE;
         return new Coordinate(
                 this.position.x - offset,
                 this.position.y - offset

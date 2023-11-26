@@ -7,8 +7,18 @@ import pacman.game.util.Config;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A felső szalagot megjelenítő osztály
+ */
 public class UpperRibbon extends JPanel {
+    /**
+     * Maximális pontszám
+     */
     int highScore;
+
+    /**
+     * UpperRibbon default konstruktor
+     */
     public UpperRibbon() {
         this.setMinimumSize(new Dimension(Config.SCREEN_WIDTH, Config.UPPER_RIBBON_HEIGHT));
         this.setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.UPPER_RIBBON_HEIGHT));
@@ -18,6 +28,9 @@ public class UpperRibbon extends JPanel {
         this.highScore = 0;
     }
 
+    /**
+     * A felső szalagot kirajzoló metódus
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

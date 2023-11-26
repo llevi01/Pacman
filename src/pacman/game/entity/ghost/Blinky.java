@@ -18,12 +18,18 @@ public class Blinky extends Ghost{
         super(pacman);
     }
 
+    /**
+     * Kezdőállapotba állítja a szellemet
+     */
     @Override
     protected void toStartingPos() {
         position = Config.BLINKY_STARTING_POS;
         direction = Config.BLINKY_STARTING_DIR;
     }
 
+    /**
+     * Sprite-okat inicializáló metódus
+     */
     @Override
     protected void initSprites() {
         spriteIndex = 0;
@@ -34,11 +40,17 @@ public class Blinky extends Ghost{
         sprite = spriteList.get(spriteIndex);
     }
 
+    /**
+     * @return A szellem célja CHASE állapotban
+     */
     @Override
     protected Coordinate getChaseTarget() {
         return pacman.getMapPosition();
     }
 
+    /**
+     * @return A szellem célja SCATTER állapotban
+     */
     @Override
     protected Coordinate getScatterTarget() {
         return Config.BLIKNY_SCATTER_TARGET;
