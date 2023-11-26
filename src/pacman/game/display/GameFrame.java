@@ -2,6 +2,7 @@ package pacman.game.display;
 
 import pacman.game.input.InputHandler;
 import pacman.game.util.Config;
+import pacman.game.util.SpriteLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +36,7 @@ public class GameFrame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.addKeyListener(new InputHandler(this));
+        this.setIconImage(SpriteLoader.icon.getImage());
         loadFont();
 
         this.getContentPane().setLayout(new CardLayout());

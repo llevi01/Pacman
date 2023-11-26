@@ -5,6 +5,7 @@ import pacman.game.entity.Direction;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SpriteLoader {
+    public static ImageIcon icon;
+    public static BufferedImage guide;
     public static Map<String, BufferedImage> tileSprites = new HashMap<>();
     public static Map<Direction, ArrayList<BufferedImage>> pacmanSprites = new HashMap<>();
     public static ArrayList<BufferedImage> pacmanHurtAnimation = new ArrayList<>();
@@ -30,8 +33,23 @@ public class SpriteLoader {
     }
 
     public static void loadSprites() {
+        loadMenuImages();
         loadTileSprites();
         loadEntitySprites();
+    }
+
+    private static void loadMenuImages() {
+        try {
+            pacmanMainMenu = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/icon.png")));
+
+            icon = new ImageIcon(ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/icon.png"))));
+
+        } catch (IOException e) {
+            error();
+            System.exit(1);
+        }
     }
 
     private static void loadTileSprites() {
@@ -245,9 +263,6 @@ public class SpriteLoader {
         BufferedImage img2;
 
         try {
-            pacmanMainMenu = ImageIO.read(Objects.requireNonNull(
-                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/main_menu.png")));
-
             // Neutral
             neutral = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/neutral.png")));

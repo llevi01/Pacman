@@ -15,10 +15,6 @@ import java.util.Map;
  */
 public class MainMenu extends JPanel {
     /**
-     *
-     */
-    private final String TITLE = "PACMAN";
-    /**
      * Menüpontok
      */
     private final ArrayList<String> options;
@@ -31,6 +27,8 @@ public class MainMenu extends JPanel {
      * A kiválasztott menüpont sorszáma
      */
     private int selected = 0;
+
+    private Color selectedColor;
 
     /**
      * Főmenü konstruktor
@@ -45,6 +43,7 @@ public class MainMenu extends JPanel {
         options.add(QUIT);
 
         inTitleScreen = true;
+        selectedColor = new Color(112, 154, 209);
     }
 
     public void paintComponent(Graphics g) {
@@ -68,9 +67,10 @@ public class MainMenu extends JPanel {
 
     private void paintTitleSceen(Graphics2D graphics) {
         // Paint title
-        graphics.setFont(GameFrame.font.deriveFont(26F * Config.SCALE));
+        graphics.setFont(GameFrame.font.deriveFont(28F * Config.SCALE));
         FontMetrics metrics = graphics.getFontMetrics();
 
+        String TITLE = "PACMAN";
         int x = (Config.SCREEN_WIDTH - metrics.stringWidth(TITLE)) / 2;
         int y = Config.ON_SCREEN_TILE_SIZE * 8;
 
@@ -80,22 +80,23 @@ public class MainMenu extends JPanel {
         graphics.drawString(TITLE, x, y);
 
         // Paint image
-        int imageScale = 2;
+        int imageScale = 3;
         x = (Config.SCREEN_WIDTH - Config.ON_SCREEN_ENTITY_SIZE * imageScale) / 2;
-        y = Config.ON_SCREEN_TILE_SIZE * 12;
+        y = Config.ON_SCREEN_TILE_SIZE * 10;
         graphics.drawImage(SpriteLoader.pacmanMainMenu, x, y,
                 Config.ON_SCREEN_ENTITY_SIZE * imageScale, Config.ON_SCREEN_ENTITY_SIZE * imageScale, null);
 
         // Paint options
-        graphics.setFont(GameFrame.font.deriveFont(10F * Config.SCALE));
+        graphics.setFont(GameFrame.font.deriveFont(11F * Config.SCALE));
         metrics = graphics.getFontMetrics();
+        y = Config.ON_SCREEN_TILE_SIZE * 16;
 
         for (int i = 0; i < options.size(); i++) {
             String string = options.get(i);
             x = (Config.SCREEN_WIDTH - metrics.stringWidth(string)) / 2;
-            y = Config.ON_SCREEN_TILE_SIZE * 20 + Config.ON_SCREEN_TILE_SIZE * 3 * i;
+            y += Config.ON_SCREEN_TILE_SIZE * 4;
             if (i == selected) {
-                graphics.setColor(Color.BLUE);
+                graphics.setColor(selectedColor);
             }
             graphics.drawString(string, x, y);
             graphics.setColor(Color.YELLOW);
