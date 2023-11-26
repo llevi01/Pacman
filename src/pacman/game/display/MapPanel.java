@@ -2,6 +2,7 @@ package pacman.game.display;
 
 import pacman.game.Game;
 import pacman.game.entity.Entity;
+import pacman.game.entity.ghost.Ghost;
 import pacman.game.tile.Tile;
 import pacman.game.util.Config;
 
@@ -30,8 +31,9 @@ public class MapPanel extends JPanel {
             }
         }
 
-        for (Entity entity : Game.entities) {
-            entity.render(graphics);
+        for (Ghost ghost : Game.ghosts) {
+            ghost.render(graphics);
         }
+        Game.pacman.render(graphics);
     }
 }

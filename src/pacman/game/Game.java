@@ -17,7 +17,7 @@ public class Game {
     public static GameThread thread;
     public static volatile GameState state;
     public static ArrayList<ArrayList<Tile>> map = new ArrayList<>();
-    public static ArrayList<Entity> entities = new ArrayList<>();
+    public static ArrayList<Ghost> ghosts = new ArrayList<>();
     public static ArrayList<Fruit> fruit = new ArrayList<>();
     public static int remainingPellets;
     public static int maxPellets = 0;
@@ -54,18 +54,17 @@ public class Game {
      * Az entitásokat inicializáló metódus
      */
     private static void initEntities() {
-        entities = new ArrayList<>();
         pacman = new Pacman();
+        ghosts = new ArrayList<>();
         Blinky blinky = new Blinky(pacman);
         Pinky pinky = new Pinky(pacman);
         Inky inky = new Inky(pacman, blinky);
         Clyde clyde = new Clyde(pacman);
 
-        entities.add(blinky);
-        entities.add(pinky);
-        entities.add(inky);
-        entities.add(clyde);
-        entities.add(pacman);
+        ghosts.add(blinky);
+        ghosts.add(pinky);
+        ghosts.add(inky);
+        ghosts.add(clyde);
     }
 
     /**
@@ -92,9 +91,10 @@ public class Game {
             return;
         }
 
-        for (Entity entity : entities) {
-            entity.update();
+        for (Ghost ghost : ghosts) {
+            ghost.update();
         }
+        pacman.update();
         placeFruit();
         if (remainingPellets < 1) {
             quitToMenu(true);
@@ -117,9 +117,10 @@ public class Game {
             quitToMenu(true);
             return;
         }
-        for (Entity entity : entities) {
-            entity.reset();
+        for (Ghost ghost : ghosts) {
+            ghost.reset();
         }
+        pacman.reset();
         frame.gamePanel.printReady();
     }
 
@@ -148,9 +149,9 @@ public class Game {
         frame.gamePanel.printGameOver();
 
         if (saveScore) {
-            String name = JOptionPane.showInputDialog(frame, "Please enter your name",
+            String name = JOptionPane.showInputDialog(frame, "Please enter your name (max 8 characters)",
                     "Pacman", JOptionPane.PLAIN_MESSAGE);
-            if (name != null || !name.isBlank()) {
+            if (name != null && !name.isEmpty() && !name.isBlank()) {
                 Leaderboard.addScore(name, score);
             }
         }

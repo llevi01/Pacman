@@ -72,11 +72,11 @@ public class Config {
     public static final Direction CLYDE_STARTING_DIR = Direction.RIGHT;
 
 
-    // Ghost state
-    public static final int GHOST_CHASE_STATE_TIME = 15 * DISPLAY_TARGET_FPS;
-    public static final int GHOST_SCATTER_STATE_TIME = 5 * DISPLAY_TARGET_FPS;
-    public static final int GHOST_FRIGHTENED_STATE_TIME = 7 * DISPLAY_TARGET_FPS;
-    public static final int GHOST_STATE_INFINITE_TIME = -1;
+    // Ghost state delays (ms)
+    public static final int GHOST_CHASE_STATE_DELAY = 20 * 1000;
+    public static final int GHOST_SCATTER_STATE_DELAY = 7 * 1000;
+    public static final int GHOST_FRIGHTENED_STATE_DELAY = 8 * 1000;
+    public static final int GHOST_STATE_INFINITE_DELAY = -1;
 
 
     // Edibles

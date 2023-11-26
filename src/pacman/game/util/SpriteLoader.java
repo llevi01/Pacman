@@ -172,7 +172,9 @@ public class SpriteLoader {
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/10.png")));
             pacmanHurtAnimation.add(img);
 
-            pacmanHurtAnimation.add(tileSprites.get("empty"));
+            for (int i = 0; i < 5; i++) {
+                pacmanHurtAnimation.add(tileSprites.get("empty"));
+            }
 
         } catch (IOException | NullPointerException e) {
             error();

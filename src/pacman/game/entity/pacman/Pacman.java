@@ -254,10 +254,8 @@ public class Pacman extends Entity {
      * PowerPellet elfogyasztásakor meghívott függvény
      */
     private void powerPelletEaten() {
-        for (Entity entity : Game.entities) {
-            if (entity instanceof Ghost ghost) {
-                ghost.toFrightenedState();
-            }
+        for (Ghost ghost : Game.ghosts) {
+            ghost.toFrightenedState();
         }
         ghostsEaten = 0;
     }

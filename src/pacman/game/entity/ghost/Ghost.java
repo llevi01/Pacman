@@ -8,10 +8,13 @@ import pacman.game.tile.Coordinate;
 import pacman.game.tile.Tile;
 import pacman.game.util.Config;
 
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
-public abstract class Ghost extends Entity {
+public abstract class Ghost extends Entity implements ActionListener {
     /**
      * Ghost default konstruktor
      * @param pacman Pacman referenciája
@@ -28,9 +31,14 @@ public abstract class Ghost extends Entity {
     private GhostState state;
 
     /**
-     * Következő állapotváltásig eltelő idő
+     * Állapotváltást kezelő timer
      */
-    private int stateTimer;
+    private Timer stateTimer;
+
+    /**
+     * Ebben az időpontban váltott FRIGHTENED állapotba a szellem
+     */
+    private long enterFrightened;
 
     /**
      * A szellem következő állapotai
@@ -81,8 +89,9 @@ public abstract class Ghost extends Entity {
             animationDrawCounter++;
             return;
         }
-        int fullTime = GhostState.FRIGHTENED.getTime();
-        boolean flashing = stateTimer <= fullTime / 2;
+        long fullTime = GhostState.FRIGHTENED.getDelay();
+        long passed = System.currentTimeMillis() - enterFrightened;
+        boolean flashing = passed >= fullTime * 3 / 4;
 
         spriteIndex++;
         spriteIndex %= flashing ? frightenedSprites.size() : frightenedSprites.size() / 2;
@@ -96,7 +105,8 @@ public abstract class Ghost extends Entity {
     protected void init() {
         // Állapotok inicializálása
         state = GhostState.SCATTER;
-        stateTimer = state.getTime();
+        stateTimer = new Timer(state.getDelay(), this);
+        stateTimer.setRepeats(false);
 
         for (int i = 0; i < 3; i++) {
             nextStates.add(GhostState.CHASE);
@@ -124,9 +134,13 @@ public abstract class Ghost extends Entity {
      * Kezdő állapotba helyezi a szellemeket
      */
     public void reset() {
+        if (stateTimer.isRunning()) {
+            stateTimer.stop();
+        }
         toStartingPos();
         if (state.equals(GhostState.EATEN) || state.equals(GhostState.FRIGHTENED)) {
             state = nextStates.remove(0);
+            stateTimer.setInitialDelay(state.getDelay());
         }
     }
 
@@ -135,7 +149,12 @@ public abstract class Ghost extends Entity {
      */
     @Override
     public void update() {
-        updateState();
+        if (!stateTimer.isRunning()) {
+            stateTimer.start();
+        }
+        if (state.equals(GhostState.EATEN) && isInsideHouse()) {
+            endEatenState();
+        }
         updateTargetTile();
         updateDirection();
 
@@ -153,23 +172,26 @@ public abstract class Ghost extends Entity {
      * A játék elején a szellemek a CHASE és SCATTER
      * állapotok között váltanak, majd CHASE állapotban maradnak
      */
-    private void updateState() {
-        if (stateTimer == 0 ||
-                state.equals(GhostState.EATEN) && isInsideHouse()) {
-            state = nextStates.remove(0);
-            stateTimer = state.getTime();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        state = nextStates.remove(0);
+        if (!isInsideHouse()) {
             direction = direction.inverse();
-            return;
         }
-        // Csak akkor csökkentjük, ha nem végtelen (-1)
-        if (stateTimer > 0) {
-            stateTimer --;
+        if (state.getDelay() != Config.GHOST_STATE_INFINITE_DELAY) {
+            stateTimer.setInitialDelay(state.getDelay());
+            stateTimer.start();
         }
     }
 
+    /**
+     * EATEN állapotba váltja a szellemet.
+     * Ez a metódus a szellemet a legközelebbi Tile közepére helyezi,
+     * így biztosan el tud majd fordulni.
+     */
     private void toEatenState() {
+        stateTimer.stop();
         state = GhostState.EATEN;
-        stateTimer = state.getTime();
         direction = direction.inverse();
         position = new Coordinate(
                 (getMapPosition().x * Config.TILE_SPRITE_SIZE + 3) * Config.SCALE,
@@ -178,15 +200,26 @@ public abstract class Ghost extends Entity {
     }
 
     /**
-     * A szellemet FRIGHTENED állapotba váltja
-     * Pacman hívja meg, amikor elfogyaszt egy
-     * PowerPellet-et
+     * FRIGHTENED állapotba váltja a szellemet.
+     * Pacman hívja meg, amikor elfogyaszt egy PowerPellet-et.
      */
     public void toFrightenedState() {
+        enterFrightened = System.currentTimeMillis();
+        stateTimer.stop();
         nextStates.add(0, state);
         state = GhostState.FRIGHTENED;
-        stateTimer = state.getTime();
+        stateTimer.setInitialDelay(state.getDelay());
+        stateTimer.start();
+
         direction = direction.inverse();
+    }
+
+    private void endEatenState() {
+        state = nextStates.remove(0);
+        if (state.getDelay() != Config.GHOST_STATE_INFINITE_DELAY) {
+            stateTimer.setInitialDelay(state.getDelay());
+            stateTimer.start();
+        }
     }
 
     /**
