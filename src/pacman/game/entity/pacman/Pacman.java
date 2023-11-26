@@ -105,7 +105,7 @@ public class Pacman extends Entity {
         }
         // Play hurt animation
         sprite = hurtAnimation.get(spriteIndex);
-        if (animationDrawCounter < Config.ENTITY_ANIMATION_FPS) {
+        if (animationDrawCounter < Config.ENTITY_ANIMATION_FPS * 2) {
             animationDrawCounter++;
             return;
         }

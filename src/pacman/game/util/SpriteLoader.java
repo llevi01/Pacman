@@ -100,77 +100,114 @@ public class SpriteLoader {
         ArrayList<BufferedImage> down = new ArrayList<>();
         ArrayList<BufferedImage> left = new ArrayList<>();
         ArrayList<BufferedImage> right = new ArrayList<>();
-        BufferedImage img;
+        BufferedImage neutral;
+        BufferedImage img1;
+        BufferedImage img2;
 
         try {
             pacmanMainMenu = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/main_menu.png")));
 
-            img = ImageIO.read(Objects.requireNonNull(
+            // Neutral
+            neutral = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/neutral.png")));
-            none.add(img);
-            pacmanHurtAnimation.add(img);
+            none.add(neutral);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            // Up
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/up1.png")));
-            up.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/up2.png")));
-            pacmanHurtAnimation.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            up.add(img1);
+            up.add(img2);
+            up.add(img1);
+            up.add(neutral);
+
+
+            // Down
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/down1.png")));
-            down.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/down2.png")));
+
+            down.add(img1);
+            down.add(img2);
+            down.add(img1);
+            down.add(neutral);
+
+            // Right
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/right1.png")));
-            right.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/right2.png")));
+
+            right.add(img1);
+            right.add(img2);
+            right.add(img1);
+            right.add(neutral);
+
+            // Left
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/left1.png")));
-            left.add(img);
 
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/left2.png")));
 
-            img = ImageIO.read(Objects.requireNonNull(
+            left.add(img1);
+            left.add(img2);
+            left.add(img1);
+            left.add(neutral);
+
+            // Hurt animation
+            pacmanHurtAnimation.add(neutral);
+
+            img1 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/up2.png")));
+            pacmanHurtAnimation.add(img1);
+
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/1.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/2.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/3.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/4.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/5.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/6.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/7.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/8.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/9.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/pacman/hurt/10.png")));
-            pacmanHurtAnimation.add(img);
+            pacmanHurtAnimation.add(img1);
 
             for (int i = 0; i < 5; i++) {
                 pacmanHurtAnimation.add(tileSprites.get("empty"));
@@ -202,28 +239,54 @@ public class SpriteLoader {
         ArrayList<BufferedImage> down = new ArrayList<>();
         ArrayList<BufferedImage> left = new ArrayList<>();
         ArrayList<BufferedImage> right = new ArrayList<>();
-        BufferedImage img;
+        BufferedImage img1;
+        BufferedImage img2;
 
         try {
-            img = ImageIO.read(Objects.requireNonNull(
+            // Neutral
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/neutral.png")));
-            none.add(img);
+            none.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            // Up
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/up1.png")));
-            up.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/up2.png")));
+
+            up.add(img1);
+            up.add(img2);
+
+            // Down
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/down1.png")));
-            down.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/down2.png")));
+
+            down.add(img1);
+            down.add(img2);
+
+            // Right
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/right1.png")));
-            right.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/right2.png")));
+
+            right.add(img1);
+            right.add(img2);
+
+            // Left
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/left1.png")));
-            left.add(img);
+
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Blinky/left2.png")));
+
+            left.add(img1);
+            left.add(img2);
 
 
         } catch (IOException | NullPointerException e) {
@@ -243,29 +306,54 @@ public class SpriteLoader {
         ArrayList<BufferedImage> down = new ArrayList<>();
         ArrayList<BufferedImage> left = new ArrayList<>();
         ArrayList<BufferedImage> right = new ArrayList<>();
-        BufferedImage img;
+        BufferedImage img1;
+        BufferedImage img2;
 
         try {
-            img = ImageIO.read(Objects.requireNonNull(
+            // Neutral
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/neutral.png")));
-            none.add(img);
+            none.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            // Up
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/up1.png")));
-            up.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/up2.png")));
+
+            up.add(img1);
+            up.add(img2);
+
+            // Down
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/down1.png")));
-            down.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/down2.png")));
+
+            down.add(img1);
+            down.add(img2);
+
+            // Right
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/right1.png")));
-            right.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/right2.png")));
+
+            right.add(img1);
+            right.add(img2);
+
+            // Left
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/left1.png")));
-            left.add(img);
 
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Pinky/left2.png")));
+
+            left.add(img1);
+            left.add(img2);
 
         } catch (IOException | NullPointerException e) {
             error();
@@ -284,29 +372,54 @@ public class SpriteLoader {
         ArrayList<BufferedImage> down = new ArrayList<>();
         ArrayList<BufferedImage> left = new ArrayList<>();
         ArrayList<BufferedImage> right = new ArrayList<>();
-        BufferedImage img;
+        BufferedImage img1;
+        BufferedImage img2;
 
         try {
-            img = ImageIO.read(Objects.requireNonNull(
+            // Neutral
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/neutral.png")));
-            none.add(img);
+            none.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            // Up
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/up1.png")));
-            up.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/up2.png")));
+
+            up.add(img1);
+            up.add(img2);
+
+            // Down
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/down1.png")));
-            down.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/down2.png")));
+
+            down.add(img1);
+            down.add(img2);
+
+            // Right
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/right1.png")));
-            right.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/right2.png")));
+
+            right.add(img1);
+            right.add(img2);
+
+            // Left
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/left1.png")));
-            left.add(img);
 
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Inky/left2.png")));
+
+            left.add(img1);
+            left.add(img2);
 
         } catch (IOException | NullPointerException e) {
             error();
@@ -325,29 +438,54 @@ public class SpriteLoader {
         ArrayList<BufferedImage> down = new ArrayList<>();
         ArrayList<BufferedImage> left = new ArrayList<>();
         ArrayList<BufferedImage> right = new ArrayList<>();
-        BufferedImage img;
+        BufferedImage img1;
+        BufferedImage img2;
 
         try {
-            img = ImageIO.read(Objects.requireNonNull(
+// Neutral
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/neutral.png")));
-            none.add(img);
+            none.add(img1);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            // Up
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/up1.png")));
-            up.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/up2.png")));
+
+            up.add(img1);
+            up.add(img2);
+
+            // Down
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/down1.png")));
-            down.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/down2.png")));
+
+            down.add(img1);
+            down.add(img2);
+
+            // Right
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/right1.png")));
-            right.add(img);
 
-            img = ImageIO.read(Objects.requireNonNull(
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/right2.png")));
+
+            right.add(img1);
+            right.add(img2);
+
+            // Left
+            img1 = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/left1.png")));
-            left.add(img);
 
+            img2 = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/sprites/ghosts/Clyde/left2.png")));
+
+            left.add(img1);
+            left.add(img2);
 
         } catch (IOException | NullPointerException e) {
             error();
