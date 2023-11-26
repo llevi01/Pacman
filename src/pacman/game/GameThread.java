@@ -11,9 +11,7 @@ import java.util.TimerTask;
 public class GameThread extends Thread {
     private static double deltaTime;        // A legutóbbi render-update blokk óta eltelt idő (ns)
     private static final double timeSlice = 500000000 / (double) Config.DISPLAY_TARGET_FPS; // Két render-update blokk között eltelő idő optimális esetben (ns) TODO nem jó
-
-    private Timer timer = new Timer();
-    private TimerTask task;
+    private final Timer timer = new Timer();
 
     private volatile boolean waiting = false;
 
@@ -42,7 +40,7 @@ public class GameThread extends Thread {
     }
     public void doWait(int millis) {
         waiting = true;
-        task = new TimerTask() {
+        TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 waiting = false;
