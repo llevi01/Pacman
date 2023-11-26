@@ -13,16 +13,11 @@ Ez a *Programozás Alapjai 3* tárgyhoz készített házi feladatom.
 
 ## A játék indítása
 
-1. Töltsd le és telepítsd a Java-t [innen](https://www.oracle.com/java/technologies/downloads/#jdk21-windows)
+1. Töltsd le és telepítsd a Java installert [innen](https://www.oracle.com/java/technologies/downloads/#jdk21-windows)
 
 2. Töltsd le a játékot
-   - elég a *Pacman.jar* file-t letöltened, ehhez kattints a file-ra, majd jobb oldalt a letöltés gombra
-   
-   ![pacman_jar](res/tutorial/pacman_jar.png)
 
-   ![pacman_jar_download](res/tutorial/pacman_jar_download.png)
-
-   - letöltheted az egész kódot is, ezt a fenti *Code* gombra, majd a *Download ZIP* gombra kattintva teheted meg
+   - ezt a fenti *Code* gombra, majd a *Download ZIP* gombra kattintva teheted meg
    
    ![code_download](res/tutorial/code_download.png)
 
