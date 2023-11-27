@@ -13,15 +13,26 @@ public enum Direction {
     RIGHT(1, 0, 4),
     NONE(0, 0, -1);
 
+    /**
+     * x tengely irányába való egységnyi eltérés
+     */
     private final int xOffset;
+
+    /**
+     * y tengely irányába való egységnyi eltérés
+     */
     private final int yOffset;
+
+    /**
+     * választási sorrendhez használt prioritás
+     */
     private final int priority;
 
     /**
      * Direction konstruktor
      * @param xOffset x tengely irányába való egységnyi eltérés
      * @param yOffset y tengely irányába való egységnyi eltérés
-     * @param priority választási sorrendhez használt érték
+     * @param priority választási sorrendhez használt prioritás
      */
     Direction(int xOffset, int yOffset, int priority) {
         this.xOffset = xOffset;

@@ -82,9 +82,9 @@ public class LowerRibbon extends JPanel {
      * Frissíti a megjelenítendő gyümölcsök számát
      */
     private void updateDisplayedFruit() {
-        if (displayedFruit < 1 && Game.fruit.size() == 1 && Game.pacman.fruitEaten) {
+        if (displayedFruit < 1 && Game.fruit.size() == 1 && Game.pacman.isFruitEaten()) {
             displayedFruit++;
-        } else if (displayedFruit < 2 && Game.fruit.isEmpty() && Game.pacman.fruitEaten) {
+        } else if (displayedFruit < 2 && Game.fruit.isEmpty() && Game.pacman.isFruitEaten()) {
             displayedFruit++;
         }
     }

@@ -50,7 +50,7 @@ public class Game {
     /**
      * Játékos aktuális
      */
-    public static int score;
+    private static int score;
     /**
      * Pacman referenciája
      */
@@ -205,11 +205,45 @@ public class Game {
             Fruit fruit1 = fruit.remove(0);
             map.get(Fruit.location.y).set(Fruit.location.x, fruit1);
             fruit1.placed();
-        } else if (fruit.size() == 1 && pelletsEaten == 170 && pacman.fruitEaten) {
+        } else if (fruit.size() == 1 && pelletsEaten == 170 && pacman.isFruitEaten()) {
             Fruit fruit2 = fruit.remove(0);
             map.get(Fruit.location.y).set(Fruit.location.x, fruit2);
-            pacman.fruitEaten = false;
+            pacman.setFruitEaten(false);
             fruit2.placed();
         }
     }
+
+    /**
+     * Pontszámot módosító metódus
+     * @param modifier ezt a számot adja hozzá a pontszámhoz
+     */
+    public static void modifyScore(int modifier) {
+        score += modifier;
+    }
+
+    /**
+     * Score getter
+     */
+    public static int getScore() {
+        return score;
+    }
+
+    /**
+     * @return megmaradt Pellet-ek száma
+     */
+    public static int getRemainingPellets() {
+        return remainingPellets;
+    }
+
+    /**
+     * Beállítja a megmaradt pelletek számát
+     */
+    public static void setRemainingPellets(int pellets) {
+        remainingPellets = pellets;
+    }
+
+    /**
+     * Impicit konstruktor elrejtése miatt privát
+     */
+    private Game() {}
 }

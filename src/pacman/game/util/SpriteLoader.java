@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Grafikák betöltéséért felelős osztály
+ */
 public class SpriteLoader {
     public static ImageIcon icon;
     public static BufferedImage guide;
@@ -31,6 +34,9 @@ public class SpriteLoader {
                 "Pacman", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Grafikák betöltése
+     */
     public static void loadSprites() {
         loadMenuImages();
         loadTileSprites();

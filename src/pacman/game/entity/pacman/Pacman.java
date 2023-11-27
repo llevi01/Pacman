@@ -11,7 +11,6 @@ import pacman.game.tile.edible.*;
 import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ public class Pacman extends Entity {
     /**
      * Igaz, ha megsebezték Pacman-t
      */
-    public boolean hurt;
+    private boolean isHurt;
 
     /**
      * Megevett szellemek száma egy PowerPellet elfogyasztása után
@@ -58,7 +57,7 @@ public class Pacman extends Entity {
     /**
      * Igaz, ha Pacman megette az aktuálisan a pályán lévő gyümölcsöt
      */
-    public boolean fruitEaten;
+    private boolean fruitEaten;
 
     /**
      * A következő lehetőségnél Pacman ebbe az írányba fordul
@@ -114,7 +113,7 @@ public class Pacman extends Entity {
         if (lives < 1) {
             return;
         }
-        if (!hurt) {
+        if (!isHurt) {
             super.updateSprite();
             return;
         }
@@ -126,7 +125,7 @@ public class Pacman extends Entity {
         }
         spriteIndex++;
         if (spriteIndex >= hurtAnimation.size()) {
-            hurt = false;
+            isHurt = false;
             spriteIndex = 0;
             lives--;
         }
@@ -230,19 +229,17 @@ public class Pacman extends Entity {
             return;
         }
 
-        if (currentTile instanceof Edible edible) {
-            if (!edible.isEaten()) {
-                // Találtunk egy nem elfogyasztott ehetőt
-                edible.toEatenState();
-                Game.score += edible.getScoreModifier();
+        if (currentTile instanceof Edible edible && !edible.isEaten()) {
+            // Találtunk egy nem elfogyasztott ehetőt
+            edible.toEatenState();
+            Game.modifyScore(edible.getScoreModifier());
 
-                if (edible instanceof Pellet) {
-                    Game.remainingPellets--;
-                } else if (edible instanceof PowerPellet) {
-                    powerPelletEaten();
-                } else if (edible instanceof Fruit) {
-                    fruitEaten = true;
-                }
+            if (edible instanceof Pellet) {
+                Game.setRemainingPellets(Game.getRemainingPellets() - 1);
+            } else if (edible instanceof PowerPellet) {
+                powerPelletEaten();
+            } else if (edible instanceof Fruit) {
+                fruitEaten = true;
             }
         }
     }
@@ -267,14 +264,14 @@ public class Pacman extends Entity {
     public void hurt() {
         spriteIndex = 0;
         animationDrawCounter = 0;
-        hurt = true;
+        isHurt = true;
     }
 
     /**
      * @return True, ha Pacmant éppen megsebezték
      */
     public boolean isHurt() {
-        return hurt;
+        return isHurt;
     }
 
     /**
@@ -293,12 +290,26 @@ public class Pacman extends Entity {
      */
     public void ghostEaten() {
         ghostsEaten++;
-        Game.score += (1 << ghostsEaten) * 100;
+        Game.modifyScore((1 << ghostsEaten) * 100);
         if (ghostsEaten > 3) {
             perfectRun ++;
         }
         if (perfectRun > 3) {
-            Game.score += 12000;
+            Game.modifyScore(12000);
         }
+    }
+
+    /**
+     * @return True, ha Pacman megette az aktuális gyümölcsöt
+     */
+    public boolean isFruitEaten() {
+        return fruitEaten;
+    }
+
+    /**
+     * FruitEaten setter
+     */
+    public void setFruitEaten(boolean fruitEaten) {
+        this.fruitEaten = fruitEaten;
     }
 }

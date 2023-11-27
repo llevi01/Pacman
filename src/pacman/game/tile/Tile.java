@@ -9,6 +9,11 @@ import java.awt.image.BufferedImage;
  * Egy, a pályán lévő cellát reprezentáló osztály
  */
 public abstract class Tile {
+    /**
+     * Tile default konstruktor
+     * @param mapPosition A Tile helye a pályán
+     * @param sprite A Tile-t megjelenítő sprite
+     */
     public Tile(Coordinate mapPosition, BufferedImage sprite) {
         this.mapPosition = mapPosition;
         this.sprite = sprite;

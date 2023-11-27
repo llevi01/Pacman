@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Ezen a panelen jelenik meg a pálya
+ * Ezen a panelen jelenik meg a pálya és az alsó és felső szalagok
  */
 public class GamePanel extends JPanel {
 
@@ -62,6 +62,9 @@ public class GamePanel extends JPanel {
         graphics.dispose();
     }
 
+    /**
+     * Kiírja a "Ready" szöveget
+     */
     private void paintReady(Graphics2D graphics) {
         graphics.setFont(GameFrame.font.deriveFont(7F * Config.SCALE));
         FontMetrics metrics = graphics.getFontMetrics();
@@ -75,22 +78,30 @@ public class GamePanel extends JPanel {
         printReady = false;
     }
 
+    /**
+     * Kiírja a "Game over" szöveget
+     * @param graphics
+     */
     private void paintGameOver(Graphics2D graphics) {
         graphics.setFont(GameFrame.font.deriveFont(15F * Config.SCALE));
         FontMetrics metrics = graphics.getFontMetrics();
+        String GAME_OVER = "GAME_OVER";
 
-        int x = (Config.SCREEN_WIDTH - metrics.stringWidth("GAME OVER")) / 2;
+        int x = (Config.SCREEN_WIDTH - metrics.stringWidth(GAME_OVER)) / 2;
         int y = 5 * Config.ON_SCREEN_TILE_SIZE;
 
         graphics.setColor(Color.BLACK);
-        graphics.drawString("GAME OVER", x + 4, y + 4);
+        graphics.drawString(GAME_OVER, x + 4, y + 4);
 
         graphics.setColor(Color.RED);
-        graphics.drawString("GAME OVER", x, y);
+        graphics.drawString(GAME_OVER, x, y);
 
         printGameOver = false;
     }
 
+    /**
+     * Kiírja a "Paused" szöveget
+     */
     private void paintPause(Graphics2D graphics) {
         // Draw bg
         graphics.setColor(Color.YELLOW);
@@ -130,7 +141,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Kiírja a "Ready" szöveget
+     * Kiírja a "Ready" szöveget a következő rendernél
      */
     public void printReady() {
         printReady = true;
@@ -138,7 +149,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Kiírja a "Game Over" szöveget
+     * Kiírja a "Game Over" szöveget a következő rendernél
      */
     public void printGameOver() {
         printGameOver = true;
@@ -146,7 +157,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Kiírja a "Paused" szöveget
+     * Kiírja a "Paused" szöveget a következő rendernél
      */
     public void printPause() {
         printPause = true;

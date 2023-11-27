@@ -45,17 +45,17 @@ public class UpperRibbon extends JPanel {
 
         graphics.drawString("SCORE", x, y);
 
-        x += (metrics.stringWidth("SCORE") - metrics.stringWidth(String.valueOf(Game.score)));
+        x += (metrics.stringWidth("SCORE") - metrics.stringWidth(String.valueOf(Game.getScore())));
         y *= 2;
 
-        graphics.drawString(String.valueOf(Game.score), x, y);
+        graphics.drawString(String.valueOf(Game.getScore()), x, y);
 
         x = Config.ON_SCREEN_TILE_SIZE * 23 - metrics.stringWidth("HIGH SCORE");
         y = (int) metrics.getStringBounds("HIGH SCORE", graphics).getHeight() * 2;
 
         highScore = Leaderboard.getHighScore();
-        if (Game.score > highScore) {
-            highScore = Game.score;
+        if (Game.getScore() > highScore) {
+            highScore = Game.getScore();
         }
 
         graphics.drawString("HIGH SCORE", x, y);
