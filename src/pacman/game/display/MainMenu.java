@@ -17,7 +17,7 @@ public class MainMenu extends JPanel {
     /**
      * Menüpontok listája
      */
-    private final ArrayList<String> options;
+    private final ArrayList<String> items;
     private final String START = "START GAME";
     private final String LEADERBOARD = "LEADERBOARD";
     private final String GUIDE = "HOW TO PLAY";
@@ -36,7 +36,7 @@ public class MainMenu extends JPanel {
     /**
      * A kiválasztott menüpontot kiemelő szín
      */
-    private final Color selectedColor;
+    private final Color itemColor;
 
     /**
      * Főmenü konstruktor
@@ -44,14 +44,14 @@ public class MainMenu extends JPanel {
     public MainMenu() {
         this.setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
 
-        options = new ArrayList<>();
-        options.add(START);
-        options.add(LEADERBOARD);
-        options.add(GUIDE);
-        options.add(QUIT);
+        items = new ArrayList<>();
+        items.add(START);
+        items.add(LEADERBOARD);
+        items.add(GUIDE);
+        items.add(QUIT);
+        itemColor = new Color(112, 154, 209);
 
         inTitleScreen = true;
-        selectedColor = new Color(112, 154, 209);
     }
 
     /**
@@ -67,7 +67,7 @@ public class MainMenu extends JPanel {
         if (inTitleScreen) {
             paintTitleSceen(graphics);
         } else {
-            switch (options.get(selected)) {
+            switch (items.get(selected)) {
                 case LEADERBOARD -> paintLeaderboard(graphics);
                 case GUIDE -> paintGuide(graphics);
             }
@@ -101,19 +101,20 @@ public class MainMenu extends JPanel {
                 Config.ON_SCREEN_ENTITY_SIZE * imageScale, Config.ON_SCREEN_ENTITY_SIZE * imageScale, null);
 
         // Paint options
+        graphics.setColor(itemColor);
         graphics.setFont(GameFrame.font.deriveFont(11F * Config.SCALE));
         metrics = graphics.getFontMetrics();
         y = Config.ON_SCREEN_TILE_SIZE * 16;
 
-        for (int i = 0; i < options.size(); i++) {
-            String string = options.get(i);
+        for (int i = 0; i < items.size(); i++) {
+            String string = items.get(i);
             x = (Config.SCREEN_WIDTH - metrics.stringWidth(string)) / 2;
             y += Config.ON_SCREEN_TILE_SIZE * 4;
             if (i == selected) {
-                graphics.setColor(selectedColor);
+                graphics.setColor(Color.YELLOW);
             }
             graphics.drawString(string, x, y);
-            graphics.setColor(Color.YELLOW);
+            graphics.setColor(itemColor);
         }
     }
 
@@ -156,7 +157,7 @@ public class MainMenu extends JPanel {
             graphics.drawString(entry.getKey(), x, y);
             x = line2 - metrics.stringWidth(String.valueOf(entry.getValue())) / 2;
             graphics.drawString(String.valueOf(entry.getValue()), x, y);
-            y += Config.ON_SCREEN_TILE_SIZE * 2;
+            y += Config.ON_SCREEN_TILE_SIZE * 3;
         }
     }
 
@@ -164,14 +165,7 @@ public class MainMenu extends JPanel {
      * Kirajzolja az útmutatót
      */
     private void paintGuide(Graphics2D graphics) {
-        graphics.setFont(GameFrame.font.deriveFont(10F * Config.SCALE));
-        FontMetrics metrics = graphics.getFontMetrics();
-
-        int x = (Config.SCREEN_WIDTH - metrics.stringWidth("guide will show here")) / 2;
-        int y = Config.ON_SCREEN_TILE_SIZE * 8;
-
-        graphics.setColor(Color.YELLOW);
-        graphics.drawString("guide will show here", x, y);
+        graphics.drawImage(SpriteLoader.guide, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, null);
     }
 
     /**
@@ -181,7 +175,7 @@ public class MainMenu extends JPanel {
         if (!inTitleScreen) {
             return;
         }
-        if (selected < options.size() - 1) {
+        if (selected < items.size() - 1) {
             selected++;
             repaint();
         }
@@ -207,7 +201,7 @@ public class MainMenu extends JPanel {
         if (!inTitleScreen) {
             return;
         }
-        switch (options.get(selected)) {
+        switch (items.get(selected)) {
              case START -> Game.start();
             case LEADERBOARD, GUIDE -> {
                  inTitleScreen = false;

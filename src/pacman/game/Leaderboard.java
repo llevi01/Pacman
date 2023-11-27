@@ -95,7 +95,9 @@ public class Leaderboard {
     public static void addScore(String name, int score) {
         name = name.substring(0, Math.min(name.length(), 8));
         name = name.toUpperCase();
-        scores.put(name, score);
+        if (!scores.containsKey(name) || scores.get(name) < score) {
+            scores.put(name, score);
+        }
         save();
     }
 }

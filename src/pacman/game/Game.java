@@ -38,7 +38,7 @@ public class Game {
     /**
      * Gyümölcsök listája
      */
-    public static ArrayList<Fruit> fruit = new ArrayList<>();
+    public static ArrayList<Fruit> fruit;
     /**
      * Maradék Pellet-ek száma
      */
@@ -148,7 +148,7 @@ public class Game {
      * Ha a játék véget ért, kilép
      */
     public static void reset() {
-        if (pacman.getLives() < 1) {
+        if (pacman.getLives() < 1 || remainingPellets < 1) {
             quitToMenu(true);
             return;
         }

@@ -52,65 +52,81 @@ public class GamePanel extends JPanel {
         printChildren(graphics);
 
         if (printReady) {
-            graphics.setFont(GameFrame.font.deriveFont(7F * Config.SCALE));
-            FontMetrics metrics = graphics.getFontMetrics();
-
-            int x = (Config.SCREEN_WIDTH - metrics.stringWidth("READY!")) / 2;
-            int y = Config.ON_SCREEN_TILE_SIZE * 21;
-            graphics.setColor(Color.YELLOW);
-
-            graphics.drawString("READY!", x, y);
-
-            printReady = false;
-        } else if (printGameOver) {
-            graphics.setFont(GameFrame.font.deriveFont(15F * Config.SCALE));
-            FontMetrics metrics = graphics.getFontMetrics();
-
-            int x = (Config.SCREEN_WIDTH - metrics.stringWidth("GAME OVER")) / 2;
-            int y = 5 * Config.ON_SCREEN_TILE_SIZE;
-
-            graphics.setColor(Color.BLACK);
-            graphics.drawString("GAME OVER", x + 4, y + 4);
-
-            graphics.setColor(Color.RED);
-            graphics.drawString("GAME OVER", x, y);
-
-            printGameOver = false;
+            paintReady(graphics);
         } else if (printPause) {
-            // Draw bg
-            graphics.setColor(Color.BLACK);
-            graphics.fillRect(9 * Config.ON_SCREEN_TILE_SIZE, 14 * Config.ON_SCREEN_TILE_SIZE,
-                    10 * Config.ON_SCREEN_TILE_SIZE, 7 * Config.ON_SCREEN_TILE_SIZE);
-
-            graphics.setFont(GameFrame.font.deriveFont(8F * Config.SCALE));
-            FontMetrics metrics = graphics.getFontMetrics();
-
-            // Draw title
-            graphics.setColor(Color.YELLOW);
-
-            int x = (Config.SCREEN_WIDTH - metrics.stringWidth("PAUSED")) / 2;
-            int y = 16 * Config.ON_SCREEN_TILE_SIZE;
-
-            graphics.drawString("PAUSED", x, y);
-
-            // Draw instructions
-            graphics.setFont(GameFrame.font.deriveFont(6F * Config.SCALE));
-            metrics = graphics.getFontMetrics();
-
-            x = (Config.SCREEN_WIDTH - metrics.stringWidth("Esc - RESUME")) / 2;
-            y += 2 * Config.ON_SCREEN_TILE_SIZE;
-
-            graphics.drawString("Esc - RESUME", x, y);
-
-            x = (Config.SCREEN_WIDTH - metrics.stringWidth("Enter - QUIT")) / 2;
-            y += 2 * Config.ON_SCREEN_TILE_SIZE;
-
-            graphics.drawString("Enter - QUIT", x, y);
-
-            printPause = false;
+            paintPause(graphics);
+        } else if (printGameOver) {
+            paintGameOver(graphics);
         }
 
         graphics.dispose();
+    }
+
+    private void paintReady(Graphics2D graphics) {
+        graphics.setFont(GameFrame.font.deriveFont(7F * Config.SCALE));
+        FontMetrics metrics = graphics.getFontMetrics();
+
+        int x = (Config.SCREEN_WIDTH - metrics.stringWidth("READY!")) / 2;
+        int y = Config.ON_SCREEN_TILE_SIZE * 21;
+        graphics.setColor(Color.YELLOW);
+
+        graphics.drawString("READY!", x, y);
+
+        printReady = false;
+    }
+
+    private void paintGameOver(Graphics2D graphics) {
+        graphics.setFont(GameFrame.font.deriveFont(15F * Config.SCALE));
+        FontMetrics metrics = graphics.getFontMetrics();
+
+        int x = (Config.SCREEN_WIDTH - metrics.stringWidth("GAME OVER")) / 2;
+        int y = 5 * Config.ON_SCREEN_TILE_SIZE;
+
+        graphics.setColor(Color.BLACK);
+        graphics.drawString("GAME OVER", x + 4, y + 4);
+
+        graphics.setColor(Color.RED);
+        graphics.drawString("GAME OVER", x, y);
+
+        printGameOver = false;
+    }
+
+    private void paintPause(Graphics2D graphics) {
+        // Draw bg
+        graphics.setColor(Color.YELLOW);
+        graphics.fillRoundRect(8 * Config.ON_SCREEN_TILE_SIZE, 13 * Config.ON_SCREEN_TILE_SIZE,
+                12 * Config.ON_SCREEN_TILE_SIZE, 9 * Config.ON_SCREEN_TILE_SIZE, 10, 10);
+
+        graphics.setColor(Color.BLACK);
+        graphics.fillRoundRect(9 * Config.ON_SCREEN_TILE_SIZE, 14 * Config.ON_SCREEN_TILE_SIZE,
+                10 * Config.ON_SCREEN_TILE_SIZE, 7 * Config.ON_SCREEN_TILE_SIZE, 10, 10);
+
+        graphics.setFont(GameFrame.font.deriveFont(8F * Config.SCALE));
+        FontMetrics metrics = graphics.getFontMetrics();
+
+        // Draw title
+        graphics.setColor(Color.YELLOW);
+
+        int x = (Config.SCREEN_WIDTH - metrics.stringWidth("PAUSED")) / 2;
+        int y = 16 * Config.ON_SCREEN_TILE_SIZE;
+
+        graphics.drawString("PAUSED", x, y);
+
+        // Draw instructions
+        graphics.setFont(GameFrame.font.deriveFont(6F * Config.SCALE));
+        metrics = graphics.getFontMetrics();
+
+        x = (Config.SCREEN_WIDTH - metrics.stringWidth("Esc - RESUME")) / 2;
+        y += 2 * Config.ON_SCREEN_TILE_SIZE;
+
+        graphics.drawString("Esc - RESUME", x, y);
+
+        x = (Config.SCREEN_WIDTH - metrics.stringWidth("Enter - QUIT")) / 2;
+        y += 2 * Config.ON_SCREEN_TILE_SIZE;
+
+        graphics.drawString("Enter - QUIT", x, y);
+
+        printPause = false;
     }
 
     /**

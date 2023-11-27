@@ -19,13 +19,13 @@ Ez a *Programozás Alapjai 3* tárgyhoz készített házi feladatom.
 
    - ezt a fenti *Code* gombra, majd a *Download ZIP* gombra kattintva teheted meg
    
-   ![code_download](res/tutorial/code_download.png)
+   ![code_download](res/download_tutorial/code_download.png)
 
 3. A játék indításához kattints kétszer a letöltött *Pacman.jar* file-ra
 
 > Előfordulhat, hogy a játék nem indul el, és a következő hibát jelzi:
 > 
-> ![jar_error](res/tutorial/jar_error.png)
+> ![jar_error](res/download_tutorial/jar_error.png)
 > 
 > Ekkor a következőt kell tenned:
 > 

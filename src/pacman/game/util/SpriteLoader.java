@@ -40,10 +40,13 @@ public class SpriteLoader {
     private static void loadMenuImages() {
         try {
             pacmanMainMenu = ImageIO.read(Objects.requireNonNull(
-                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/icon.png")));
+                    SpriteLoader.class.getResourceAsStream("/menu/icon.png")));
 
             icon = new ImageIcon(ImageIO.read(Objects.requireNonNull(
-                    SpriteLoader.class.getResourceAsStream("/sprites/pacman/icon.png"))));
+                    SpriteLoader.class.getResourceAsStream("/menu/icon.png"))));
+
+            guide = ImageIO.read(Objects.requireNonNull(
+                    SpriteLoader.class.getResourceAsStream("/menu/guide.png")));
 
         } catch (IOException e) {
             error();

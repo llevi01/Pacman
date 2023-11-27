@@ -128,6 +128,7 @@ public class MapLoader {
      */
     private static void initFruit(Coordinate coordinate) {
         Collections.shuffle(Config.FRUIT_TYPES);
+        Game.fruit = new ArrayList<>();
         try {
             for (int i = 0; i < 2; i++) {
                 String key = Config.FRUIT_TYPES.get(i);
