@@ -180,6 +180,10 @@ public abstract class Ghost extends Entity implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        stateTimer.stop();
+        if (nextStates.isEmpty()) {
+            return;
+        }
         state = nextStates.remove(0);
         if (!isInsideHouse() && !isInSlowZone()) {
             direction = direction.inverse();
