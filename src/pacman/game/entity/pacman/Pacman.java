@@ -44,14 +44,14 @@ public class Pacman extends Entity {
     /**
      * Megevett szellemek száma egy PowerPellet elfogyasztása után
      * Azért kell, mert minél több szellemet eszik meg Pacman,
-     * annál több pontot kap
+     * annál több pontot kap.
      */
     private int ghostsEaten;
 
     /**
      * Azon alkalmak száma, amikor a játékos egy PowerPellet elfogyasztása
      * után mind a 4 szellemet elkapta. Ha ez mind a 4 PowerPellet után
-     * megtörténik, a játékos 12000 extra pontot kap
+     * megtörténik, a játékos 12000 extra pontot kap.
      */
     private int perfectRun;
 
@@ -251,10 +251,10 @@ public class Pacman extends Entity {
      * Szellemekkel való ütközést kezelő metódus
      */
     private void checkGhostCollisions() {
-        Rectangle bounds = getBounds();
+        Coordinate mapPos = getMapPosition();
         for (Ghost ghost : Game.ghosts) {
-            Rectangle ghostBounds = ghost.getBounds();
-            if (bounds.intersects(ghostBounds)) {
+            Coordinate ghostPos = ghost.getMapPosition();
+            if (mapPos.equals(ghostPos)) {
                 ghost.interact();
             }
         }
