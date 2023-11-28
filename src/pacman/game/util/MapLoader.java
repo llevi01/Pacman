@@ -28,6 +28,7 @@ public class MapLoader {
      */
     public static void loadMap() {
         ArrayList<ArrayList<Tile>> map = new ArrayList<>();
+        Game.maxPellets = 0;
 
         try (BufferedReader input = new BufferedReader(
                 new InputStreamReader(Objects.requireNonNull(
@@ -56,7 +57,10 @@ public class MapLoader {
                     }
 
                     switch (c) {
-                        case '1' -> row.add(new Pellet(new Coordinate(j, i), SpriteLoader.tileSprites.get("pellet")));
+                        case '1' ->  {
+                            row.add(new Pellet(new Coordinate(j, i), SpriteLoader.tileSprites.get("pellet")));
+                            Game.maxPellets++;
+                        }
                         case '2' -> row.add(new PowerPellet(new Coordinate(j, i), SpriteLoader.tileSprites.get("powerpellet")));
                         case '3' -> {
                             initFruit(new Coordinate(j, i));

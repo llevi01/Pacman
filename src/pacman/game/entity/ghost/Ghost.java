@@ -417,4 +417,12 @@ public abstract class Ghost extends Entity implements ActionListener {
     protected boolean isInFrontOfHouse() {
         return getMapPosition().equals(Config.IN_FRONT_OF_GHOST_HOUSE);
     }
+
+    /**
+     * State getter
+     * @return a szellem aktuális állapota
+     */
+    public GhostState getState() {
+        return state;
+    }
 }

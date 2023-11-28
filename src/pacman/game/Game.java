@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Game {
     /**
-     * Ebben az ablakkban jelenik meg a játék
+     * Ebben az ablakban jelenik meg a játék
      */
     public static GameFrame frame;
     /**
@@ -148,7 +148,7 @@ public class Game {
      * Ha a játék véget ért, kilép
      */
     public static void reset() {
-        if (pacman.getLives() < 1 || remainingPellets < 1) {
+        if (pacman.getLives() < 1) {
             quitToMenu(true);
             return;
         }

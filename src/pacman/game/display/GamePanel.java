@@ -85,7 +85,7 @@ public class GamePanel extends JPanel {
     private void paintGameOver(Graphics2D graphics) {
         graphics.setFont(GameFrame.font.deriveFont(15F * Config.SCALE));
         FontMetrics metrics = graphics.getFontMetrics();
-        String GAME_OVER = "GAME_OVER";
+        String GAME_OVER = "GAME OVER";
 
         int x = (Config.SCREEN_WIDTH - metrics.stringWidth(GAME_OVER)) / 2;
         int y = 5 * Config.ON_SCREEN_TILE_SIZE;
