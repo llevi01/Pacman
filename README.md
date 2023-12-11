@@ -38,4 +38,3 @@ Ez a *Programozás Alapjai 3* tárgyhoz készített házi feladatom.
 >     `jarfix.exe /64`
 > 
 > Ezek után már remélhetőleg el fog indulni a játék
-
