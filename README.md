@@ -9,19 +9,34 @@ Ez a *Programozás Alapjai 3* tárgyhoz készített házi feladatom.
 
 [Használt betűtípus forrása](https://www.dafont.com/dogica.font)
 
+[Gson Library forrása](https://github.com/google/gson)
+
 ---
 
 ## A játék indítása
 
-1. Töltsd le és telepítsd a Java installert [innen](https://www.oracle.com/java/technologies/downloads/#jdk21-windows)
+1. Töltsd le és telepítsd a Java installert [innen](https://www.oracle.com/java/technologies/downloads/#jdk22-windows)
 
-2. Töltsd le a játékot
+2. Töltsd le a játék legfrissebb verzióját
 
-   - ezt a fenti *Code* gombra, majd a *Download ZIP* gombra kattintva teheted meg
+   - kattints a jobb oldali *Releases* alatt található *Latest* taggel ellátott verzióra 
    
-   ![code_download](res/download_tutorial/code_download.png)
+   ![releases](res/download_tutorial/releases.png)
 
-3. A játék indításához kattints kétszer a letöltött *Pacman.jar* file-ra
+   - ezen az oldalon válaszd a lista tetején lévő *zip* fájlt
+   
+   ![zip-download](res/download_tutorial/zip-download.png)
+
+
+4. A letöltött fájlt kicsomagolva a játék mappáját kapjuk. Ebben a mappában található pl. a `config.json`, amit megnyitva (Jobbklikk -> Open with... -> Notepad) fontos dolgokat tudunk beállítani.
+
+   ![config](res/download_tutorial/config.png)
+
+   - a playerName után lévő macskakörmök közé beírhatod a neved, bár ezt a játék az első indításnál meg is kérdezi
+   - a serverAddress után a játékhoz tartozó szerver IP-címét kell beírni, ezt tőlem tudhatod meg dm-ben (ha üresen hagyod akkor a leaderboard nem lesz szinkronizálva, de a játék így is működni fog)
+   - a scale a játék nagyítását adja meg (továbbra sem lehet a klasszikus módon nagyítani a játékot, de azért ez is valami)
+
+5. A játék indításához kattints kétszer a letöltött *Pacman.jar* file-ra. Ha a Windows rákérdez, akkor érdemes átengedni a tűzfalon a játékot, hogy elérd a szervert.
 
 > Előfordulhat, hogy a játék nem indul el, és a következő hibát jelzi:
 > 
