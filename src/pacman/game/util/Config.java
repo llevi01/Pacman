@@ -1,21 +1,45 @@
 package pacman.game.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import pacman.game.Game;
 import pacman.game.entity.Direction;
 import pacman.game.tile.Coordinate;
 
+import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
  * Konfigurációért felelős osztály
  */
 public class Config {
+    static {
+        load();
+        save();
+    }
+
+    // Config file path
+    private static final String FILE_PATH = "config.json";
+
+    // Player name
+    public static String PLAYER_NAME;
+
+    // Server IP
+    public static String SERVER_ADDRESS;
+
     // Display
     public static final int SCREEN_COLUMNS = 28;
     public static final int SCREEN_ROWS = 36;
     public static final int MAP_ROWS = 31;
     public static final int UPPER_RIBBON_ROWS = 3;
     public static final int LOWER_RIBBON_ROWS = 2;
-    public static final int SCALE = 3;          // Nagyítás mértéke
+    public static int SCALE;          // Nagyítás mértéke
     public static final int TILE_SPRITE_SIZE = 8;      // Egy tile egy oldalhossza (pixel)
     public static final int ON_SCREEN_TILE_SIZE = TILE_SPRITE_SIZE * SCALE;
     public static final int ENTITY_SPRITE_SIZE = 16;   // Egy entity sprite egy oldalhossza (pixel)
@@ -92,5 +116,50 @@ public class Config {
         FRUIT_TYPES.add("strawberry");
         FRUIT_TYPES.add("orange");
         FRUIT_TYPES.add("apple");
+    }
+
+    public static void load() {
+        File file = new File(FILE_PATH);
+        if (file.length() == 0) {
+            return;
+        }
+
+        try {
+            String readString = Files.readString(Path.of(FILE_PATH));
+            Gson gson = new Gson();
+
+            Configurable readConfig = gson.fromJson(readString, Configurable.class);
+
+            SERVER_ADDRESS = readConfig.serverAddress != null ? readConfig.serverAddress : "";
+            SCALE = readConfig.scale > 0 ? readConfig.scale : 3;
+
+            if (readConfig.playerName == null || readConfig.playerName.isBlank()) {
+                while (PLAYER_NAME == null || PLAYER_NAME.isBlank()) {
+                    PLAYER_NAME = JOptionPane.showInputDialog(
+                            Game.frame,
+                            "Please enter your name (max 8 characters)",
+                            "Pacman",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
+                save();
+            }
+            else {
+                PLAYER_NAME = readConfig.playerName;
+            }
+
+        } catch (IOException ignored) {}
+    }
+
+    public static void save() {
+        Configurable configurable = new Configurable();
+        configurable.playerName = PLAYER_NAME;
+        configurable.serverAddress = SERVER_ADDRESS;
+        configurable.scale = SCALE;
+
+        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(configurable, fw);
+
+        } catch (IOException | JsonIOException ignored) {}
     }
 }
