@@ -1,6 +1,8 @@
 package pacman.game.display;
 
+import pacman.game.Game;
 import pacman.game.input.InputHandler;
+import pacman.game.util.Error;
 import pacman.game.util.SpriteLoader;
 
 import javax.swing.*;
@@ -82,5 +84,10 @@ public class GameFrame extends JFrame {
         LowerRibbon.updateFruitSprites();
         gamePanel.printReady();
         pack();
+    }
+
+    public void displayErrorMessage(Error error) {
+        JOptionPane.showMessageDialog(this, error.message,
+                "Pacman", JOptionPane.ERROR_MESSAGE);
     }
 }

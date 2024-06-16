@@ -2,13 +2,14 @@ package pacman.game.display;
 
 import pacman.game.Game;
 import pacman.game.Leaderboard;
+import pacman.game.Player;
 import pacman.game.util.Config;
 import pacman.game.util.SpriteLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Collection;
 
 /**
  * A főmenüt megjelenítő osztály
@@ -122,7 +123,7 @@ public class MainMenu extends JPanel {
      * Kirajzolja a leaderboard-ot
      */
     private void paintLeaderboard(Graphics2D graphics) {
-        ArrayList<Map.Entry<String, Integer>> players = Leaderboard.getTopFive();
+        Collection<Player> players = Leaderboard.getTopPlayers();
 
         int line1 = Config.ON_SCREEN_TILE_SIZE * 9;
         int line2 = Config.ON_SCREEN_TILE_SIZE * 19;
@@ -152,11 +153,11 @@ public class MainMenu extends JPanel {
             return;
         }
 
-        for (Map.Entry<String, Integer> entry : players) {
-            x = line1 - metrics.stringWidth(entry.getKey()) / 2;
-            graphics.drawString(entry.getKey(), x, y);
-            x = line2 - metrics.stringWidth(String.valueOf(entry.getValue())) / 2;
-            graphics.drawString(String.valueOf(entry.getValue()), x, y);
+        for (Player player : players) {
+            x = line1 - metrics.stringWidth(player.name) / 2;
+            graphics.drawString(player.name, x, y);
+            x = line2 - metrics.stringWidth(String.valueOf(player.score)) / 2;
+            graphics.drawString(String.valueOf(player.score), x, y);
             y += Config.ON_SCREEN_TILE_SIZE * 3;
         }
     }

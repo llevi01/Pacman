@@ -30,8 +30,7 @@ public class SpriteLoader {
     public static Map<Direction, BufferedImage> ghostEatenSprites = new HashMap<>();
 
     private static void error() {
-        JOptionPane.showMessageDialog(Game.frame, Error.LOADING_SPRITES.message,
-                "Pacman", JOptionPane.ERROR_MESSAGE);
+        Game.frame.displayErrorMessage(Error.LOADING_SPRITES);
     }
 
     /**

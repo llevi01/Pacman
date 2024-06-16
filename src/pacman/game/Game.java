@@ -5,6 +5,7 @@ import pacman.game.entity.ghost.*;
 import pacman.game.entity.pacman.Pacman;
 import pacman.game.tile.Tile;
 import pacman.game.tile.edible.Fruit;
+import pacman.game.util.Config;
 import pacman.game.util.MapLoader;
 import pacman.game.util.SpriteLoader;
 
@@ -67,10 +68,10 @@ public class Game {
         maxPellets = 0;
         SpriteLoader.loadSprites();
         MapLoader.loadMap();
-        Leaderboard.load();
         state = GameState.STOPPED;
         frame = new GameFrame();
         frame.showMainMenu();
+        Leaderboard.init();
         initGame();
     }
 
@@ -185,11 +186,7 @@ public class Game {
 
         if (saveScore) {
             frame.gamePanel.printGameOver();
-            String name = JOptionPane.showInputDialog(frame, "Please enter your name (max 8 characters)",
-                    "Pacman", JOptionPane.PLAIN_MESSAGE);
-            if (name != null && !name.isEmpty() && !name.isBlank()) {
-                Leaderboard.addScore(name, score);
-            }
+            Leaderboard.addScore(Config.PLAYER_NAME, score);
         }
 
         frame.showMainMenu();
