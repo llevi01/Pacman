@@ -48,7 +48,7 @@ public class SpriteLoader {
                     SpriteLoader.class.getResourceAsStream("/menu/icon.png")));
 
             icon = new ImageIcon(ImageIO.read(Objects.requireNonNull(
-                    SpriteLoader.class.getResourceAsStream("/menu/icon.png"))));
+                    SpriteLoader.class.getResourceAsStream("/menu/icon_large.png"))));
 
             guide = ImageIO.read(Objects.requireNonNull(
                     SpriteLoader.class.getResourceAsStream("/menu/guide.png")));
